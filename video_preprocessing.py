@@ -13,6 +13,11 @@ import imutils
 
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
 
+try:
+    os.makedirs('./images')
+except OSError:
+    pass
+
 count = 0 
 video_file = './data/DataSet1/Videos/2020-06-26_18-28-10_camera102.mp4'
 # capture the video from the video file
@@ -27,6 +32,6 @@ while (cap.isOpened()):
     if (frame_id % math.floor(frame_rate) == 0):
         file_name = 'frame%d.jpg' % count 
         count += 1
-        #cv2.imwrite(file_name, frame)
+        cv2.imwrite('./images/' + file_name, frame)
 cap.release()
-print('Done! Number of files saved is {:d} in the format of '.format(count) )
+print('\nDone! {:d} images of format JPG is saved in images folder.\n'.format(count) )
