@@ -1,8 +1,11 @@
 # import packages needed
+import argparse
+
 import cv2     # for capturing videos
 import math   # for mathematical operations
 import matplotlib.pyplot as plt    # for plotting the images
 import os 
+import glob
 
 import pandas as pd
 from keras.preprocessing import image   # for preprocessing the images
@@ -13,25 +16,41 @@ import imutils
 
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--videos_folder', required=True, help ='Path to the videos folder.')
+parser.add_argument('--video_format', default='mp4')
+options = parser.parse_args()
+
 try:
     os.makedirs('./images')
 except OSError:
     pass
 
-count = 0 
-video_file = './data/DataSet1/Videos/2020-06-26_18-28-10_camera102.mp4'
-# capture the video from the video file
-cap = cv2.VideoCapture(video_file)
-frame_rate = cap.get(5)
-x = 1 
-while (cap.isOpened()):
-    frame_id = cap.get(1)
-    ret, frame = cap.read()
-    if(ret != True):
-        break
-    if (frame_id % math.floor(frame_rate) == 0):
-        file_name = 'frame%d.jpg' % count 
-        count += 1
-        cv2.imwrite('./images/' + file_name, frame)
-cap.release()
-print('\nDone! {:d} images of format JPG is saved in images folder.\n'.format(count) )
+video_files = glob.glob(options.videos_folder + "*." + options.video_format)
+
+for video_file in video_files:
+    count = 0
+    folder_name_len = len(options.videos_folder)
+    video_format_len = len(options.video_format) + 1
+    images_folder = './images/' + video_file[folder_name_len:-video_format_len ]
+
+    try:
+        os.makedirs(images_folder)
+    except OSError:
+        pass
+
+    # capture the video from the video file
+    cap = cv2.VideoCapture(video_file)
+    frame_rate = cap.get(5)
+    x = 1 
+    while (cap.isOpened()):
+        frame_id = cap.get(1)
+        ret, frame = cap.read()
+        if(ret != True):
+            break
+        if (frame_id % math.floor(frame_rate) == 0):
+            file_name = 'frame%d.jpg' % count 
+            count += 1
+            cv2.imwrite(images_folder + '/' + file_name, frame)
+    cap.release()
+    print('\nDone! {:d} images of format JPG is saved in {} \n'.format(count, images_folder) )
