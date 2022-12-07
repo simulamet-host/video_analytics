@@ -19,6 +19,7 @@ os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
 parser = argparse.ArgumentParser()
 parser.add_argument('--videos_folder', required=True, help ='Path to the videos folder.')
 parser.add_argument('--video_format', default='mp4')
+parser.add_argument('--image_format', default='jpg')
 options = parser.parse_args()
 
 try:
@@ -41,15 +42,15 @@ for video_file in video_files:
 
     # capture the video from the video file
     cap = cv2.VideoCapture(video_file)
-    frame_rate = cap.get(5)
+    frame_rate = cap.get(cv2.CAP_PROP_FPS)
     x = 1 
     while (cap.isOpened()):
-        frame_id = cap.get(1)
+        frame_id = cap.get(cv2.CAP_PROP_POS_FRAMES)
         ret, frame = cap.read()
         if(ret != True):
             break
         if (frame_id % math.floor(frame_rate) == 0):
-            file_name = 'frame%d.jpg' % count 
+            file_name = 'frame%d.' % count + options.image_format
             count += 1
             cv2.imwrite(images_folder + '/' + file_name, frame)
     cap.release()
