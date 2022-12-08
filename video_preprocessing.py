@@ -2,9 +2,9 @@
 Video pre-processing module that extract frames from videos.
 
 Main functionality:
-* Create './images' folder, if it does not exist already.
-* Read all videos from a given videos folder and a specified video extension (default mp4).
-* Save one frame per second to the images folder.
+    * Create './images' folder, if it does not exist already.
+    * Read all videos from a given videos folder and a specified video extension (default mp4).
+    * Save one frame per second to the images folder.
 
 Author Faiga Alawad 2022.
 """
