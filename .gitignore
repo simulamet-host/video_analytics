@@ -127,5 +127,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
 data/
 images/
+
+kvasir-dataset-v2.zip.download/Info.plist
+kvasir-dataset-v2.zip.download/kvasir-dataset-v2.zip
+VISEM-Tracking.zip.download/VISEM-Tracking.zip
+VISEM-Tracking.zip.download/Info.plist
