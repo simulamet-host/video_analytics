@@ -135,5 +135,9 @@ kvasir-dataset-v2.zip.download/Info.plist
 kvasir-dataset-v2.zip.download/kvasir-dataset-v2.zip
 VISEM-Tracking.zip.download/VISEM-Tracking.zip
 VISEM-Tracking.zip.download/Info.plist
+<<<<<<< HEAD
 .DS_Store
 condaenv.q97f72li.requirements.txt
+=======
+oryx-build-commands.txt
+>>>>>>> e16bcf0b002f303f12537374bb0013648faabd3d
