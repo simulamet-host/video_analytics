@@ -135,4 +135,5 @@ dependencies:
       - traitlets==5.6.0
       - wcwidth==0.2.5
       - wrapt==1.14.1
+      - ipython
 prefix: /Users/faigaalawad/opt/anaconda3/envs/video_analytics
