@@ -12,9 +12,3 @@ img = images_[0]
 #plt.imshow(img)
 #plt.show()
 
-# create SURF object, set Hessian threshold to 400
-surf = cv2.SURF_create(400)
-
-# find keypoints and descriptors
-kp, des = surf.detectAndCompute(img,None)
-print(len(kp))
