@@ -49,14 +49,14 @@ for video_file in video_files:
     # capture the video from the video file
     cap = cv2.VideoCapture(video_file) # pylint: disable=E1101
     frame_rate = cap.get(cv2.CAP_PROP_FPS) # pylint: disable=E1101
+    
     while cap.isOpened():
         frame_id = cap.get(cv2.CAP_PROP_POS_FRAMES) # pylint: disable=E1101
         ret, frame = cap.read()
         if not ret:
             break
-        if frame_id % math.floor(frame_rate) == 0:
-            file_name = f"frame{COUNT}."+ options.image_format
-            COUNT += 1
-            cv2.imwrite(images_folder + '/' + file_name, frame) # pylint: disable=E1101
+        file_name = f"frame{COUNT}."+ options.image_format
+        COUNT += 1
+        cv2.imwrite(images_folder + '/' + file_name, frame) # pylint: disable=E1101
     cap.release()
     print(f"\nDone! {COUNT} images of format JPG is saved in {images_folder}" )
