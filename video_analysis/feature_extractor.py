@@ -7,6 +7,8 @@ import cv2
 
 
 
+
+
 if __name__ == '__main__':
     images_ = get_images('./images/', '*.jpg', True, (224, 224))
     # Show the first image in the directory
