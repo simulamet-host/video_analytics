@@ -43,9 +43,7 @@ class Encoder(nn.Module):
             act_fn,
             nn.Flatten(),
             nn.Linear(4*out_channels*8*8, latent_dim),
-            act_fn
-        )
-
+            act_fn)
     def forward(self, in_):
         """
         Forward function in the encoder.
@@ -61,14 +59,10 @@ class Decoder(nn.Module):
     """
     def __init__(self, in_channels=3, out_channels=16, latent_dim=1000, act_fn=nn.ReLU()):
         super().__init__()
-
         self.out_channels = out_channels
-
         self.linear = nn.Sequential(
             nn.Linear(latent_dim, 4*out_channels*8*8),
-            act_fn
-        )
-
+            act_fn)
         self.conv = nn.Sequential(
             nn.ConvTranspose2d(4*out_channels, 4*out_channels, 3, padding=1), # (8, 8)
             act_fn,
@@ -82,9 +76,7 @@ class Decoder(nn.Module):
             act_fn,
             nn.ConvTranspose2d(out_channels, out_channels, 3, padding=1),
             act_fn,
-            nn.ConvTranspose2d(out_channels, in_channels, 3, padding=1)
-        )
-
+            nn.ConvTranspose2d(out_channels, in_channels, 3, padding=1) )
     def forward(self, bottleneck):
         """
         Forward function in the decoder.
@@ -103,10 +95,8 @@ class Autoencoder(nn.Module):
         super().__init__()
         self.encoder = encoder
         self.encoder.to(device)
-
         self.decoder = decoder
         self.decoder.to(device)
-
     def forward(self, in_):
         """
         Forward function for the autoencoder class.
@@ -122,7 +112,6 @@ class ConvolutionalAutoencoder():
     def __init__(self, autoencoder):
         self.network = autoencoder
         self.optimizer = torch.optim.Adam(self.network.parameters(), lr=1e-3)
-
     def train(self, training_args):
         """
         Train method used to train the model.
@@ -141,26 +130,20 @@ class ConvolutionalAutoencoder():
             elif isinstance(module, nn.Linear):
                 torch.nn.init.xavier_uniform_(module.weight)
                 module.bias.data.fill_(0.01)
-
         #  initializing network weights
         self.network.apply(init_weights)
-
         #  creating dataloaders
         loaders = dict.fromkeys(['train_loader', 'val_loader', 'test_loader'], None)
-
         loaders['train_loader'] = DataLoader(training_args['training_set'],
                                             training_args['batch_size'])
         loaders['val_loader'] = DataLoader(training_args['validation_set'],
                                             training_args['batch_size'])
         loaders['test_loader'] = DataLoader(training_args['test_set'], 10)
-
         #  setting convnet to training mode
         self.network.train()
         self.network.to(device)
-
         for epoch in range(training_args['epochs']):
             print(f'Epoch {epoch+1}/{training_args["epochs"]}')
-
         #------------
         #  TRAINING
         #------------
@@ -178,12 +161,10 @@ class ConvolutionalAutoencoder():
             loss.backward()
             #  optimizing weights
             self.optimizer.step()
-
             #--------------
             # LOGGING
             #--------------
             log_dict['training_loss_per_batch'].append(loss.item())
-
         #--------------
         # VALIDATION
         #--------------
@@ -196,17 +177,14 @@ class ConvolutionalAutoencoder():
                 output = self.network(val_images)
                 #  computing validation loss
                 val_loss = training_args['loss_function'](output, val_images.view(-1, 3, 32, 32))
-
             #--------------
             # LOGGING
             #--------------
             log_dict['validation_loss_per_batch'].append(val_loss.item())
-
         #--------------
         # VISUALISATION
         #--------------
         print(f'training_loss: {round(loss.item(), 4)} val_loss: {round(val_loss.item(), 4)}')
-
         for test_images in tqdm(loaders['test_loader']):
             #  sending test images to device
             test_images = test_images.to(device)
@@ -216,7 +194,6 @@ class ConvolutionalAutoencoder():
                 #  sending reconstructed and images to cpu to allow for visualization
                 reconstructed_imgs = reconstructed_imgs.cpu()
                 test_images = test_images.cpu()
-
             #  visualisation
             # pylint: disable=E1101
             imgs = torch.stack([test_images.view(-1, 3, 32, 32), reconstructed_imgs],
@@ -229,22 +206,18 @@ class ConvolutionalAutoencoder():
             log_dict['visualizations'].append(grid)
             plt.axis('off')
             plt.show()
-
         return log_dict
-
     def autoencode(self, in_):
         """
         Autoencoder.
         """
         return self.network(in_)
-
     def encode(self, in_):
         """
         Encoder method, take input image and output the bottleneck.
         """
         encoder = self.network.encoder
         return encoder(in_)
-
     def decode(self, bottleneck):
         """
         Decoder method, input bottleneck and output the reconstructed image.
