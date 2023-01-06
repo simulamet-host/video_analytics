@@ -10,6 +10,7 @@ from tqdm import tqdm as tqdm_regular
 from image_preprocessing import get_images
 import matplotlib.pyplot as plt
 import cv2
+from sklearn.model_selection import train_test_split
 
 from conv_autoencoder import *
 
@@ -71,9 +72,10 @@ def main(args):
 
     if args.dataset_name == "handwashing":
         _dir = "./images/2020-06-26_18-28-10_camera102"
-        _images = get_images(_dir, '.jpg', True, (32, 32) )
-        print(_images.size)
-
+        _images = get_images(_dir, '*.jpg', True, (32, 32) )
+        print('images size: ' , _images.size)
+        training_data, test_data = train_test_split( _images, test_size=0.3, random_state=42)
+        validation_data, test_data = train_test_split(test_data, test_size=0.5, random_state=42)
 
     #  training model
     model = ConvolutionalAutoencoder(Autoencoder(Encoder(), Decoder()))
