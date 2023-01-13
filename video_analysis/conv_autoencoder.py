@@ -105,7 +105,7 @@ class Autoencoder(nn.Module):
         decoded = self.decoder(encoded)
         return decoded
 
-class ConvolutionalAutoencoder():
+class ConvolutionalAutoencoder(nn.Module):
     """
     Convolutional Autoencoder class.
     """

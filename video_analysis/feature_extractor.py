@@ -93,4 +93,5 @@ if __name__ == '__main__':
     # Show the first image in the directory
     #img = images_[0]
     #plt.imshow(img)
-    #plt.show()
+    #plt.show()clear
+    
