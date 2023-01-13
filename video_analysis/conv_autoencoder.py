@@ -10,7 +10,6 @@ import matplotlib.pyplot as plt
 from torchvision.utils import make_grid
 from tqdm.notebook import tqdm
 
-from pynvml import nvmlDeviceGetHandleByIndex, nvmlDeviceGetMemoryInfo
 #  configuring device
 if torch.cuda.is_available():
     # pylint: disable=E1101
