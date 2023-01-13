@@ -3,6 +3,7 @@ Module for feature extraction from images.
 Some code blocks are partially adapted from https://blog.paperspace.com/convolutional-autoencoder/
 """
 import argparse
+import numpy as np
 import torchvision.datasets as Datasets
 import torchvision.transforms as transforms
 from torch.utils.data import Dataset
@@ -72,7 +73,11 @@ def main(args):
 
     if args.dataset_name == "handwashing":
         _dir = "./images/2020-06-26_18-28-10_camera102"
-        _images = get_images(_dir, '*.jpg', True, (32, 32) )
+        _images = get_images(_dir, '*.jpg', True, (32, 32))
+        for _img in _images:
+            plt.imshow((_img * 255).astype(np.uint8))
+            plt.close()
+        
         print('images size: ' , _images.size)
         training_data, test_data = train_test_split( _images, test_size=0.3, random_state=42)
         validation_data, test_data = train_test_split(test_data, test_size=0.5, random_state=42)
@@ -85,7 +90,7 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset_name', default='CIFAR10')
+    parser.add_argument('--dataset_name', default='handwashing')
     args = parser.parse_args()
     main(args)
 

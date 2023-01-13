@@ -10,7 +10,6 @@ import numpy as np
 import cv2
 from skimage.transform import resize
 
-
 def get_images(dir_, img_format, re_size, resize_dim):
     """
     Read images from a given dir, using specified image format.
@@ -32,9 +31,9 @@ def get_images(dir_, img_format, re_size, resize_dim):
         for img_ in images_:
             img = cv2.imread(img_) # pylint: disable=E1101
             if re_size:
-                img = resize(img, preserve_range=True, output_shape=resize_dim).astype(int)
+                img = resize(img, preserve_range=True, output_shape=resize_dim)
             all_images.append(img)
-    all_images = np.array(all_images)
+    all_images = np.array(all_images).astype(np.float32)
     return all_images
 
 if __name__ == '__main__':

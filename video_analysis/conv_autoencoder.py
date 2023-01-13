@@ -13,7 +13,7 @@ from tqdm.notebook import tqdm
 #  configuring device
 if torch.cuda.is_available():
     # pylint: disable=E1101
-    device = torch.device('cuda:0')
+    device = torch.device('cuda:1')
     print('Running on the GPU')
 else:
     device = torch.device('cpu') # pylint:disable=E1101
