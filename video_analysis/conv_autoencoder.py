@@ -3,6 +3,7 @@ Convolutional autoencoder module for unsupervised feature extraction.
 Code adapted from https://blog.paperspace.com/convolutional-autoencoder/
 Last updated January 2023
 """
+import numpy as np
 import torch
 from torch import nn
 from torch.utils.data import DataLoader
@@ -10,7 +11,6 @@ import matplotlib.pyplot as plt
 from torchvision.utils import make_grid
 from tqdm.notebook import tqdm
 
-from pynvml import nvmlDeviceGetHandleByIndex, nvmlDeviceGetMemoryInfo
 #  configuring device
 if torch.cuda.is_available():
     # pylint: disable=E1101
@@ -120,7 +120,7 @@ class ConvolutionalAutoencoder():
         #  creating log
         log_dict = {
             'training_loss_per_batch': [],
-            'validation_loss_per_batch': [],
+            'test_loss_per_batch': [],
             'visualizations': []
         }
         #  defining weight initialization function
@@ -134,12 +134,13 @@ class ConvolutionalAutoencoder():
         #  initializing network weights
         self.network.apply(init_weights)
         #  creating dataloaders
-        loaders = dict.fromkeys(['train_loader', 'val_loader', 'test_loader'], None)
+        loaders = dict.fromkeys(['train_loader', 'test_loader'], None)
         loaders['train_loader'] = DataLoader(training_args['training_set'],
                                             training_args['batch_size'])
-        loaders['val_loader'] = DataLoader(training_args['validation_set'],
+        loaders['test_loader'] = DataLoader(training_args['test_set'],
                                             training_args['batch_size'])
-        loaders['test_loader'] = DataLoader(training_args['test_set'], 10)
+        loaders['visual_loader'] = DataLoader(training_args['visual_set'])
+        
         #  setting convnet to training mode
         self.network.train()
         self.network.to(device)
@@ -167,46 +168,53 @@ class ConvolutionalAutoencoder():
             #--------------
             log_dict['training_loss_per_batch'].append(loss.item())
         #--------------
-        # VALIDATION
+        # Testing
         #--------------
-        print('validating...')
-        for val_images in tqdm(loaders['val_loader']):
+        print('testing...')
+        for test_images in tqdm(loaders['test_loader']):
             with torch.no_grad():
-                #  sending validation images to device
-                val_images = val_images.to(device)
+                #  sending test images to device
+                test_images = test_images.to(device)
                 #  reconstructing images
-                output = self.network(val_images)
-                #  computing validation loss
-                val_loss = training_args['loss_function'](output, val_images.view(-1, 3, 32, 32))
+                output = self.network(test_images)
+                #  computing test loss
+                test_loss = training_args['loss_function'](output, test_images.view(-1, 3, 32, 32))
             #--------------
             # LOGGING
             #--------------
-            log_dict['validation_loss_per_batch'].append(val_loss.item())
+            log_dict['test_loss_per_batch'].append(test_loss.item())
         #--------------
         # VISUALISATION
         #--------------
-        print(f'training_loss: {round(loss.item(), 4)} val_loss: {round(val_loss.item(), 4)}')
-        for test_images in tqdm(loaders['test_loader']):
+        print(f'training_loss: {round(loss.item(), 4)} test_loss: {round(test_loss.item(), 4)}')
+        for visual_images in tqdm(loaders['visual_loader']):
             #  sending test images to device
-            test_images = test_images.to(device)
+            visual_images = visual_images.to(device)
             with torch.no_grad():
                 #  reconstructing test images
-                reconstructed_imgs = self.network(test_images)
+                reconstructed_imgs = self.network(visual_images)
                 #  sending reconstructed and images to cpu to allow for visualization
                 reconstructed_imgs = reconstructed_imgs.cpu()
-                test_images = test_images.cpu()
+                visual_images = visual_images.cpu()
+            
+            fig, (ax1, ax2) = plt.subplots(1, 2)
+            fig.suptitle('Original/Reconstructed')
+            ax1.imshow(visual_images.squeeze())
+            ax2.imshow(reconstructed_imgs.reshape(32, 32, 3))
+            for ax in [ax1, ax2]:
+                ax.axis('off')
+            plt.show()
+
             #  visualisation
             # pylint: disable=E1101
-            imgs = torch.stack([test_images.view(-1, 3, 32, 32), reconstructed_imgs],
-                            dim=1).flatten(0,1)
-            grid = make_grid(imgs, nrow=10, normalize=True, padding=1)
-            grid = grid.permute(1, 2, 0)
-            plt.figure(dpi=170)
-            plt.title('Original/Reconstructed')
-            plt.imshow(grid)
-            log_dict['visualizations'].append(grid)
-            plt.axis('off')
-            plt.show()
+            #imgs = torch.stack([visual_images.view(-1, 3, 32, 32), reconstructed_imgs], dim=1).flatten(0,1)
+            #grid = make_grid(imgs, nrow=10, normalize=True, padding=1)
+            #grid = grid.permute(1, 2, 0)
+            #plt.figure(figsize=(2, 2), dpi=170)
+            #plt.title('Original/Reconstructed')
+            #plt.imshow(grid)
+            #log_dict['visualizations'].append(grid)
+            
         return log_dict
     def autoencode(self, in_):
         """
