@@ -77,7 +77,6 @@ def main(args):
         for _img in _images:
             plt.imshow((_img * 255).astype(np.uint8))
             plt.close()
-        
         print('images size: ' , _images.size)
         training_data, test_data = train_test_split( _images, test_size=0.3, random_state=42)
         validation_data, test_data = train_test_split(test_data, test_size=0.5, random_state=42)
@@ -93,7 +92,6 @@ if __name__ == '__main__':
     parser.add_argument('--dataset_name', default='handwashing')
     args = parser.parse_args()
     main(args)
-
     #images_ = get_images('./images/', '*.jpg', True, (224, 224))
     # Show the first image in the directory
     #img = images_[0]
