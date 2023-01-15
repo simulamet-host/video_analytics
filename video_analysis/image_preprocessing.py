@@ -9,9 +9,8 @@ import glob
 import numpy as np
 import cv2
 from skimage import img_as_float32 
-from skimage.transform import resize
 
-def get_images(dir_, img_format, re_size, resize_dim=(32,32)):
+def get_images(dir_, img_format, re_size, resize_dim=(224,224)):
     """
     Read images from a given dir, using specified image format.
     Additionally it allows for resizing the images.

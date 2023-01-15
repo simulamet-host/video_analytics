@@ -48,16 +48,15 @@ def main(args):
                                                                                         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
 
     if args.dataset_name == "handwashing":
-        _dir = "./images/2020-06-26_18-28-10_camera102"
+        _dir = "./images/ex_images"
         _images = get_images(_dir, '*.jpg', True, (32, 32))    
         print('images size: ' , _images.size)
-        training_data, test_data = train_test_split( _images, test_size=0.3, random_state=42)
+        training_data, test_data = train_test_split( _images, test_size=0.2, random_state=42)
         visual_data, test_data = train_test_split(test_data, test_size=0.98, random_state=42)
-
     #  training model
     model = ConvolutionalAutoencoder(Autoencoder(Encoder(), Decoder()))
-    training_args = {'loss_function': nn.MSELoss(), 'epochs': 10 , 'batch_size': 64,
-                'training_set': training_data, 'visual_set': visual_data}
+    training_args = {'loss_function': nn.MSELoss(), 'epochs': 1000 , 'batch_size': 10,
+                'training_set': training_data, 'test_set': test_data, 'visual_set': visual_data}
     log_dict = model.train(training_args) 
 
 if __name__ == '__main__':
