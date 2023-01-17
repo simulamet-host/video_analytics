@@ -48,7 +48,7 @@ def main(args):
                                                                                         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
 
     if args.dataset_name == "handwashing":
-        _dir = "./images/ex_images"
+        _dir = "./images/ex_images/"
         _images = get_images(_dir, '*.jpg', True, (32, 32))    
         print('images size: ' , _images.size)
         training_data, test_data = train_test_split( _images, test_size=0.2, random_state=42)
