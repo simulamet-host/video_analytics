@@ -1,6 +1,6 @@
 """
 Convolutional autoencoder module for unsupervised feature extraction.
-Code adapted from https://blog.paperspace.com/convolutional-autoencoder/
+Part of the code adapted from https://blog.paperspace.com/convolutional-autoencoder/
 Last updated January 2023
 """
 import torch
@@ -26,11 +26,13 @@ class Encoder(nn.Module):
             act_fn,
             nn.Conv2d(out_channels, out_channels, 3, padding=1),
             act_fn,
-            nn.Conv2d(out_channels, 2*out_channels, 3, padding=1, stride=2), # (16, 16)
+            nn.MaxPool2d(kernel_size = 2, stride = 2), # (16, 16)
+            nn.Conv2d(out_channels, 2*out_channels, 3, padding=1), 
             act_fn,
             nn.Conv2d(2*out_channels, 2*out_channels, 3, padding=1),
             act_fn,
-            nn.Conv2d(2*out_channels, 4*out_channels, 3, padding=1, stride=2), # (8, 8)
+            nn.MaxPool2d(kernel_size = 2, stride = 2), # (8, 8)
+            nn.Conv2d(2*out_channels, 4*out_channels, 3, padding=1),
             act_fn,
             nn.Conv2d(4*out_channels, 4*out_channels, 3, padding=1),
             act_fn,

@@ -1,7 +1,6 @@
 from torch.cuda import is_available
 from torch import device
 
-
 def get_device():
     """
     This function check if the machine has GPU, then it returns a cuda device object.
