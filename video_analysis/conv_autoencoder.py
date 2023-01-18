@@ -3,22 +3,14 @@ Convolutional autoencoder module for unsupervised feature extraction.
 Code adapted from https://blog.paperspace.com/convolutional-autoencoder/
 Last updated January 2023
 """
-import numpy as np
 import torch
 from torch import nn
 from torch.utils.data import DataLoader
-import matplotlib.pyplot as plt
-from torchvision.utils import make_grid
-from tqdm.notebook import tqdm
+from plot_results import plot_CAE_training
+from tqdm import tqdm
+from utils import get_device
 
-#  configuring device
-if torch.cuda.is_available():
-    # pylint: disable=E1101
-    device = torch.device('cuda:1')
-    print('Running on the GPU')
-else:
-    device = torch.device('cpu') # pylint:disable=E1101
-    print('Running on the CPU')
+device = get_device()
 
 # The parameter 'latent dim' refers to the size of the bottleneck = 1000
 #  defining encoder
@@ -140,15 +132,13 @@ class ConvolutionalAutoencoder():
         loaders['test_loader'] = DataLoader(training_args['test_set'],
                                             training_args['batch_size'])
         loaders['visual_loader'] = DataLoader(training_args['visual_set'])
-        
+
         #  setting convnet to training mode
         self.network.train()
         self.network.to(device)
         for epoch in range(training_args['epochs']):
             print(f'Epoch {epoch+1}/{training_args["epochs"]}')
-        #------------
         #  TRAINING
-        #------------
         print('training...')
         for images in tqdm(loaders['train_loader']):
             #  zeroing gradients
@@ -163,13 +153,9 @@ class ConvolutionalAutoencoder():
             loss.backward()
             #  optimizing weights
             self.optimizer.step()
-            #--------------
             # LOGGING
-            #--------------
             log_dict['training_loss_per_batch'].append(loss.item())
-        #--------------
         # Testing
-        #--------------
         print('testing...')
         for test_images in tqdm(loaders['test_loader']):
             with torch.no_grad():
@@ -179,43 +165,13 @@ class ConvolutionalAutoencoder():
                 output = self.network(test_images)
                 #  computing test loss
                 test_loss = training_args['loss_function'](output, test_images.view(-1, 3, 32, 32))
-            #--------------
             # LOGGING
-            #--------------
             log_dict['test_loss_per_batch'].append(test_loss.item())
-        #--------------
-        # VISUALISATION
-        #--------------
-        print(f'training_loss: {round(loss.item(), 4)} test_loss: {round(test_loss.item(), 4)}')
-        for visual_images in tqdm(loaders['visual_loader']):
-            #  sending test images to device
-            visual_images = visual_images.to(device)
-            with torch.no_grad():
-                #  reconstructing test images
-                reconstructed_imgs = self.network(visual_images)
-                #  sending reconstructed and images to cpu to allow for visualization
-                reconstructed_imgs = reconstructed_imgs.cpu()
-                visual_images = visual_images.cpu()
-            
-            fig, (ax1, ax2) = plt.subplots(1, 2)
-            fig.suptitle('Original/Reconstructed')
-            ax1.imshow(visual_images.squeeze())
-            ax2.imshow(reconstructed_imgs.reshape(32, 32, 3))
-            for ax in [ax1, ax2]:
-                ax.axis('off')
-            plt.show()
 
-            #  visualisation
-            # pylint: disable=E1101
-            #imgs = torch.stack([visual_images.view(-1, 3, 32, 32), reconstructed_imgs], dim=1).flatten(0,1)
-            #grid = make_grid(imgs, nrow=10, normalize=True, padding=1)
-            #grid = grid.permute(1, 2, 0)
-            #plt.figure(figsize=(2, 2), dpi=170)
-            #plt.title('Original/Reconstructed')
-            #plt.imshow(grid)
-            #log_dict['visualizations'].append(grid)
-            
+        print(f'training_loss: {round(loss.item(), 4)} test_loss: {round(test_loss.item(), 4)}')
+        plot_CAE_training(loaders['visual_loader'], self.network)
         return log_dict
+
     def autoencode(self, in_):
         """
         Autoencoder.
