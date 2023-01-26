@@ -11,39 +11,47 @@ from tqdm import tqdm
 from utils import get_device
 
 device = get_device()
-
+color_channels = 3
 # The parameter 'latent dim' refers to the size of the bottleneck = 1000
 #  defining encoder
 class Encoder(nn.Module):
     """
     Encoder class.
     """
-    def __init__(self, in_channels=3, out_channels=16, latent_dim=1000, act_fn=nn.ReLU()):
+    def __init__(self, in_channels=color_channels, out_channels=64, latent_dim=1000, act_fn=nn.ReLU()):
         super().__init__()
 
         self.net = nn.Sequential(
-            nn.Conv2d(in_channels, out_channels, 3, padding=1), # (32, 32)
-            act_fn,
+            nn.Conv2d(in_channels, out_channels, 3, padding=1), # (224, 244, 64)
             nn.Conv2d(out_channels, out_channels, 3, padding=1),
             act_fn,
-            nn.MaxPool2d(kernel_size = 2, stride = 2), # (16, 16)
-            nn.Conv2d(out_channels, 2*out_channels, 3, padding=1), 
+            nn.MaxPool2d(kernel_size = 2, stride = 2), # (112, 112, 64)
+            nn.Conv2d(out_channels, 2 * out_channels, 3, padding=1), # (112, 112, 128)
+            nn.Conv2d(2* out_channels, 2 * out_channels, 3, padding=1),
             act_fn,
-            nn.Conv2d(2*out_channels, 2*out_channels, 3, padding=1),
+            nn.MaxPool2d(kernel_size = 2, stride = 2), # (56, 56, 128)
+            nn.Conv2d(2 * out_channels, 4*out_channels, 3, padding=1), # (56, 56, 256)
+            nn.Conv2d(4 * out_channels, 4*out_channels, 3, padding=1),
+            nn.Conv2d(4 * out_channels, 4*out_channels, 3, padding=1),
             act_fn,
-            nn.MaxPool2d(kernel_size = 2, stride = 2), # (8, 8)
-            nn.Conv2d(2*out_channels, 4*out_channels, 3, padding=1),
+            nn.MaxPool2d(kernel_size = 2, stride = 2), # (28, 28 , 256)
+            nn.Conv2d(4*out_channels, 8*out_channels, 3, padding=1), # (28, 28 , 512)
+            nn.Conv2d(8*out_channels, 8*out_channels, 3, padding=1), 
+            nn.Conv2d(8*out_channels, 8*out_channels, 3, padding=1), 
             act_fn,
-            nn.Conv2d(4*out_channels, 4*out_channels, 3, padding=1),
+            nn.MaxPool2d(kernel_size = 2, stride = 2), # (14, 14 , 512)
+            nn.Conv2d(8*out_channels, 8*out_channels, 3, padding=1), # (14, 14 , 512)
+            nn.Conv2d(8*out_channels, 8*out_channels, 3, padding=1),
             act_fn,
+            nn.MaxPool2d(kernel_size = 2, stride = 2), # (7, 7 , 512)
             nn.Flatten(),
-            nn.Linear(4*out_channels*8*8, latent_dim),
+            nn.Linear(8*out_channels*7*7, latent_dim), #(1000)
             act_fn)
     def forward(self, in_):
         """
         Forward function in the encoder.
         """
-        in_ = in_.view(-1, 3, 32, 32)
+        in_ = in_.view(-1, color_channels, 224, 224)
         output = self.net(in_)
         return output
 
@@ -52,32 +60,42 @@ class Decoder(nn.Module):
     """
     Decoder class.
     """
-    def __init__(self, in_channels=3, out_channels=16, latent_dim=1000, act_fn=nn.ReLU()):
+    def __init__(self, in_channels=color_channels, out_channels=64, latent_dim=1000, act_fn=nn.ReLU()):
         super().__init__()
         self.out_channels = out_channels
         self.linear = nn.Sequential(
-            nn.Linear(latent_dim, 4*out_channels*8*8),
+            nn.Linear(latent_dim, 8*out_channels*7*7),
             act_fn)
         self.conv = nn.Sequential(
-            nn.ConvTranspose2d(4*out_channels, 4*out_channels, 3, padding=1), # (8, 8)
+            nn.ConvTranspose2d(8*out_channels, 8*out_channels, 3, padding=1), # (7, 7, 512)
+            act_fn,
+            nn.ConvTranspose2d(8*out_channels, 4*out_channels, 3, padding=1,
+                            stride=2, output_padding=1), # (14, 14, 256)
+            nn.ConvTranspose2d(4*out_channels, 4*out_channels, 3, padding=1),
             act_fn,
             nn.ConvTranspose2d(4*out_channels, 2*out_channels, 3, padding=1,
-                            stride=2, output_padding=1), # (16, 16)
-            act_fn,
+                            stride=2, output_padding=1), # (28, 28, 128)
             nn.ConvTranspose2d(2*out_channels, 2*out_channels, 3, padding=1),
             act_fn,
-            nn.ConvTranspose2d(2*out_channels, out_channels, 3, padding=1,
-                            stride=2, output_padding=1), # (32, 32)
+            nn.ConvTranspose2d(2*out_channels, out_channels, 3, padding=1, stride=2, output_padding=1), # (56, 56, 64)
+            nn.ConvTranspose2d(out_channels, out_channels, 3, padding=1), 
             act_fn,
-            nn.ConvTranspose2d(out_channels, out_channels, 3, padding=1),
+            nn.ConvTranspose2d(out_channels, out_channels, 3, padding=1,
+                            stride=2, output_padding=1), # (112, 112, 64)
+            nn.ConvTranspose2d(out_channels, out_channels, 3, padding = 1),
             act_fn,
-            nn.ConvTranspose2d(out_channels, in_channels, 3, padding=1) )
+            nn.ConvTranspose2d(out_channels, out_channels, 3, padding=1,
+                            stride=2, output_padding=1), # (224, 224, 64)
+            nn.ConvTranspose2d(out_channels, out_channels, 3 , padding=1),
+            act_fn,
+            nn.ConvTranspose2d(out_channels, in_channels, 3, padding=1) # (224, 224, 3)
+            )
     def forward(self, bottleneck):
         """
         Forward function in the decoder.
         """
         output = self.linear(bottleneck)
-        output = output.view(-1, 4*self.out_channels, 8, 8)
+        output = output.view(-1, 8*self.out_channels, 7, 7)
         output = self.conv(output)
         return output
 
@@ -150,7 +168,7 @@ class ConvolutionalAutoencoder():
             #  reconstructing images
             output = self.network(images)
             #  computing loss
-            loss = training_args['loss_function'](output, images.view(-1, 3, 32, 32))
+            loss = training_args['loss_function'](output, images.view(-1, color_channels, 224, 224))
             #  calculating gradients
             loss.backward()
             #  optimizing weights
@@ -166,12 +184,12 @@ class ConvolutionalAutoencoder():
                 #  reconstructing images
                 output = self.network(test_images)
                 #  computing test loss
-                test_loss = training_args['loss_function'](output, test_images.view(-1, 3, 32, 32))
+                test_loss = training_args['loss_function'](output, test_images.view(-1, color_channels, 224, 224))
             # LOGGING
             log_dict['test_loss_per_batch'].append(test_loss.item())
 
         print(f'training_loss: {round(loss.item(), 4)} test_loss: {round(test_loss.item(), 4)}')
-        plot_CAE_training(loaders['visual_loader'], self.network)
+        plot_CAE_training(loaders['visual_loader'], self.network, color_channels)
         return log_dict
 
     def autoencode(self, in_):

@@ -49,7 +49,7 @@ def main(args):
 
     if args.dataset_name == "handwashing":
         _dir = "./images/ex_images/"
-        _images = get_images(_dir, '*.jpg', True, (32, 32))    
+        _images = get_images(_dir, '*.jpg', True, (224, 224), False)    
         print('images size: ' , _images.size)
         training_data, test_data = train_test_split( _images, test_size=0.2, random_state=42)
         visual_data, test_data = train_test_split(test_data, test_size=0.98, random_state=42)
