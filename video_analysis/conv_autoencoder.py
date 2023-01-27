@@ -11,7 +11,7 @@ from tqdm import tqdm
 from utils import get_device
 
 device = get_device()
-color_channels = 3
+color_channels = 1
 # The parameter 'latent dim' refers to the size of the bottleneck = 1000
 #  defining encoder
 class Encoder(nn.Module):
@@ -23,25 +23,25 @@ class Encoder(nn.Module):
 
         self.net = nn.Sequential(
             nn.Conv2d(in_channels, out_channels, 3, padding=1), # (224, 244, 64)
-            nn.Conv2d(out_channels, out_channels, 3, padding=1),
+            #nn.Conv2d(out_channels, out_channels, 3, padding=1),
             act_fn,
             nn.MaxPool2d(kernel_size = 2, stride = 2), # (112, 112, 64)
             nn.Conv2d(out_channels, 2 * out_channels, 3, padding=1), # (112, 112, 128)
-            nn.Conv2d(2* out_channels, 2 * out_channels, 3, padding=1),
+            #nn.Conv2d(2* out_channels, 2 * out_channels, 3, padding=1),
             act_fn,
             nn.MaxPool2d(kernel_size = 2, stride = 2), # (56, 56, 128)
             nn.Conv2d(2 * out_channels, 4*out_channels, 3, padding=1), # (56, 56, 256)
-            nn.Conv2d(4 * out_channels, 4*out_channels, 3, padding=1),
-            nn.Conv2d(4 * out_channels, 4*out_channels, 3, padding=1),
+            #nn.Conv2d(4 * out_channels, 4*out_channels, 3, padding=1),
+            #nn.Conv2d(4 * out_channels, 4*out_channels, 3, padding=1),
             act_fn,
             nn.MaxPool2d(kernel_size = 2, stride = 2), # (28, 28 , 256)
             nn.Conv2d(4*out_channels, 8*out_channels, 3, padding=1), # (28, 28 , 512)
-            nn.Conv2d(8*out_channels, 8*out_channels, 3, padding=1), 
-            nn.Conv2d(8*out_channels, 8*out_channels, 3, padding=1), 
+            #nn.Conv2d(8*out_channels, 8*out_channels, 3, padding=1), 
+            #nn.Conv2d(8*out_channels, 8*out_channels, 3, padding=1), 
             act_fn,
             nn.MaxPool2d(kernel_size = 2, stride = 2), # (14, 14 , 512)
             nn.Conv2d(8*out_channels, 8*out_channels, 3, padding=1), # (14, 14 , 512)
-            nn.Conv2d(8*out_channels, 8*out_channels, 3, padding=1),
+            #nn.Conv2d(8*out_channels, 8*out_channels, 3, padding=1),
             act_fn,
             nn.MaxPool2d(kernel_size = 2, stride = 2), # (7, 7 , 512)
             nn.Flatten(),
@@ -71,22 +71,22 @@ class Decoder(nn.Module):
             act_fn,
             nn.ConvTranspose2d(8*out_channels, 4*out_channels, 3, padding=1,
                             stride=2, output_padding=1), # (14, 14, 256)
-            nn.ConvTranspose2d(4*out_channels, 4*out_channels, 3, padding=1),
+            #nn.ConvTranspose2d(4*out_channels, 4*out_channels, 3, padding=1),
             act_fn,
             nn.ConvTranspose2d(4*out_channels, 2*out_channels, 3, padding=1,
                             stride=2, output_padding=1), # (28, 28, 128)
-            nn.ConvTranspose2d(2*out_channels, 2*out_channels, 3, padding=1),
+            #nn.ConvTranspose2d(2*out_channels, 2*out_channels, 3, padding=1),
             act_fn,
             nn.ConvTranspose2d(2*out_channels, out_channels, 3, padding=1, stride=2, output_padding=1), # (56, 56, 64)
-            nn.ConvTranspose2d(out_channels, out_channels, 3, padding=1), 
+            #nn.ConvTranspose2d(out_channels, out_channels, 3, padding=1), 
             act_fn,
             nn.ConvTranspose2d(out_channels, out_channels, 3, padding=1,
                             stride=2, output_padding=1), # (112, 112, 64)
-            nn.ConvTranspose2d(out_channels, out_channels, 3, padding = 1),
+            #nn.ConvTranspose2d(out_channels, out_channels, 3, padding = 1),
             act_fn,
             nn.ConvTranspose2d(out_channels, out_channels, 3, padding=1,
                             stride=2, output_padding=1), # (224, 224, 64)
-            nn.ConvTranspose2d(out_channels, out_channels, 3 , padding=1),
+            #nn.ConvTranspose2d(out_channels, out_channels, 3 , padding=1),
             act_fn,
             nn.ConvTranspose2d(out_channels, in_channels, 3, padding=1) # (224, 224, 3)
             )
