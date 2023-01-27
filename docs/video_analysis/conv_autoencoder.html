@@ -1,0 +1,2522 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module conv_autoencoder</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>conv_autoencoder</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/faiga/video_analytics/video_analysis/conv_autoencoder.py">/home/faiga/video_analytics/video_analysis/conv_autoencoder.py</a></font></td></tr></table>
+    <p><tt>Convolutional&nbsp;autoencoder&nbsp;module&nbsp;for&nbsp;unsupervised&nbsp;feature&nbsp;extraction.<br>
+Part&nbsp;of&nbsp;the&nbsp;code&nbsp;adapted&nbsp;from&nbsp;<a href="https://blog.paperspace.com/convolutional-autoencoder/">https://blog.paperspace.com/convolutional-autoencoder/</a><br>
+Last&nbsp;updated&nbsp;January&nbsp;2023</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="torch.nn.html">torch.nn</a><br>
+</td><td width="25%" valign=top><a href="torch.html">torch</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="conv_autoencoder.html#ConvolutionalAutoencoder">ConvolutionalAutoencoder</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="torch.nn.modules.module.html#Module">torch.nn.modules.module.Module</a>(<a href="builtins.html#object">builtins.object</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="conv_autoencoder.html#Autoencoder">Autoencoder</a>
+</font></dt><dt><font face="helvetica, arial"><a href="conv_autoencoder.html#Decoder">Decoder</a>
+</font></dt><dt><font face="helvetica, arial"><a href="conv_autoencoder.html#Encoder">Encoder</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Autoencoder">class <strong>Autoencoder</strong></a>(<a href="torch.nn.modules.module.html#Module">torch.nn.modules.module.Module</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Autoencoder">Autoencoder</a>(encoder,&nbsp;decoder)<br>
+&nbsp;<br>
+<a href="#Autoencoder">Autoencoder</a>&nbsp;class.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="conv_autoencoder.html#Autoencoder">Autoencoder</a></dd>
+<dd><a href="torch.nn.modules.module.html#Module">torch.nn.modules.module.Module</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Autoencoder-__init__"><strong>__init__</strong></a>(self, encoder, decoder)</dt><dd><tt>Initializes&nbsp;internal&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>&nbsp;state,&nbsp;shared&nbsp;by&nbsp;both&nbsp;nn.<a href="torch.nn.modules.module.html#Module">Module</a>&nbsp;and&nbsp;ScriptModule.</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-forward"><strong>forward</strong></a>(self, in_)</dt><dd><tt>Forward&nbsp;function&nbsp;for&nbsp;the&nbsp;autoencoder&nbsp;class.</tt></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__annotations__</strong> = {}</dl>
+
+<hr>
+Methods inherited from <a href="torch.nn.modules.module.html#Module">torch.nn.modules.module.Module</a>:<br>
+<dl><dt><a name="Autoencoder-__call__"><strong>__call__</strong></a> = <a href="#Autoencoder-_call_impl">_call_impl</a>(self, *input, **kwargs)</dt></dl>
+
+<dl><dt><a name="Autoencoder-__delattr__"><strong>__delattr__</strong></a>(self, name)</dt><dd><tt>Implement&nbsp;delattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-__dir__"><strong>__dir__</strong></a>(self)</dt><dd><tt>Default&nbsp;dir()&nbsp;implementation.</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-__getattr__"><strong>__getattr__</strong></a>(self, name: str) -&gt; Union[torch.Tensor, ForwardRef('Module')]</dt></dl>
+
+<dl><dt><a name="Autoencoder-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-__setattr__"><strong>__setattr__</strong></a>(self, name: str, value: Union[torch.Tensor, ForwardRef('Module')]) -&gt; None</dt><dd><tt>Implement&nbsp;setattr(self,&nbsp;name,&nbsp;value).</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-__setstate__"><strong>__setstate__</strong></a>(self, state)</dt></dl>
+
+<dl><dt><a name="Autoencoder-add_module"><strong>add_module</strong></a>(self, name: str, module: Optional[ForwardRef('Module')]) -&gt; None</dt><dd><tt>Adds&nbsp;a&nbsp;child&nbsp;module&nbsp;to&nbsp;the&nbsp;current&nbsp;module.<br>
+&nbsp;<br>
+The&nbsp;module&nbsp;can&nbsp;be&nbsp;accessed&nbsp;as&nbsp;an&nbsp;attribute&nbsp;using&nbsp;the&nbsp;given&nbsp;name.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;(str):&nbsp;name&nbsp;of&nbsp;the&nbsp;child&nbsp;module.&nbsp;The&nbsp;child&nbsp;module&nbsp;can&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accessed&nbsp;from&nbsp;this&nbsp;module&nbsp;using&nbsp;the&nbsp;given&nbsp;name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;module&nbsp;(<a href="torch.nn.modules.module.html#Module">Module</a>):&nbsp;child&nbsp;module&nbsp;to&nbsp;be&nbsp;added&nbsp;to&nbsp;the&nbsp;module.</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-apply"><strong>apply</strong></a>(self: ~T, fn: Callable[[ForwardRef('Module')], NoneType]) -&gt; ~T</dt><dd><tt>Applies&nbsp;``fn``&nbsp;recursively&nbsp;to&nbsp;every&nbsp;submodule&nbsp;(as&nbsp;returned&nbsp;by&nbsp;``.<a href="#Autoencoder-children">children</a>()``)<br>
+as&nbsp;well&nbsp;as&nbsp;self.&nbsp;Typical&nbsp;use&nbsp;includes&nbsp;initializing&nbsp;the&nbsp;parameters&nbsp;of&nbsp;a&nbsp;model<br>
+(see&nbsp;also&nbsp;:ref:`nn-init-doc`).<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;fn&nbsp;(:class:`<a href="torch.nn.modules.module.html#Module">Module</a>`&nbsp;-&gt;&nbsp;None):&nbsp;function&nbsp;to&nbsp;be&nbsp;applied&nbsp;to&nbsp;each&nbsp;submodule<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;@torch.no_grad()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;def&nbsp;init_weights(m):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(m)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;<a href="#Autoencoder-type">type</a>(m)&nbsp;==&nbsp;nn.Linear:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m.weight.fill_(1.0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(m.weight)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;net&nbsp;=&nbsp;nn.Sequential(nn.Linear(2,&nbsp;2),&nbsp;nn.Linear(2,&nbsp;2))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;net.<a href="#Autoencoder-apply">apply</a>(init_weights)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[1.,&nbsp;1.],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.,&nbsp;1.]],&nbsp;requires_grad=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[1.,&nbsp;1.],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.,&nbsp;1.]],&nbsp;requires_grad=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Sequential(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0):&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1):&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-bfloat16"><strong>bfloat16</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>Casts&nbsp;all&nbsp;floating&nbsp;point&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;``bfloat16``&nbsp;datatype.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-buffers"><strong>buffers</strong></a>(self, recurse: bool = True) -&gt; Iterator[torch.Tensor]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;module&nbsp;buffers.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;recurse&nbsp;(bool):&nbsp;if&nbsp;True,&nbsp;then&nbsp;yields&nbsp;buffers&nbsp;of&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;all&nbsp;submodules.&nbsp;Otherwise,&nbsp;yields&nbsp;only&nbsp;buffers&nbsp;that<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;direct&nbsp;members&nbsp;of&nbsp;this&nbsp;module.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;torch.Tensor:&nbsp;module&nbsp;buffer<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;buf&nbsp;in&nbsp;model.<a href="#Autoencoder-buffers">buffers</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(<a href="#Autoencoder-type">type</a>(buf),&nbsp;buf.size())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;class&nbsp;'torch.Tensor'&gt;&nbsp;(20L,)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;class&nbsp;'torch.Tensor'&gt;&nbsp;(20L,&nbsp;1L,&nbsp;5L,&nbsp;5L)</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-children"><strong>children</strong></a>(self) -&gt; Iterator[ForwardRef('Module')]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;immediate&nbsp;children&nbsp;modules.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;a&nbsp;child&nbsp;module</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-cpu"><strong>cpu</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>Moves&nbsp;all&nbsp;model&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;the&nbsp;CPU.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-cuda"><strong>cuda</strong></a>(self: ~T, device: Union[int, torch.device, NoneType] = None) -&gt; ~T</dt><dd><tt>Moves&nbsp;all&nbsp;model&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;the&nbsp;GPU.<br>
+&nbsp;<br>
+This&nbsp;also&nbsp;makes&nbsp;associated&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;different&nbsp;objects.&nbsp;So<br>
+it&nbsp;should&nbsp;be&nbsp;called&nbsp;before&nbsp;constructing&nbsp;optimizer&nbsp;if&nbsp;the&nbsp;module&nbsp;will<br>
+live&nbsp;on&nbsp;GPU&nbsp;while&nbsp;being&nbsp;optimized.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;(int,&nbsp;optional):&nbsp;if&nbsp;specified,&nbsp;all&nbsp;parameters&nbsp;will&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copied&nbsp;to&nbsp;that&nbsp;device<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-double"><strong>double</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>Casts&nbsp;all&nbsp;floating&nbsp;point&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;``double``&nbsp;datatype.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-eval"><strong>eval</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>Sets&nbsp;the&nbsp;module&nbsp;in&nbsp;evaluation&nbsp;mode.<br>
+&nbsp;<br>
+This&nbsp;has&nbsp;any&nbsp;effect&nbsp;only&nbsp;on&nbsp;certain&nbsp;modules.&nbsp;See&nbsp;documentations&nbsp;of<br>
+particular&nbsp;modules&nbsp;for&nbsp;details&nbsp;of&nbsp;their&nbsp;behaviors&nbsp;in&nbsp;training/evaluation<br>
+mode,&nbsp;if&nbsp;they&nbsp;are&nbsp;affected,&nbsp;e.g.&nbsp;:class:`Dropout`,&nbsp;:class:`BatchNorm`,<br>
+etc.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;equivalent&nbsp;with&nbsp;:meth:`self.<a href="#Autoencoder-train">train</a>(False)&nbsp;&lt;torch.nn.<a href="torch.nn.modules.module.html#Module">Module</a>.train&gt;`.<br>
+&nbsp;<br>
+See&nbsp;:ref:`locally-disable-grad-doc`&nbsp;for&nbsp;a&nbsp;comparison&nbsp;between<br>
+`.<a href="#Autoencoder-eval">eval</a>()`&nbsp;and&nbsp;several&nbsp;similar&nbsp;mechanisms&nbsp;that&nbsp;may&nbsp;be&nbsp;confused&nbsp;with&nbsp;it.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-extra_repr"><strong>extra_repr</strong></a>(self) -&gt; str</dt><dd><tt>Set&nbsp;the&nbsp;extra&nbsp;representation&nbsp;of&nbsp;the&nbsp;module<br>
+&nbsp;<br>
+To&nbsp;print&nbsp;customized&nbsp;extra&nbsp;information,&nbsp;you&nbsp;should&nbsp;re-implement<br>
+this&nbsp;method&nbsp;in&nbsp;your&nbsp;own&nbsp;modules.&nbsp;Both&nbsp;single-line&nbsp;and&nbsp;multi-line<br>
+strings&nbsp;are&nbsp;acceptable.</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-float"><strong>float</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>Casts&nbsp;all&nbsp;floating&nbsp;point&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;``float``&nbsp;datatype.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-get_buffer"><strong>get_buffer</strong></a>(self, target: str) -&gt; 'Tensor'</dt><dd><tt>Returns&nbsp;the&nbsp;buffer&nbsp;given&nbsp;by&nbsp;``target``&nbsp;if&nbsp;it&nbsp;exists,<br>
+otherwise&nbsp;throws&nbsp;an&nbsp;error.<br>
+&nbsp;<br>
+See&nbsp;the&nbsp;docstring&nbsp;for&nbsp;``get_submodule``&nbsp;for&nbsp;a&nbsp;more&nbsp;detailed<br>
+explanation&nbsp;of&nbsp;this&nbsp;method's&nbsp;functionality&nbsp;as&nbsp;well&nbsp;as&nbsp;how&nbsp;to<br>
+correctly&nbsp;specify&nbsp;``target``.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;target:&nbsp;The&nbsp;fully-qualified&nbsp;string&nbsp;name&nbsp;of&nbsp;the&nbsp;buffer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;look&nbsp;for.&nbsp;(See&nbsp;``get_submodule``&nbsp;for&nbsp;how&nbsp;to&nbsp;specify&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fully-qualified&nbsp;string.)<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;torch.Tensor:&nbsp;The&nbsp;buffer&nbsp;referenced&nbsp;by&nbsp;``target``<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;AttributeError:&nbsp;If&nbsp;the&nbsp;target&nbsp;string&nbsp;references&nbsp;an&nbsp;invalid<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;or&nbsp;resolves&nbsp;to&nbsp;something&nbsp;that&nbsp;is&nbsp;not&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buffer</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-get_extra_state"><strong>get_extra_state</strong></a>(self) -&gt; Any</dt><dd><tt>Returns&nbsp;any&nbsp;extra&nbsp;state&nbsp;to&nbsp;include&nbsp;in&nbsp;the&nbsp;module's&nbsp;state_dict.<br>
+Implement&nbsp;this&nbsp;and&nbsp;a&nbsp;corresponding&nbsp;:func:`set_extra_state`&nbsp;for&nbsp;your&nbsp;module<br>
+if&nbsp;you&nbsp;need&nbsp;to&nbsp;store&nbsp;extra&nbsp;state.&nbsp;This&nbsp;function&nbsp;is&nbsp;called&nbsp;when&nbsp;building&nbsp;the<br>
+module's&nbsp;`<a href="#Autoencoder-state_dict">state_dict</a>()`.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;extra&nbsp;state&nbsp;should&nbsp;be&nbsp;pickleable&nbsp;to&nbsp;ensure&nbsp;working&nbsp;serialization<br>
+of&nbsp;the&nbsp;state_dict.&nbsp;We&nbsp;only&nbsp;provide&nbsp;provide&nbsp;backwards&nbsp;compatibility&nbsp;guarantees<br>
+for&nbsp;serializing&nbsp;Tensors;&nbsp;other&nbsp;objects&nbsp;may&nbsp;break&nbsp;backwards&nbsp;compatibility&nbsp;if<br>
+their&nbsp;serialized&nbsp;pickled&nbsp;form&nbsp;changes.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="builtins.html#object">object</a>:&nbsp;Any&nbsp;extra&nbsp;state&nbsp;to&nbsp;store&nbsp;in&nbsp;the&nbsp;module's&nbsp;state_dict</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-get_parameter"><strong>get_parameter</strong></a>(self, target: str) -&gt; 'Parameter'</dt><dd><tt>Returns&nbsp;the&nbsp;parameter&nbsp;given&nbsp;by&nbsp;``target``&nbsp;if&nbsp;it&nbsp;exists,<br>
+otherwise&nbsp;throws&nbsp;an&nbsp;error.<br>
+&nbsp;<br>
+See&nbsp;the&nbsp;docstring&nbsp;for&nbsp;``get_submodule``&nbsp;for&nbsp;a&nbsp;more&nbsp;detailed<br>
+explanation&nbsp;of&nbsp;this&nbsp;method's&nbsp;functionality&nbsp;as&nbsp;well&nbsp;as&nbsp;how&nbsp;to<br>
+correctly&nbsp;specify&nbsp;``target``.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;target:&nbsp;The&nbsp;fully-qualified&nbsp;string&nbsp;name&nbsp;of&nbsp;the&nbsp;Parameter<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;look&nbsp;for.&nbsp;(See&nbsp;``get_submodule``&nbsp;for&nbsp;how&nbsp;to&nbsp;specify&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fully-qualified&nbsp;string.)<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;torch.nn.Parameter:&nbsp;The&nbsp;Parameter&nbsp;referenced&nbsp;by&nbsp;``target``<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;AttributeError:&nbsp;If&nbsp;the&nbsp;target&nbsp;string&nbsp;references&nbsp;an&nbsp;invalid<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;or&nbsp;resolves&nbsp;to&nbsp;something&nbsp;that&nbsp;is&nbsp;not&nbsp;an<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``nn.Parameter``</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-get_submodule"><strong>get_submodule</strong></a>(self, target: str) -&gt; 'Module'</dt><dd><tt>Returns&nbsp;the&nbsp;submodule&nbsp;given&nbsp;by&nbsp;``target``&nbsp;if&nbsp;it&nbsp;exists,<br>
+otherwise&nbsp;throws&nbsp;an&nbsp;error.<br>
+&nbsp;<br>
+For&nbsp;example,&nbsp;let's&nbsp;say&nbsp;you&nbsp;have&nbsp;an&nbsp;``nn.<a href="torch.nn.modules.module.html#Module">Module</a>``&nbsp;``A``&nbsp;that<br>
+looks&nbsp;like&nbsp;this:<br>
+&nbsp;<br>
+..&nbsp;code-block::&nbsp;text<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;A(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(net_b):&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(net_c):&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(conv):&nbsp;Conv2d(16,&nbsp;33,&nbsp;kernel_size=(3,&nbsp;3),&nbsp;stride=(2,&nbsp;2))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(linear):&nbsp;Linear(in_features=100,&nbsp;out_features=200,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;<br>
+(The&nbsp;diagram&nbsp;shows&nbsp;an&nbsp;``nn.<a href="torch.nn.modules.module.html#Module">Module</a>``&nbsp;``A``.&nbsp;``A``&nbsp;has&nbsp;a&nbsp;nested<br>
+submodule&nbsp;``net_b``,&nbsp;which&nbsp;itself&nbsp;has&nbsp;two&nbsp;submodules&nbsp;``net_c``<br>
+and&nbsp;``linear``.&nbsp;``net_c``&nbsp;then&nbsp;has&nbsp;a&nbsp;submodule&nbsp;``conv``.)<br>
+&nbsp;<br>
+To&nbsp;check&nbsp;whether&nbsp;or&nbsp;not&nbsp;we&nbsp;have&nbsp;the&nbsp;``linear``&nbsp;submodule,&nbsp;we<br>
+would&nbsp;call&nbsp;``<a href="#Autoencoder-get_submodule">get_submodule</a>("net_b.linear")``.&nbsp;To&nbsp;check&nbsp;whether<br>
+we&nbsp;have&nbsp;the&nbsp;``conv``&nbsp;submodule,&nbsp;we&nbsp;would&nbsp;call<br>
+``<a href="#Autoencoder-get_submodule">get_submodule</a>("net_b.net_c.conv")``.<br>
+&nbsp;<br>
+The&nbsp;runtime&nbsp;of&nbsp;``get_submodule``&nbsp;is&nbsp;bounded&nbsp;by&nbsp;the&nbsp;degree<br>
+of&nbsp;module&nbsp;nesting&nbsp;in&nbsp;``target``.&nbsp;A&nbsp;query&nbsp;against<br>
+``named_modules``&nbsp;achieves&nbsp;the&nbsp;same&nbsp;result,&nbsp;but&nbsp;it&nbsp;is&nbsp;O(N)&nbsp;in<br>
+the&nbsp;number&nbsp;of&nbsp;transitive&nbsp;modules.&nbsp;So,&nbsp;for&nbsp;a&nbsp;simple&nbsp;check&nbsp;to&nbsp;see<br>
+if&nbsp;some&nbsp;submodule&nbsp;exists,&nbsp;``get_submodule``&nbsp;should&nbsp;always&nbsp;be<br>
+used.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;target:&nbsp;The&nbsp;fully-qualified&nbsp;string&nbsp;name&nbsp;of&nbsp;the&nbsp;submodule<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;look&nbsp;for.&nbsp;(See&nbsp;above&nbsp;example&nbsp;for&nbsp;how&nbsp;to&nbsp;specify&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fully-qualified&nbsp;string.)<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;torch.nn.<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;The&nbsp;submodule&nbsp;referenced&nbsp;by&nbsp;``target``<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;AttributeError:&nbsp;If&nbsp;the&nbsp;target&nbsp;string&nbsp;references&nbsp;an&nbsp;invalid<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;or&nbsp;resolves&nbsp;to&nbsp;something&nbsp;that&nbsp;is&nbsp;not&nbsp;an<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``nn.<a href="torch.nn.modules.module.html#Module">Module</a>``</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-half"><strong>half</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>Casts&nbsp;all&nbsp;floating&nbsp;point&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;``half``&nbsp;datatype.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-ipu"><strong>ipu</strong></a>(self: ~T, device: Union[int, torch.device, NoneType] = None) -&gt; ~T</dt><dd><tt>Moves&nbsp;all&nbsp;model&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;the&nbsp;IPU.<br>
+&nbsp;<br>
+This&nbsp;also&nbsp;makes&nbsp;associated&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;different&nbsp;objects.&nbsp;So<br>
+it&nbsp;should&nbsp;be&nbsp;called&nbsp;before&nbsp;constructing&nbsp;optimizer&nbsp;if&nbsp;the&nbsp;module&nbsp;will<br>
+live&nbsp;on&nbsp;IPU&nbsp;while&nbsp;being&nbsp;optimized.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Arguments:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;(int,&nbsp;optional):&nbsp;if&nbsp;specified,&nbsp;all&nbsp;parameters&nbsp;will&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copied&nbsp;to&nbsp;that&nbsp;device<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-load_state_dict"><strong>load_state_dict</strong></a>(self, state_dict: Mapping[str, Any], strict: bool = True)</dt><dd><tt>Copies&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;from&nbsp;:attr:`state_dict`&nbsp;into<br>
+this&nbsp;module&nbsp;and&nbsp;its&nbsp;descendants.&nbsp;If&nbsp;:attr:`strict`&nbsp;is&nbsp;``True``,&nbsp;then<br>
+the&nbsp;keys&nbsp;of&nbsp;:attr:`state_dict`&nbsp;must&nbsp;exactly&nbsp;match&nbsp;the&nbsp;keys&nbsp;returned<br>
+by&nbsp;this&nbsp;module's&nbsp;:meth:`~torch.nn.<a href="torch.nn.modules.module.html#Module">Module</a>.state_dict`&nbsp;function.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;state_dict&nbsp;(dict):&nbsp;a&nbsp;dict&nbsp;containing&nbsp;parameters&nbsp;and<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistent&nbsp;buffers.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;strict&nbsp;(bool,&nbsp;optional):&nbsp;whether&nbsp;to&nbsp;strictly&nbsp;enforce&nbsp;that&nbsp;the&nbsp;keys<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;:attr:`state_dict`&nbsp;match&nbsp;the&nbsp;keys&nbsp;returned&nbsp;by&nbsp;this&nbsp;module's<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:meth:`~torch.nn.<a href="torch.nn.modules.module.html#Module">Module</a>.state_dict`&nbsp;function.&nbsp;Default:&nbsp;``True``<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;``NamedTuple``&nbsp;with&nbsp;``missing_keys``&nbsp;and&nbsp;``unexpected_keys``&nbsp;fields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;**missing_keys**&nbsp;is&nbsp;a&nbsp;list&nbsp;of&nbsp;str&nbsp;containing&nbsp;the&nbsp;missing&nbsp;keys<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;**unexpected_keys**&nbsp;is&nbsp;a&nbsp;list&nbsp;of&nbsp;str&nbsp;containing&nbsp;the&nbsp;unexpected&nbsp;keys<br>
+&nbsp;<br>
+Note:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;a&nbsp;parameter&nbsp;or&nbsp;buffer&nbsp;is&nbsp;registered&nbsp;as&nbsp;``None``&nbsp;and&nbsp;its&nbsp;corresponding&nbsp;key<br>
+&nbsp;&nbsp;&nbsp;&nbsp;exists&nbsp;in&nbsp;:attr:`state_dict`,&nbsp;:meth:`load_state_dict`&nbsp;will&nbsp;raise&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;``RuntimeError``.</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-modules"><strong>modules</strong></a>(self) -&gt; Iterator[ForwardRef('Module')]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;all&nbsp;modules&nbsp;in&nbsp;the&nbsp;network.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;a&nbsp;module&nbsp;in&nbsp;the&nbsp;network<br>
+&nbsp;<br>
+Note:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Duplicate&nbsp;modules&nbsp;are&nbsp;returned&nbsp;only&nbsp;once.&nbsp;In&nbsp;the&nbsp;following<br>
+&nbsp;&nbsp;&nbsp;&nbsp;example,&nbsp;``l``&nbsp;will&nbsp;be&nbsp;returned&nbsp;only&nbsp;once.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;l&nbsp;=&nbsp;nn.Linear(2,&nbsp;2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;net&nbsp;=&nbsp;nn.Sequential(l,&nbsp;l)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;idx,&nbsp;m&nbsp;in&nbsp;enumerate(net.<a href="#Autoencoder-modules">modules</a>()):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(idx,&nbsp;'-&gt;',&nbsp;m)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;-&gt;&nbsp;Sequential(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0):&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1):&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;-&gt;&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-named_buffers"><strong>named_buffers</strong></a>(self, prefix: str = '', recurse: bool = True) -&gt; Iterator[Tuple[str, torch.Tensor]]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;module&nbsp;buffers,&nbsp;yielding&nbsp;both&nbsp;the<br>
+name&nbsp;of&nbsp;the&nbsp;buffer&nbsp;as&nbsp;well&nbsp;as&nbsp;the&nbsp;buffer&nbsp;itself.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;prefix&nbsp;(str):&nbsp;prefix&nbsp;to&nbsp;prepend&nbsp;to&nbsp;all&nbsp;buffer&nbsp;names.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;recurse&nbsp;(bool):&nbsp;if&nbsp;True,&nbsp;then&nbsp;yields&nbsp;buffers&nbsp;of&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;all&nbsp;submodules.&nbsp;Otherwise,&nbsp;yields&nbsp;only&nbsp;buffers&nbsp;that<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;direct&nbsp;members&nbsp;of&nbsp;this&nbsp;module.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(str,&nbsp;torch.Tensor):&nbsp;Tuple&nbsp;containing&nbsp;the&nbsp;name&nbsp;and&nbsp;buffer<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;name,&nbsp;buf&nbsp;in&nbsp;self.<a href="#Autoencoder-named_buffers">named_buffers</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;name&nbsp;in&nbsp;['running_var']:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(buf.size())</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-named_children"><strong>named_children</strong></a>(self) -&gt; Iterator[Tuple[str, ForwardRef('Module')]]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;immediate&nbsp;children&nbsp;modules,&nbsp;yielding&nbsp;both<br>
+the&nbsp;name&nbsp;of&nbsp;the&nbsp;module&nbsp;as&nbsp;well&nbsp;as&nbsp;the&nbsp;module&nbsp;itself.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(str,&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>):&nbsp;Tuple&nbsp;containing&nbsp;a&nbsp;name&nbsp;and&nbsp;child&nbsp;module<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;name,&nbsp;module&nbsp;in&nbsp;model.<a href="#Autoencoder-named_children">named_children</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;name&nbsp;in&nbsp;['conv4',&nbsp;'conv5']:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(module)</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-named_modules"><strong>named_modules</strong></a>(self, memo: Optional[Set[ForwardRef('Module')]] = None, prefix: str = '', remove_duplicate: bool = True)</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;all&nbsp;modules&nbsp;in&nbsp;the&nbsp;network,&nbsp;yielding<br>
+both&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;module&nbsp;as&nbsp;well&nbsp;as&nbsp;the&nbsp;module&nbsp;itself.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;memo:&nbsp;a&nbsp;memo&nbsp;to&nbsp;store&nbsp;the&nbsp;set&nbsp;of&nbsp;modules&nbsp;already&nbsp;added&nbsp;to&nbsp;the&nbsp;result<br>
+&nbsp;&nbsp;&nbsp;&nbsp;prefix:&nbsp;a&nbsp;prefix&nbsp;that&nbsp;will&nbsp;be&nbsp;added&nbsp;to&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;remove_duplicate:&nbsp;whether&nbsp;to&nbsp;remove&nbsp;the&nbsp;duplicated&nbsp;module&nbsp;instances&nbsp;in&nbsp;the&nbsp;result<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;not<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(str,&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>):&nbsp;Tuple&nbsp;of&nbsp;name&nbsp;and&nbsp;module<br>
+&nbsp;<br>
+Note:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Duplicate&nbsp;modules&nbsp;are&nbsp;returned&nbsp;only&nbsp;once.&nbsp;In&nbsp;the&nbsp;following<br>
+&nbsp;&nbsp;&nbsp;&nbsp;example,&nbsp;``l``&nbsp;will&nbsp;be&nbsp;returned&nbsp;only&nbsp;once.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;l&nbsp;=&nbsp;nn.Linear(2,&nbsp;2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;net&nbsp;=&nbsp;nn.Sequential(l,&nbsp;l)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;idx,&nbsp;m&nbsp;in&nbsp;enumerate(net.<a href="#Autoencoder-named_modules">named_modules</a>()):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(idx,&nbsp;'-&gt;',&nbsp;m)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;-&gt;&nbsp;('',&nbsp;Sequential(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0):&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1):&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;-&gt;&nbsp;('0',&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True))</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-named_parameters"><strong>named_parameters</strong></a>(self, prefix: str = '', recurse: bool = True) -&gt; Iterator[Tuple[str, torch.nn.parameter.Parameter]]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;module&nbsp;parameters,&nbsp;yielding&nbsp;both&nbsp;the<br>
+name&nbsp;of&nbsp;the&nbsp;parameter&nbsp;as&nbsp;well&nbsp;as&nbsp;the&nbsp;parameter&nbsp;itself.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;prefix&nbsp;(str):&nbsp;prefix&nbsp;to&nbsp;prepend&nbsp;to&nbsp;all&nbsp;parameter&nbsp;names.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;recurse&nbsp;(bool):&nbsp;if&nbsp;True,&nbsp;then&nbsp;yields&nbsp;parameters&nbsp;of&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;all&nbsp;submodules.&nbsp;Otherwise,&nbsp;yields&nbsp;only&nbsp;parameters&nbsp;that<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;direct&nbsp;members&nbsp;of&nbsp;this&nbsp;module.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(str,&nbsp;Parameter):&nbsp;Tuple&nbsp;containing&nbsp;the&nbsp;name&nbsp;and&nbsp;parameter<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;name,&nbsp;param&nbsp;in&nbsp;self.<a href="#Autoencoder-named_parameters">named_parameters</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;name&nbsp;in&nbsp;['bias']:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(param.size())</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-parameters"><strong>parameters</strong></a>(self, recurse: bool = True) -&gt; Iterator[torch.nn.parameter.Parameter]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;module&nbsp;parameters.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;typically&nbsp;passed&nbsp;to&nbsp;an&nbsp;optimizer.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;recurse&nbsp;(bool):&nbsp;if&nbsp;True,&nbsp;then&nbsp;yields&nbsp;parameters&nbsp;of&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;all&nbsp;submodules.&nbsp;Otherwise,&nbsp;yields&nbsp;only&nbsp;parameters&nbsp;that<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;direct&nbsp;members&nbsp;of&nbsp;this&nbsp;module.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter:&nbsp;module&nbsp;parameter<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;param&nbsp;in&nbsp;model.<a href="#Autoencoder-parameters">parameters</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(<a href="#Autoencoder-type">type</a>(param),&nbsp;param.size())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;class&nbsp;'torch.Tensor'&gt;&nbsp;(20L,)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;class&nbsp;'torch.Tensor'&gt;&nbsp;(20L,&nbsp;1L,&nbsp;5L,&nbsp;5L)</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-register_backward_hook"><strong>register_backward_hook</strong></a>(self, hook: Callable[[ForwardRef('Module'), Union[Tuple[torch.Tensor, ...], torch.Tensor], Union[Tuple[torch.Tensor, ...], torch.Tensor]], Optional[torch.Tensor]]) -&gt; torch.utils.hooks.RemovableHandle</dt><dd><tt>Registers&nbsp;a&nbsp;backward&nbsp;hook&nbsp;on&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;is&nbsp;deprecated&nbsp;in&nbsp;favor&nbsp;of&nbsp;:meth:`~torch.nn.<a href="torch.nn.modules.module.html#Module">Module</a>.register_full_backward_hook`&nbsp;and<br>
+the&nbsp;behavior&nbsp;of&nbsp;this&nbsp;function&nbsp;will&nbsp;change&nbsp;in&nbsp;future&nbsp;versions.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:class:`torch.utils.hooks.RemovableHandle`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;handle&nbsp;that&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;remove&nbsp;the&nbsp;added&nbsp;hook&nbsp;by&nbsp;calling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``handle.remove()``</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-register_buffer"><strong>register_buffer</strong></a>(self, name: str, tensor: Optional[torch.Tensor], persistent: bool = True) -&gt; None</dt><dd><tt>Adds&nbsp;a&nbsp;buffer&nbsp;to&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;typically&nbsp;used&nbsp;to&nbsp;register&nbsp;a&nbsp;buffer&nbsp;that&nbsp;should&nbsp;not&nbsp;to&nbsp;be<br>
+considered&nbsp;a&nbsp;model&nbsp;parameter.&nbsp;For&nbsp;example,&nbsp;BatchNorm's&nbsp;``running_mean``<br>
+is&nbsp;not&nbsp;a&nbsp;parameter,&nbsp;but&nbsp;is&nbsp;part&nbsp;of&nbsp;the&nbsp;module's&nbsp;state.&nbsp;Buffers,&nbsp;by<br>
+default,&nbsp;are&nbsp;persistent&nbsp;and&nbsp;will&nbsp;be&nbsp;saved&nbsp;alongside&nbsp;parameters.&nbsp;This<br>
+behavior&nbsp;can&nbsp;be&nbsp;changed&nbsp;by&nbsp;setting&nbsp;:attr:`persistent`&nbsp;to&nbsp;``False``.&nbsp;The<br>
+only&nbsp;difference&nbsp;between&nbsp;a&nbsp;persistent&nbsp;buffer&nbsp;and&nbsp;a&nbsp;non-persistent&nbsp;buffer<br>
+is&nbsp;that&nbsp;the&nbsp;latter&nbsp;will&nbsp;not&nbsp;be&nbsp;a&nbsp;part&nbsp;of&nbsp;this&nbsp;module's<br>
+:attr:`state_dict`.<br>
+&nbsp;<br>
+Buffers&nbsp;can&nbsp;be&nbsp;accessed&nbsp;as&nbsp;attributes&nbsp;using&nbsp;given&nbsp;names.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;(str):&nbsp;name&nbsp;of&nbsp;the&nbsp;buffer.&nbsp;The&nbsp;buffer&nbsp;can&nbsp;be&nbsp;accessed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;this&nbsp;module&nbsp;using&nbsp;the&nbsp;given&nbsp;name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor&nbsp;(Tensor&nbsp;or&nbsp;None):&nbsp;buffer&nbsp;to&nbsp;be&nbsp;registered.&nbsp;If&nbsp;``None``,&nbsp;then&nbsp;operations<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;that&nbsp;run&nbsp;on&nbsp;buffers,&nbsp;such&nbsp;as&nbsp;:attr:`cuda`,&nbsp;are&nbsp;ignored.&nbsp;If&nbsp;``None``,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;buffer&nbsp;is&nbsp;**not**&nbsp;included&nbsp;in&nbsp;the&nbsp;module's&nbsp;:attr:`state_dict`.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;persistent&nbsp;(bool):&nbsp;whether&nbsp;the&nbsp;buffer&nbsp;is&nbsp;part&nbsp;of&nbsp;this&nbsp;module's<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:attr:`state_dict`.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;self.<a href="#Autoencoder-register_buffer">register_buffer</a>('running_mean',&nbsp;torch.zeros(num_features))</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-register_forward_hook"><strong>register_forward_hook</strong></a>(self, hook: Callable[..., NoneType]) -&gt; torch.utils.hooks.RemovableHandle</dt><dd><tt>Registers&nbsp;a&nbsp;forward&nbsp;hook&nbsp;on&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+The&nbsp;hook&nbsp;will&nbsp;be&nbsp;called&nbsp;every&nbsp;time&nbsp;after&nbsp;:func:`forward`&nbsp;has&nbsp;computed&nbsp;an&nbsp;output.<br>
+It&nbsp;should&nbsp;have&nbsp;the&nbsp;following&nbsp;signature::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hook(module,&nbsp;input,&nbsp;output)&nbsp;-&gt;&nbsp;None&nbsp;or&nbsp;modified&nbsp;output<br>
+&nbsp;<br>
+The&nbsp;input&nbsp;contains&nbsp;only&nbsp;the&nbsp;positional&nbsp;arguments&nbsp;given&nbsp;to&nbsp;the&nbsp;module.<br>
+Keyword&nbsp;arguments&nbsp;won't&nbsp;be&nbsp;passed&nbsp;to&nbsp;the&nbsp;hooks&nbsp;and&nbsp;only&nbsp;to&nbsp;the&nbsp;``forward``.<br>
+The&nbsp;hook&nbsp;can&nbsp;modify&nbsp;the&nbsp;output.&nbsp;It&nbsp;can&nbsp;modify&nbsp;the&nbsp;input&nbsp;inplace&nbsp;but<br>
+it&nbsp;will&nbsp;not&nbsp;have&nbsp;effect&nbsp;on&nbsp;forward&nbsp;since&nbsp;this&nbsp;is&nbsp;called&nbsp;after<br>
+:func:`forward`&nbsp;is&nbsp;called.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:class:`torch.utils.hooks.RemovableHandle`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;handle&nbsp;that&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;remove&nbsp;the&nbsp;added&nbsp;hook&nbsp;by&nbsp;calling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``handle.remove()``</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-register_forward_pre_hook"><strong>register_forward_pre_hook</strong></a>(self, hook: Callable[..., NoneType]) -&gt; torch.utils.hooks.RemovableHandle</dt><dd><tt>Registers&nbsp;a&nbsp;forward&nbsp;pre-hook&nbsp;on&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+The&nbsp;hook&nbsp;will&nbsp;be&nbsp;called&nbsp;every&nbsp;time&nbsp;before&nbsp;:func:`forward`&nbsp;is&nbsp;invoked.<br>
+It&nbsp;should&nbsp;have&nbsp;the&nbsp;following&nbsp;signature::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hook(module,&nbsp;input)&nbsp;-&gt;&nbsp;None&nbsp;or&nbsp;modified&nbsp;input<br>
+&nbsp;<br>
+The&nbsp;input&nbsp;contains&nbsp;only&nbsp;the&nbsp;positional&nbsp;arguments&nbsp;given&nbsp;to&nbsp;the&nbsp;module.<br>
+Keyword&nbsp;arguments&nbsp;won't&nbsp;be&nbsp;passed&nbsp;to&nbsp;the&nbsp;hooks&nbsp;and&nbsp;only&nbsp;to&nbsp;the&nbsp;``forward``.<br>
+The&nbsp;hook&nbsp;can&nbsp;modify&nbsp;the&nbsp;input.&nbsp;User&nbsp;can&nbsp;either&nbsp;return&nbsp;a&nbsp;tuple&nbsp;or&nbsp;a<br>
+single&nbsp;modified&nbsp;value&nbsp;in&nbsp;the&nbsp;hook.&nbsp;We&nbsp;will&nbsp;wrap&nbsp;the&nbsp;value&nbsp;into&nbsp;a&nbsp;tuple<br>
+if&nbsp;a&nbsp;single&nbsp;value&nbsp;is&nbsp;returned(unless&nbsp;that&nbsp;value&nbsp;is&nbsp;already&nbsp;a&nbsp;tuple).<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:class:`torch.utils.hooks.RemovableHandle`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;handle&nbsp;that&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;remove&nbsp;the&nbsp;added&nbsp;hook&nbsp;by&nbsp;calling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``handle.remove()``</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-register_full_backward_hook"><strong>register_full_backward_hook</strong></a>(self, hook: Callable[[ForwardRef('Module'), Union[Tuple[torch.Tensor, ...], torch.Tensor], Union[Tuple[torch.Tensor, ...], torch.Tensor]], Optional[torch.Tensor]]) -&gt; torch.utils.hooks.RemovableHandle</dt><dd><tt>Registers&nbsp;a&nbsp;backward&nbsp;hook&nbsp;on&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+The&nbsp;hook&nbsp;will&nbsp;be&nbsp;called&nbsp;every&nbsp;time&nbsp;the&nbsp;gradients&nbsp;with&nbsp;respect&nbsp;to&nbsp;a&nbsp;module<br>
+are&nbsp;computed,&nbsp;i.e.&nbsp;the&nbsp;hook&nbsp;will&nbsp;execute&nbsp;if&nbsp;and&nbsp;only&nbsp;if&nbsp;the&nbsp;gradients&nbsp;with<br>
+respect&nbsp;to&nbsp;module&nbsp;outputs&nbsp;are&nbsp;computed.&nbsp;The&nbsp;hook&nbsp;should&nbsp;have&nbsp;the&nbsp;following<br>
+signature::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hook(module,&nbsp;grad_input,&nbsp;grad_output)&nbsp;-&gt;&nbsp;tuple(Tensor)&nbsp;or&nbsp;None<br>
+&nbsp;<br>
+The&nbsp;:attr:`grad_input`&nbsp;and&nbsp;:attr:`grad_output`&nbsp;are&nbsp;tuples&nbsp;that&nbsp;contain&nbsp;the&nbsp;gradients<br>
+with&nbsp;respect&nbsp;to&nbsp;the&nbsp;inputs&nbsp;and&nbsp;outputs&nbsp;respectively.&nbsp;The&nbsp;hook&nbsp;should<br>
+not&nbsp;modify&nbsp;its&nbsp;arguments,&nbsp;but&nbsp;it&nbsp;can&nbsp;optionally&nbsp;return&nbsp;a&nbsp;new&nbsp;gradient&nbsp;with<br>
+respect&nbsp;to&nbsp;the&nbsp;input&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;in&nbsp;place&nbsp;of&nbsp;:attr:`grad_input`&nbsp;in<br>
+subsequent&nbsp;computations.&nbsp;:attr:`grad_input`&nbsp;will&nbsp;only&nbsp;correspond&nbsp;to&nbsp;the&nbsp;inputs&nbsp;given<br>
+as&nbsp;positional&nbsp;arguments&nbsp;and&nbsp;all&nbsp;kwarg&nbsp;arguments&nbsp;are&nbsp;ignored.&nbsp;Entries<br>
+in&nbsp;:attr:`grad_input`&nbsp;and&nbsp;:attr:`grad_output`&nbsp;will&nbsp;be&nbsp;``None``&nbsp;for&nbsp;all&nbsp;non-Tensor<br>
+arguments.<br>
+&nbsp;<br>
+For&nbsp;technical&nbsp;reasons,&nbsp;when&nbsp;this&nbsp;hook&nbsp;is&nbsp;applied&nbsp;to&nbsp;a&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>,&nbsp;its&nbsp;forward&nbsp;function&nbsp;will<br>
+receive&nbsp;a&nbsp;view&nbsp;of&nbsp;each&nbsp;Tensor&nbsp;passed&nbsp;to&nbsp;the&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>.&nbsp;Similarly&nbsp;the&nbsp;caller&nbsp;will&nbsp;receive&nbsp;a&nbsp;view<br>
+of&nbsp;each&nbsp;Tensor&nbsp;returned&nbsp;by&nbsp;the&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>'s&nbsp;forward&nbsp;function.<br>
+&nbsp;<br>
+..&nbsp;warning&nbsp;::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Modifying&nbsp;inputs&nbsp;or&nbsp;outputs&nbsp;inplace&nbsp;is&nbsp;not&nbsp;allowed&nbsp;when&nbsp;using&nbsp;backward&nbsp;hooks&nbsp;and<br>
+&nbsp;&nbsp;&nbsp;&nbsp;will&nbsp;raise&nbsp;an&nbsp;error.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:class:`torch.utils.hooks.RemovableHandle`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;handle&nbsp;that&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;remove&nbsp;the&nbsp;added&nbsp;hook&nbsp;by&nbsp;calling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``handle.remove()``</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-register_load_state_dict_post_hook"><strong>register_load_state_dict_post_hook</strong></a>(self, hook)</dt><dd><tt>Registers&nbsp;a&nbsp;post&nbsp;hook&nbsp;to&nbsp;be&nbsp;run&nbsp;after&nbsp;module's&nbsp;``load_state_dict``<br>
+is&nbsp;called.<br>
+&nbsp;<br>
+It&nbsp;should&nbsp;have&nbsp;the&nbsp;following&nbsp;signature::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hook(module,&nbsp;incompatible_keys)&nbsp;-&gt;&nbsp;None<br>
+&nbsp;<br>
+The&nbsp;``module``&nbsp;argument&nbsp;is&nbsp;the&nbsp;current&nbsp;module&nbsp;that&nbsp;this&nbsp;hook&nbsp;is&nbsp;registered<br>
+on,&nbsp;and&nbsp;the&nbsp;``incompatible_keys``&nbsp;argument&nbsp;is&nbsp;a&nbsp;``NamedTuple``&nbsp;consisting<br>
+of&nbsp;attributes&nbsp;``missing_keys``&nbsp;and&nbsp;``unexpected_keys``.&nbsp;``missing_keys``<br>
+is&nbsp;a&nbsp;``list``&nbsp;of&nbsp;``str``&nbsp;containing&nbsp;the&nbsp;missing&nbsp;keys&nbsp;and<br>
+``unexpected_keys``&nbsp;is&nbsp;a&nbsp;``list``&nbsp;of&nbsp;``str``&nbsp;containing&nbsp;the&nbsp;unexpected&nbsp;keys.<br>
+&nbsp;<br>
+The&nbsp;given&nbsp;incompatible_keys&nbsp;can&nbsp;be&nbsp;modified&nbsp;inplace&nbsp;if&nbsp;needed.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;the&nbsp;checks&nbsp;performed&nbsp;when&nbsp;calling&nbsp;:func:`load_state_dict`&nbsp;with<br>
+``strict=True``&nbsp;are&nbsp;affected&nbsp;by&nbsp;modifications&nbsp;the&nbsp;hook&nbsp;makes&nbsp;to<br>
+``missing_keys``&nbsp;or&nbsp;``unexpected_keys``,&nbsp;as&nbsp;expected.&nbsp;Additions&nbsp;to&nbsp;either<br>
+set&nbsp;of&nbsp;keys&nbsp;will&nbsp;result&nbsp;in&nbsp;an&nbsp;error&nbsp;being&nbsp;thrown&nbsp;when&nbsp;``strict=True``,&nbsp;and<br>
+clearning&nbsp;out&nbsp;both&nbsp;missing&nbsp;and&nbsp;unexpected&nbsp;keys&nbsp;will&nbsp;avoid&nbsp;an&nbsp;error.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:class:`torch.utils.hooks.RemovableHandle`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;handle&nbsp;that&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;remove&nbsp;the&nbsp;added&nbsp;hook&nbsp;by&nbsp;calling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``handle.remove()``</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-register_module"><strong>register_module</strong></a>(self, name: str, module: Optional[ForwardRef('Module')]) -&gt; None</dt><dd><tt>Alias&nbsp;for&nbsp;:func:`add_module`.</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-register_parameter"><strong>register_parameter</strong></a>(self, name: str, param: Optional[torch.nn.parameter.Parameter]) -&gt; None</dt><dd><tt>Adds&nbsp;a&nbsp;parameter&nbsp;to&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+The&nbsp;parameter&nbsp;can&nbsp;be&nbsp;accessed&nbsp;as&nbsp;an&nbsp;attribute&nbsp;using&nbsp;given&nbsp;name.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;(str):&nbsp;name&nbsp;of&nbsp;the&nbsp;parameter.&nbsp;The&nbsp;parameter&nbsp;can&nbsp;be&nbsp;accessed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;this&nbsp;module&nbsp;using&nbsp;the&nbsp;given&nbsp;name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;param&nbsp;(Parameter&nbsp;or&nbsp;None):&nbsp;parameter&nbsp;to&nbsp;be&nbsp;added&nbsp;to&nbsp;the&nbsp;module.&nbsp;If<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``None``,&nbsp;then&nbsp;operations&nbsp;that&nbsp;run&nbsp;on&nbsp;parameters,&nbsp;such&nbsp;as&nbsp;:attr:`cuda`,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;ignored.&nbsp;If&nbsp;``None``,&nbsp;the&nbsp;parameter&nbsp;is&nbsp;**not**&nbsp;included&nbsp;in&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;module's&nbsp;:attr:`state_dict`.</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-requires_grad_"><strong>requires_grad_</strong></a>(self: ~T, requires_grad: bool = True) -&gt; ~T</dt><dd><tt>Change&nbsp;if&nbsp;autograd&nbsp;should&nbsp;record&nbsp;operations&nbsp;on&nbsp;parameters&nbsp;in&nbsp;this<br>
+module.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;sets&nbsp;the&nbsp;parameters'&nbsp;:attr:`requires_grad`&nbsp;attributes<br>
+in-place.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;is&nbsp;helpful&nbsp;for&nbsp;freezing&nbsp;part&nbsp;of&nbsp;the&nbsp;module&nbsp;for&nbsp;finetuning<br>
+or&nbsp;training&nbsp;parts&nbsp;of&nbsp;a&nbsp;model&nbsp;individually&nbsp;(e.g.,&nbsp;GAN&nbsp;training).<br>
+&nbsp;<br>
+See&nbsp;:ref:`locally-disable-grad-doc`&nbsp;for&nbsp;a&nbsp;comparison&nbsp;between<br>
+`.<a href="#Autoencoder-requires_grad_">requires_grad_</a>()`&nbsp;and&nbsp;several&nbsp;similar&nbsp;mechanisms&nbsp;that&nbsp;may&nbsp;be&nbsp;confused&nbsp;with&nbsp;it.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;requires_grad&nbsp;(bool):&nbsp;whether&nbsp;autograd&nbsp;should&nbsp;record&nbsp;operations&nbsp;on<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parameters&nbsp;in&nbsp;this&nbsp;module.&nbsp;Default:&nbsp;``True``.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-set_extra_state"><strong>set_extra_state</strong></a>(self, state: Any)</dt><dd><tt>This&nbsp;function&nbsp;is&nbsp;called&nbsp;from&nbsp;:func:`load_state_dict`&nbsp;to&nbsp;handle&nbsp;any&nbsp;extra&nbsp;state<br>
+found&nbsp;within&nbsp;the&nbsp;`state_dict`.&nbsp;Implement&nbsp;this&nbsp;function&nbsp;and&nbsp;a&nbsp;corresponding<br>
+:func:`get_extra_state`&nbsp;for&nbsp;your&nbsp;module&nbsp;if&nbsp;you&nbsp;need&nbsp;to&nbsp;store&nbsp;extra&nbsp;state&nbsp;within&nbsp;its<br>
+`state_dict`.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;state&nbsp;(dict):&nbsp;Extra&nbsp;state&nbsp;from&nbsp;the&nbsp;`state_dict`</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-share_memory"><strong>share_memory</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>See&nbsp;:meth:`torch.Tensor.share_memory_`</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-state_dict"><strong>state_dict</strong></a>(self, *args, destination=None, prefix='', keep_vars=False)</dt><dd><tt>Returns&nbsp;a&nbsp;dictionary&nbsp;containing&nbsp;references&nbsp;to&nbsp;the&nbsp;whole&nbsp;state&nbsp;of&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+Both&nbsp;parameters&nbsp;and&nbsp;persistent&nbsp;buffers&nbsp;(e.g.&nbsp;running&nbsp;averages)&nbsp;are<br>
+included.&nbsp;Keys&nbsp;are&nbsp;corresponding&nbsp;parameter&nbsp;and&nbsp;buffer&nbsp;names.<br>
+Parameters&nbsp;and&nbsp;buffers&nbsp;set&nbsp;to&nbsp;``None``&nbsp;are&nbsp;not&nbsp;included.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;returned&nbsp;<a href="builtins.html#object">object</a>&nbsp;is&nbsp;a&nbsp;shallow&nbsp;copy.&nbsp;It&nbsp;contains&nbsp;references<br>
+&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;the&nbsp;module's&nbsp;parameters&nbsp;and&nbsp;buffers.<br>
+&nbsp;<br>
+..&nbsp;warning::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Currently&nbsp;``<a href="#Autoencoder-state_dict">state_dict</a>()``&nbsp;also&nbsp;accepts&nbsp;positional&nbsp;arguments&nbsp;for<br>
+&nbsp;&nbsp;&nbsp;&nbsp;``destination``,&nbsp;``prefix``&nbsp;and&nbsp;``keep_vars``&nbsp;in&nbsp;order.&nbsp;However,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this&nbsp;is&nbsp;being&nbsp;deprecated&nbsp;and&nbsp;keyword&nbsp;arguments&nbsp;will&nbsp;be&nbsp;enforced&nbsp;in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;future&nbsp;releases.<br>
+&nbsp;<br>
+..&nbsp;warning::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Please&nbsp;avoid&nbsp;the&nbsp;use&nbsp;of&nbsp;argument&nbsp;``destination``&nbsp;as&nbsp;it&nbsp;is&nbsp;not<br>
+&nbsp;&nbsp;&nbsp;&nbsp;designed&nbsp;for&nbsp;end-users.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;destination&nbsp;(dict,&nbsp;optional):&nbsp;If&nbsp;provided,&nbsp;the&nbsp;state&nbsp;of&nbsp;module&nbsp;will<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;be&nbsp;updated&nbsp;into&nbsp;the&nbsp;dict&nbsp;and&nbsp;the&nbsp;same&nbsp;<a href="builtins.html#object">object</a>&nbsp;is&nbsp;returned.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise,&nbsp;an&nbsp;``OrderedDict``&nbsp;will&nbsp;be&nbsp;created&nbsp;and&nbsp;returned.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default:&nbsp;``None``.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;prefix&nbsp;(str,&nbsp;optional):&nbsp;a&nbsp;prefix&nbsp;added&nbsp;to&nbsp;parameter&nbsp;and&nbsp;buffer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;names&nbsp;to&nbsp;compose&nbsp;the&nbsp;keys&nbsp;in&nbsp;state_dict.&nbsp;Default:&nbsp;``''``.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;keep_vars&nbsp;(bool,&nbsp;optional):&nbsp;by&nbsp;default&nbsp;the&nbsp;:class:`~torch.Tensor`&nbsp;s<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returned&nbsp;in&nbsp;the&nbsp;state&nbsp;dict&nbsp;are&nbsp;detached&nbsp;from&nbsp;autograd.&nbsp;If&nbsp;it's<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set&nbsp;to&nbsp;``True``,&nbsp;detaching&nbsp;will&nbsp;not&nbsp;be&nbsp;performed.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default:&nbsp;``False``.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;dictionary&nbsp;containing&nbsp;a&nbsp;whole&nbsp;state&nbsp;of&nbsp;the&nbsp;module<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;module.<a href="#Autoencoder-state_dict">state_dict</a>().keys()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;['bias',&nbsp;'weight']</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-to"><strong>to</strong></a>(self, *args, **kwargs)</dt><dd><tt>Moves&nbsp;and/or&nbsp;casts&nbsp;the&nbsp;parameters&nbsp;and&nbsp;buffers.<br>
+&nbsp;<br>
+This&nbsp;can&nbsp;be&nbsp;called&nbsp;as<br>
+&nbsp;<br>
+..&nbsp;function::&nbsp;<a href="#Autoencoder-to">to</a>(device=None,&nbsp;dtype=None,&nbsp;non_blocking=False)<br>
+&nbsp;&nbsp;&nbsp;:noindex:<br>
+&nbsp;<br>
+..&nbsp;function::&nbsp;<a href="#Autoencoder-to">to</a>(dtype,&nbsp;non_blocking=False)<br>
+&nbsp;&nbsp;&nbsp;:noindex:<br>
+&nbsp;<br>
+..&nbsp;function::&nbsp;<a href="#Autoencoder-to">to</a>(tensor,&nbsp;non_blocking=False)<br>
+&nbsp;&nbsp;&nbsp;:noindex:<br>
+&nbsp;<br>
+..&nbsp;function::&nbsp;<a href="#Autoencoder-to">to</a>(memory_format=torch.channels_last)<br>
+&nbsp;&nbsp;&nbsp;:noindex:<br>
+&nbsp;<br>
+Its&nbsp;signature&nbsp;is&nbsp;similar&nbsp;to&nbsp;:meth:`torch.Tensor.to`,&nbsp;but&nbsp;only&nbsp;accepts<br>
+floating&nbsp;point&nbsp;or&nbsp;complex&nbsp;:attr:`dtype`\&nbsp;s.&nbsp;In&nbsp;addition,&nbsp;this&nbsp;method&nbsp;will<br>
+only&nbsp;cast&nbsp;the&nbsp;floating&nbsp;point&nbsp;or&nbsp;complex&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;:attr:`dtype`<br>
+(if&nbsp;given).&nbsp;The&nbsp;integral&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;will&nbsp;be&nbsp;moved<br>
+:attr:`device`,&nbsp;if&nbsp;that&nbsp;is&nbsp;given,&nbsp;but&nbsp;with&nbsp;dtypes&nbsp;unchanged.&nbsp;When<br>
+:attr:`non_blocking`&nbsp;is&nbsp;set,&nbsp;it&nbsp;tries&nbsp;to&nbsp;convert/move&nbsp;asynchronously<br>
+with&nbsp;respect&nbsp;to&nbsp;the&nbsp;host&nbsp;if&nbsp;possible,&nbsp;e.g.,&nbsp;moving&nbsp;CPU&nbsp;Tensors&nbsp;with<br>
+pinned&nbsp;memory&nbsp;to&nbsp;CUDA&nbsp;devices.<br>
+&nbsp;<br>
+See&nbsp;below&nbsp;for&nbsp;examples.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;(:class:`torch.device`):&nbsp;the&nbsp;desired&nbsp;device&nbsp;of&nbsp;the&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;buffers&nbsp;in&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dtype&nbsp;(:class:`torch.dtype`):&nbsp;the&nbsp;desired&nbsp;floating&nbsp;point&nbsp;or&nbsp;complex&nbsp;dtype&nbsp;of<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;in&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor&nbsp;(torch.Tensor):&nbsp;Tensor&nbsp;whose&nbsp;dtype&nbsp;and&nbsp;device&nbsp;are&nbsp;the&nbsp;desired<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dtype&nbsp;and&nbsp;device&nbsp;for&nbsp;all&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;in&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;memory_format&nbsp;(:class:`torch.memory_format`):&nbsp;the&nbsp;desired&nbsp;memory<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;format&nbsp;for&nbsp;4D&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;in&nbsp;this&nbsp;module&nbsp;(keyword<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;only&nbsp;argument)<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self<br>
+&nbsp;<br>
+Examples::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+IGNORE_WANT("non-deterministic")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear&nbsp;=&nbsp;nn.Linear(2,&nbsp;2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.weight<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[&nbsp;0.1913,&nbsp;-0.3420],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-0.5113,&nbsp;-0.2325]])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.<a href="#Autoencoder-to">to</a>(torch.double)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.weight<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[&nbsp;0.1913,&nbsp;-0.3420],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-0.5113,&nbsp;-0.2325]],&nbsp;dtype=torch.float64)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+REQUIRES(env:TORCH_DOCTEST_CUDA1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;gpu1&nbsp;=&nbsp;torch.device("cuda:1")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.<a href="#Autoencoder-to">to</a>(gpu1,&nbsp;dtype=torch.half,&nbsp;non_blocking=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.weight<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[&nbsp;0.1914,&nbsp;-0.3420],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-0.5112,&nbsp;-0.2324]],&nbsp;dtype=torch.float16,&nbsp;device='cuda:1')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;cpu&nbsp;=&nbsp;torch.device("cpu")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.<a href="#Autoencoder-to">to</a>(cpu)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.weight<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[&nbsp;0.1914,&nbsp;-0.3420],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-0.5112,&nbsp;-0.2324]],&nbsp;dtype=torch.float16)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear&nbsp;=&nbsp;nn.Linear(2,&nbsp;2,&nbsp;bias=None).<a href="#Autoencoder-to">to</a>(torch.cdouble)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.weight<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[&nbsp;0.3741+0.j,&nbsp;&nbsp;0.2382+0.j],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;0.5593+0.j,&nbsp;-0.4443+0.j]],&nbsp;dtype=torch.complex128)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear(torch.ones(3,&nbsp;2,&nbsp;dtype=torch.cdouble))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[0.6122+0.j,&nbsp;0.1150+0.j],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0.6122+0.j,&nbsp;0.1150+0.j],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0.6122+0.j,&nbsp;0.1150+0.j]],&nbsp;dtype=torch.complex128)</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-to_empty"><strong>to_empty</strong></a>(self: ~T, *, device: Union[str, torch.device]) -&gt; ~T</dt><dd><tt>Moves&nbsp;the&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;the&nbsp;specified&nbsp;device&nbsp;without&nbsp;copying&nbsp;storage.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;(:class:`torch.device`):&nbsp;The&nbsp;desired&nbsp;device&nbsp;of&nbsp;the&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;buffers&nbsp;in&nbsp;this&nbsp;module.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-train"><strong>train</strong></a>(self: ~T, mode: bool = True) -&gt; ~T</dt><dd><tt>Sets&nbsp;the&nbsp;module&nbsp;in&nbsp;training&nbsp;mode.<br>
+&nbsp;<br>
+This&nbsp;has&nbsp;any&nbsp;effect&nbsp;only&nbsp;on&nbsp;certain&nbsp;modules.&nbsp;See&nbsp;documentations&nbsp;of<br>
+particular&nbsp;modules&nbsp;for&nbsp;details&nbsp;of&nbsp;their&nbsp;behaviors&nbsp;in&nbsp;training/evaluation<br>
+mode,&nbsp;if&nbsp;they&nbsp;are&nbsp;affected,&nbsp;e.g.&nbsp;:class:`Dropout`,&nbsp;:class:`BatchNorm`,<br>
+etc.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mode&nbsp;(bool):&nbsp;whether&nbsp;to&nbsp;set&nbsp;training&nbsp;mode&nbsp;(``True``)&nbsp;or&nbsp;evaluation<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mode&nbsp;(``False``).&nbsp;Default:&nbsp;``True``.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-type"><strong>type</strong></a>(self: ~T, dst_type: Union[torch.dtype, str]) -&gt; ~T</dt><dd><tt>Casts&nbsp;all&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;:attr:`dst_type`.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dst_type&nbsp;(type&nbsp;or&nbsp;string):&nbsp;the&nbsp;desired&nbsp;type<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-xpu"><strong>xpu</strong></a>(self: ~T, device: Union[int, torch.device, NoneType] = None) -&gt; ~T</dt><dd><tt>Moves&nbsp;all&nbsp;model&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;the&nbsp;XPU.<br>
+&nbsp;<br>
+This&nbsp;also&nbsp;makes&nbsp;associated&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;different&nbsp;objects.&nbsp;So<br>
+it&nbsp;should&nbsp;be&nbsp;called&nbsp;before&nbsp;constructing&nbsp;optimizer&nbsp;if&nbsp;the&nbsp;module&nbsp;will<br>
+live&nbsp;on&nbsp;XPU&nbsp;while&nbsp;being&nbsp;optimized.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Arguments:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;(int,&nbsp;optional):&nbsp;if&nbsp;specified,&nbsp;all&nbsp;parameters&nbsp;will&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copied&nbsp;to&nbsp;that&nbsp;device<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Autoencoder-zero_grad"><strong>zero_grad</strong></a>(self, set_to_none: bool = False) -&gt; None</dt><dd><tt>Sets&nbsp;gradients&nbsp;of&nbsp;all&nbsp;model&nbsp;parameters&nbsp;to&nbsp;zero.&nbsp;See&nbsp;similar&nbsp;function<br>
+under&nbsp;:class:`torch.optim.Optimizer`&nbsp;for&nbsp;more&nbsp;context.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;set_to_none&nbsp;(bool):&nbsp;instead&nbsp;of&nbsp;setting&nbsp;to&nbsp;zero,&nbsp;set&nbsp;the&nbsp;grads&nbsp;to&nbsp;None.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See&nbsp;:meth:`torch.optim.Optimizer.zero_grad`&nbsp;for&nbsp;details.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="torch.nn.modules.module.html#Module">torch.nn.modules.module.Module</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="torch.nn.modules.module.html#Module">torch.nn.modules.module.Module</a>:<br>
+<dl><dt><strong>T_destination</strong> = ~T_destination</dl>
+
+<dl><dt><strong>dump_patches</strong> = False</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ConvolutionalAutoencoder">class <strong>ConvolutionalAutoencoder</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#ConvolutionalAutoencoder">ConvolutionalAutoencoder</a>(autoencoder)<br>
+&nbsp;<br>
+Convolutional&nbsp;<a href="#Autoencoder">Autoencoder</a>&nbsp;class.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="ConvolutionalAutoencoder-__init__"><strong>__init__</strong></a>(self, autoencoder)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="ConvolutionalAutoencoder-autoencode"><strong>autoencode</strong></a>(self, in_)</dt><dd><tt><a href="#Autoencoder">Autoencoder</a>.</tt></dd></dl>
+
+<dl><dt><a name="ConvolutionalAutoencoder-decode"><strong>decode</strong></a>(self, bottleneck)</dt><dd><tt><a href="#Decoder">Decoder</a>&nbsp;method,&nbsp;input&nbsp;bottleneck&nbsp;and&nbsp;output&nbsp;the&nbsp;reconstructed&nbsp;image.</tt></dd></dl>
+
+<dl><dt><a name="ConvolutionalAutoencoder-encode"><strong>encode</strong></a>(self, in_)</dt><dd><tt><a href="#Encoder">Encoder</a>&nbsp;method,&nbsp;take&nbsp;input&nbsp;image&nbsp;and&nbsp;output&nbsp;the&nbsp;bottleneck.</tt></dd></dl>
+
+<dl><dt><a name="ConvolutionalAutoencoder-train"><strong>train</strong></a>(self, training_args)</dt><dd><tt>Train&nbsp;method&nbsp;used&nbsp;to&nbsp;train&nbsp;the&nbsp;model.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Decoder">class <strong>Decoder</strong></a>(<a href="torch.nn.modules.module.html#Module">torch.nn.modules.module.Module</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Decoder">Decoder</a>(in_channels=1,&nbsp;out_channels=64,&nbsp;latent_dim=1000,&nbsp;act_fn=ReLU())<br>
+&nbsp;<br>
+<a href="#Decoder">Decoder</a>&nbsp;class.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="conv_autoencoder.html#Decoder">Decoder</a></dd>
+<dd><a href="torch.nn.modules.module.html#Module">torch.nn.modules.module.Module</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Decoder-__init__"><strong>__init__</strong></a>(self, in_channels=1, out_channels=64, latent_dim=1000, act_fn=ReLU())</dt><dd><tt>Initializes&nbsp;internal&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>&nbsp;state,&nbsp;shared&nbsp;by&nbsp;both&nbsp;nn.<a href="torch.nn.modules.module.html#Module">Module</a>&nbsp;and&nbsp;ScriptModule.</tt></dd></dl>
+
+<dl><dt><a name="Decoder-forward"><strong>forward</strong></a>(self, bottleneck)</dt><dd><tt>Forward&nbsp;function&nbsp;in&nbsp;the&nbsp;decoder.</tt></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__annotations__</strong> = {}</dl>
+
+<hr>
+Methods inherited from <a href="torch.nn.modules.module.html#Module">torch.nn.modules.module.Module</a>:<br>
+<dl><dt><a name="Decoder-__call__"><strong>__call__</strong></a> = <a href="#Decoder-_call_impl">_call_impl</a>(self, *input, **kwargs)</dt></dl>
+
+<dl><dt><a name="Decoder-__delattr__"><strong>__delattr__</strong></a>(self, name)</dt><dd><tt>Implement&nbsp;delattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl><dt><a name="Decoder-__dir__"><strong>__dir__</strong></a>(self)</dt><dd><tt>Default&nbsp;dir()&nbsp;implementation.</tt></dd></dl>
+
+<dl><dt><a name="Decoder-__getattr__"><strong>__getattr__</strong></a>(self, name: str) -&gt; Union[torch.Tensor, ForwardRef('Module')]</dt></dl>
+
+<dl><dt><a name="Decoder-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="Decoder-__setattr__"><strong>__setattr__</strong></a>(self, name: str, value: Union[torch.Tensor, ForwardRef('Module')]) -&gt; None</dt><dd><tt>Implement&nbsp;setattr(self,&nbsp;name,&nbsp;value).</tt></dd></dl>
+
+<dl><dt><a name="Decoder-__setstate__"><strong>__setstate__</strong></a>(self, state)</dt></dl>
+
+<dl><dt><a name="Decoder-add_module"><strong>add_module</strong></a>(self, name: str, module: Optional[ForwardRef('Module')]) -&gt; None</dt><dd><tt>Adds&nbsp;a&nbsp;child&nbsp;module&nbsp;to&nbsp;the&nbsp;current&nbsp;module.<br>
+&nbsp;<br>
+The&nbsp;module&nbsp;can&nbsp;be&nbsp;accessed&nbsp;as&nbsp;an&nbsp;attribute&nbsp;using&nbsp;the&nbsp;given&nbsp;name.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;(str):&nbsp;name&nbsp;of&nbsp;the&nbsp;child&nbsp;module.&nbsp;The&nbsp;child&nbsp;module&nbsp;can&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accessed&nbsp;from&nbsp;this&nbsp;module&nbsp;using&nbsp;the&nbsp;given&nbsp;name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;module&nbsp;(<a href="torch.nn.modules.module.html#Module">Module</a>):&nbsp;child&nbsp;module&nbsp;to&nbsp;be&nbsp;added&nbsp;to&nbsp;the&nbsp;module.</tt></dd></dl>
+
+<dl><dt><a name="Decoder-apply"><strong>apply</strong></a>(self: ~T, fn: Callable[[ForwardRef('Module')], NoneType]) -&gt; ~T</dt><dd><tt>Applies&nbsp;``fn``&nbsp;recursively&nbsp;to&nbsp;every&nbsp;submodule&nbsp;(as&nbsp;returned&nbsp;by&nbsp;``.<a href="#Decoder-children">children</a>()``)<br>
+as&nbsp;well&nbsp;as&nbsp;self.&nbsp;Typical&nbsp;use&nbsp;includes&nbsp;initializing&nbsp;the&nbsp;parameters&nbsp;of&nbsp;a&nbsp;model<br>
+(see&nbsp;also&nbsp;:ref:`nn-init-doc`).<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;fn&nbsp;(:class:`<a href="torch.nn.modules.module.html#Module">Module</a>`&nbsp;-&gt;&nbsp;None):&nbsp;function&nbsp;to&nbsp;be&nbsp;applied&nbsp;to&nbsp;each&nbsp;submodule<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;@torch.no_grad()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;def&nbsp;init_weights(m):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(m)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;<a href="#Decoder-type">type</a>(m)&nbsp;==&nbsp;nn.Linear:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m.weight.fill_(1.0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(m.weight)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;net&nbsp;=&nbsp;nn.Sequential(nn.Linear(2,&nbsp;2),&nbsp;nn.Linear(2,&nbsp;2))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;net.<a href="#Decoder-apply">apply</a>(init_weights)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[1.,&nbsp;1.],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.,&nbsp;1.]],&nbsp;requires_grad=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[1.,&nbsp;1.],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.,&nbsp;1.]],&nbsp;requires_grad=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Sequential(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0):&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1):&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</tt></dd></dl>
+
+<dl><dt><a name="Decoder-bfloat16"><strong>bfloat16</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>Casts&nbsp;all&nbsp;floating&nbsp;point&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;``bfloat16``&nbsp;datatype.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Decoder-buffers"><strong>buffers</strong></a>(self, recurse: bool = True) -&gt; Iterator[torch.Tensor]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;module&nbsp;buffers.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;recurse&nbsp;(bool):&nbsp;if&nbsp;True,&nbsp;then&nbsp;yields&nbsp;buffers&nbsp;of&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;all&nbsp;submodules.&nbsp;Otherwise,&nbsp;yields&nbsp;only&nbsp;buffers&nbsp;that<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;direct&nbsp;members&nbsp;of&nbsp;this&nbsp;module.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;torch.Tensor:&nbsp;module&nbsp;buffer<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;buf&nbsp;in&nbsp;model.<a href="#Decoder-buffers">buffers</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(<a href="#Decoder-type">type</a>(buf),&nbsp;buf.size())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;class&nbsp;'torch.Tensor'&gt;&nbsp;(20L,)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;class&nbsp;'torch.Tensor'&gt;&nbsp;(20L,&nbsp;1L,&nbsp;5L,&nbsp;5L)</tt></dd></dl>
+
+<dl><dt><a name="Decoder-children"><strong>children</strong></a>(self) -&gt; Iterator[ForwardRef('Module')]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;immediate&nbsp;children&nbsp;modules.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;a&nbsp;child&nbsp;module</tt></dd></dl>
+
+<dl><dt><a name="Decoder-cpu"><strong>cpu</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>Moves&nbsp;all&nbsp;model&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;the&nbsp;CPU.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Decoder-cuda"><strong>cuda</strong></a>(self: ~T, device: Union[int, torch.device, NoneType] = None) -&gt; ~T</dt><dd><tt>Moves&nbsp;all&nbsp;model&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;the&nbsp;GPU.<br>
+&nbsp;<br>
+This&nbsp;also&nbsp;makes&nbsp;associated&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;different&nbsp;objects.&nbsp;So<br>
+it&nbsp;should&nbsp;be&nbsp;called&nbsp;before&nbsp;constructing&nbsp;optimizer&nbsp;if&nbsp;the&nbsp;module&nbsp;will<br>
+live&nbsp;on&nbsp;GPU&nbsp;while&nbsp;being&nbsp;optimized.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;(int,&nbsp;optional):&nbsp;if&nbsp;specified,&nbsp;all&nbsp;parameters&nbsp;will&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copied&nbsp;to&nbsp;that&nbsp;device<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Decoder-double"><strong>double</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>Casts&nbsp;all&nbsp;floating&nbsp;point&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;``double``&nbsp;datatype.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Decoder-eval"><strong>eval</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>Sets&nbsp;the&nbsp;module&nbsp;in&nbsp;evaluation&nbsp;mode.<br>
+&nbsp;<br>
+This&nbsp;has&nbsp;any&nbsp;effect&nbsp;only&nbsp;on&nbsp;certain&nbsp;modules.&nbsp;See&nbsp;documentations&nbsp;of<br>
+particular&nbsp;modules&nbsp;for&nbsp;details&nbsp;of&nbsp;their&nbsp;behaviors&nbsp;in&nbsp;training/evaluation<br>
+mode,&nbsp;if&nbsp;they&nbsp;are&nbsp;affected,&nbsp;e.g.&nbsp;:class:`Dropout`,&nbsp;:class:`BatchNorm`,<br>
+etc.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;equivalent&nbsp;with&nbsp;:meth:`self.<a href="#Decoder-train">train</a>(False)&nbsp;&lt;torch.nn.<a href="torch.nn.modules.module.html#Module">Module</a>.train&gt;`.<br>
+&nbsp;<br>
+See&nbsp;:ref:`locally-disable-grad-doc`&nbsp;for&nbsp;a&nbsp;comparison&nbsp;between<br>
+`.<a href="#Decoder-eval">eval</a>()`&nbsp;and&nbsp;several&nbsp;similar&nbsp;mechanisms&nbsp;that&nbsp;may&nbsp;be&nbsp;confused&nbsp;with&nbsp;it.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Decoder-extra_repr"><strong>extra_repr</strong></a>(self) -&gt; str</dt><dd><tt>Set&nbsp;the&nbsp;extra&nbsp;representation&nbsp;of&nbsp;the&nbsp;module<br>
+&nbsp;<br>
+To&nbsp;print&nbsp;customized&nbsp;extra&nbsp;information,&nbsp;you&nbsp;should&nbsp;re-implement<br>
+this&nbsp;method&nbsp;in&nbsp;your&nbsp;own&nbsp;modules.&nbsp;Both&nbsp;single-line&nbsp;and&nbsp;multi-line<br>
+strings&nbsp;are&nbsp;acceptable.</tt></dd></dl>
+
+<dl><dt><a name="Decoder-float"><strong>float</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>Casts&nbsp;all&nbsp;floating&nbsp;point&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;``float``&nbsp;datatype.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Decoder-get_buffer"><strong>get_buffer</strong></a>(self, target: str) -&gt; 'Tensor'</dt><dd><tt>Returns&nbsp;the&nbsp;buffer&nbsp;given&nbsp;by&nbsp;``target``&nbsp;if&nbsp;it&nbsp;exists,<br>
+otherwise&nbsp;throws&nbsp;an&nbsp;error.<br>
+&nbsp;<br>
+See&nbsp;the&nbsp;docstring&nbsp;for&nbsp;``get_submodule``&nbsp;for&nbsp;a&nbsp;more&nbsp;detailed<br>
+explanation&nbsp;of&nbsp;this&nbsp;method's&nbsp;functionality&nbsp;as&nbsp;well&nbsp;as&nbsp;how&nbsp;to<br>
+correctly&nbsp;specify&nbsp;``target``.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;target:&nbsp;The&nbsp;fully-qualified&nbsp;string&nbsp;name&nbsp;of&nbsp;the&nbsp;buffer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;look&nbsp;for.&nbsp;(See&nbsp;``get_submodule``&nbsp;for&nbsp;how&nbsp;to&nbsp;specify&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fully-qualified&nbsp;string.)<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;torch.Tensor:&nbsp;The&nbsp;buffer&nbsp;referenced&nbsp;by&nbsp;``target``<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;AttributeError:&nbsp;If&nbsp;the&nbsp;target&nbsp;string&nbsp;references&nbsp;an&nbsp;invalid<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;or&nbsp;resolves&nbsp;to&nbsp;something&nbsp;that&nbsp;is&nbsp;not&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buffer</tt></dd></dl>
+
+<dl><dt><a name="Decoder-get_extra_state"><strong>get_extra_state</strong></a>(self) -&gt; Any</dt><dd><tt>Returns&nbsp;any&nbsp;extra&nbsp;state&nbsp;to&nbsp;include&nbsp;in&nbsp;the&nbsp;module's&nbsp;state_dict.<br>
+Implement&nbsp;this&nbsp;and&nbsp;a&nbsp;corresponding&nbsp;:func:`set_extra_state`&nbsp;for&nbsp;your&nbsp;module<br>
+if&nbsp;you&nbsp;need&nbsp;to&nbsp;store&nbsp;extra&nbsp;state.&nbsp;This&nbsp;function&nbsp;is&nbsp;called&nbsp;when&nbsp;building&nbsp;the<br>
+module's&nbsp;`<a href="#Decoder-state_dict">state_dict</a>()`.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;extra&nbsp;state&nbsp;should&nbsp;be&nbsp;pickleable&nbsp;to&nbsp;ensure&nbsp;working&nbsp;serialization<br>
+of&nbsp;the&nbsp;state_dict.&nbsp;We&nbsp;only&nbsp;provide&nbsp;provide&nbsp;backwards&nbsp;compatibility&nbsp;guarantees<br>
+for&nbsp;serializing&nbsp;Tensors;&nbsp;other&nbsp;objects&nbsp;may&nbsp;break&nbsp;backwards&nbsp;compatibility&nbsp;if<br>
+their&nbsp;serialized&nbsp;pickled&nbsp;form&nbsp;changes.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="builtins.html#object">object</a>:&nbsp;Any&nbsp;extra&nbsp;state&nbsp;to&nbsp;store&nbsp;in&nbsp;the&nbsp;module's&nbsp;state_dict</tt></dd></dl>
+
+<dl><dt><a name="Decoder-get_parameter"><strong>get_parameter</strong></a>(self, target: str) -&gt; 'Parameter'</dt><dd><tt>Returns&nbsp;the&nbsp;parameter&nbsp;given&nbsp;by&nbsp;``target``&nbsp;if&nbsp;it&nbsp;exists,<br>
+otherwise&nbsp;throws&nbsp;an&nbsp;error.<br>
+&nbsp;<br>
+See&nbsp;the&nbsp;docstring&nbsp;for&nbsp;``get_submodule``&nbsp;for&nbsp;a&nbsp;more&nbsp;detailed<br>
+explanation&nbsp;of&nbsp;this&nbsp;method's&nbsp;functionality&nbsp;as&nbsp;well&nbsp;as&nbsp;how&nbsp;to<br>
+correctly&nbsp;specify&nbsp;``target``.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;target:&nbsp;The&nbsp;fully-qualified&nbsp;string&nbsp;name&nbsp;of&nbsp;the&nbsp;Parameter<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;look&nbsp;for.&nbsp;(See&nbsp;``get_submodule``&nbsp;for&nbsp;how&nbsp;to&nbsp;specify&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fully-qualified&nbsp;string.)<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;torch.nn.Parameter:&nbsp;The&nbsp;Parameter&nbsp;referenced&nbsp;by&nbsp;``target``<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;AttributeError:&nbsp;If&nbsp;the&nbsp;target&nbsp;string&nbsp;references&nbsp;an&nbsp;invalid<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;or&nbsp;resolves&nbsp;to&nbsp;something&nbsp;that&nbsp;is&nbsp;not&nbsp;an<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``nn.Parameter``</tt></dd></dl>
+
+<dl><dt><a name="Decoder-get_submodule"><strong>get_submodule</strong></a>(self, target: str) -&gt; 'Module'</dt><dd><tt>Returns&nbsp;the&nbsp;submodule&nbsp;given&nbsp;by&nbsp;``target``&nbsp;if&nbsp;it&nbsp;exists,<br>
+otherwise&nbsp;throws&nbsp;an&nbsp;error.<br>
+&nbsp;<br>
+For&nbsp;example,&nbsp;let's&nbsp;say&nbsp;you&nbsp;have&nbsp;an&nbsp;``nn.<a href="torch.nn.modules.module.html#Module">Module</a>``&nbsp;``A``&nbsp;that<br>
+looks&nbsp;like&nbsp;this:<br>
+&nbsp;<br>
+..&nbsp;code-block::&nbsp;text<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;A(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(net_b):&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(net_c):&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(conv):&nbsp;Conv2d(16,&nbsp;33,&nbsp;kernel_size=(3,&nbsp;3),&nbsp;stride=(2,&nbsp;2))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(linear):&nbsp;Linear(in_features=100,&nbsp;out_features=200,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;<br>
+(The&nbsp;diagram&nbsp;shows&nbsp;an&nbsp;``nn.<a href="torch.nn.modules.module.html#Module">Module</a>``&nbsp;``A``.&nbsp;``A``&nbsp;has&nbsp;a&nbsp;nested<br>
+submodule&nbsp;``net_b``,&nbsp;which&nbsp;itself&nbsp;has&nbsp;two&nbsp;submodules&nbsp;``net_c``<br>
+and&nbsp;``linear``.&nbsp;``net_c``&nbsp;then&nbsp;has&nbsp;a&nbsp;submodule&nbsp;``conv``.)<br>
+&nbsp;<br>
+To&nbsp;check&nbsp;whether&nbsp;or&nbsp;not&nbsp;we&nbsp;have&nbsp;the&nbsp;``linear``&nbsp;submodule,&nbsp;we<br>
+would&nbsp;call&nbsp;``<a href="#Decoder-get_submodule">get_submodule</a>("net_b.linear")``.&nbsp;To&nbsp;check&nbsp;whether<br>
+we&nbsp;have&nbsp;the&nbsp;``conv``&nbsp;submodule,&nbsp;we&nbsp;would&nbsp;call<br>
+``<a href="#Decoder-get_submodule">get_submodule</a>("net_b.net_c.conv")``.<br>
+&nbsp;<br>
+The&nbsp;runtime&nbsp;of&nbsp;``get_submodule``&nbsp;is&nbsp;bounded&nbsp;by&nbsp;the&nbsp;degree<br>
+of&nbsp;module&nbsp;nesting&nbsp;in&nbsp;``target``.&nbsp;A&nbsp;query&nbsp;against<br>
+``named_modules``&nbsp;achieves&nbsp;the&nbsp;same&nbsp;result,&nbsp;but&nbsp;it&nbsp;is&nbsp;O(N)&nbsp;in<br>
+the&nbsp;number&nbsp;of&nbsp;transitive&nbsp;modules.&nbsp;So,&nbsp;for&nbsp;a&nbsp;simple&nbsp;check&nbsp;to&nbsp;see<br>
+if&nbsp;some&nbsp;submodule&nbsp;exists,&nbsp;``get_submodule``&nbsp;should&nbsp;always&nbsp;be<br>
+used.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;target:&nbsp;The&nbsp;fully-qualified&nbsp;string&nbsp;name&nbsp;of&nbsp;the&nbsp;submodule<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;look&nbsp;for.&nbsp;(See&nbsp;above&nbsp;example&nbsp;for&nbsp;how&nbsp;to&nbsp;specify&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fully-qualified&nbsp;string.)<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;torch.nn.<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;The&nbsp;submodule&nbsp;referenced&nbsp;by&nbsp;``target``<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;AttributeError:&nbsp;If&nbsp;the&nbsp;target&nbsp;string&nbsp;references&nbsp;an&nbsp;invalid<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;or&nbsp;resolves&nbsp;to&nbsp;something&nbsp;that&nbsp;is&nbsp;not&nbsp;an<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``nn.<a href="torch.nn.modules.module.html#Module">Module</a>``</tt></dd></dl>
+
+<dl><dt><a name="Decoder-half"><strong>half</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>Casts&nbsp;all&nbsp;floating&nbsp;point&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;``half``&nbsp;datatype.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Decoder-ipu"><strong>ipu</strong></a>(self: ~T, device: Union[int, torch.device, NoneType] = None) -&gt; ~T</dt><dd><tt>Moves&nbsp;all&nbsp;model&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;the&nbsp;IPU.<br>
+&nbsp;<br>
+This&nbsp;also&nbsp;makes&nbsp;associated&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;different&nbsp;objects.&nbsp;So<br>
+it&nbsp;should&nbsp;be&nbsp;called&nbsp;before&nbsp;constructing&nbsp;optimizer&nbsp;if&nbsp;the&nbsp;module&nbsp;will<br>
+live&nbsp;on&nbsp;IPU&nbsp;while&nbsp;being&nbsp;optimized.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Arguments:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;(int,&nbsp;optional):&nbsp;if&nbsp;specified,&nbsp;all&nbsp;parameters&nbsp;will&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copied&nbsp;to&nbsp;that&nbsp;device<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Decoder-load_state_dict"><strong>load_state_dict</strong></a>(self, state_dict: Mapping[str, Any], strict: bool = True)</dt><dd><tt>Copies&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;from&nbsp;:attr:`state_dict`&nbsp;into<br>
+this&nbsp;module&nbsp;and&nbsp;its&nbsp;descendants.&nbsp;If&nbsp;:attr:`strict`&nbsp;is&nbsp;``True``,&nbsp;then<br>
+the&nbsp;keys&nbsp;of&nbsp;:attr:`state_dict`&nbsp;must&nbsp;exactly&nbsp;match&nbsp;the&nbsp;keys&nbsp;returned<br>
+by&nbsp;this&nbsp;module's&nbsp;:meth:`~torch.nn.<a href="torch.nn.modules.module.html#Module">Module</a>.state_dict`&nbsp;function.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;state_dict&nbsp;(dict):&nbsp;a&nbsp;dict&nbsp;containing&nbsp;parameters&nbsp;and<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistent&nbsp;buffers.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;strict&nbsp;(bool,&nbsp;optional):&nbsp;whether&nbsp;to&nbsp;strictly&nbsp;enforce&nbsp;that&nbsp;the&nbsp;keys<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;:attr:`state_dict`&nbsp;match&nbsp;the&nbsp;keys&nbsp;returned&nbsp;by&nbsp;this&nbsp;module's<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:meth:`~torch.nn.<a href="torch.nn.modules.module.html#Module">Module</a>.state_dict`&nbsp;function.&nbsp;Default:&nbsp;``True``<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;``NamedTuple``&nbsp;with&nbsp;``missing_keys``&nbsp;and&nbsp;``unexpected_keys``&nbsp;fields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;**missing_keys**&nbsp;is&nbsp;a&nbsp;list&nbsp;of&nbsp;str&nbsp;containing&nbsp;the&nbsp;missing&nbsp;keys<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;**unexpected_keys**&nbsp;is&nbsp;a&nbsp;list&nbsp;of&nbsp;str&nbsp;containing&nbsp;the&nbsp;unexpected&nbsp;keys<br>
+&nbsp;<br>
+Note:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;a&nbsp;parameter&nbsp;or&nbsp;buffer&nbsp;is&nbsp;registered&nbsp;as&nbsp;``None``&nbsp;and&nbsp;its&nbsp;corresponding&nbsp;key<br>
+&nbsp;&nbsp;&nbsp;&nbsp;exists&nbsp;in&nbsp;:attr:`state_dict`,&nbsp;:meth:`load_state_dict`&nbsp;will&nbsp;raise&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;``RuntimeError``.</tt></dd></dl>
+
+<dl><dt><a name="Decoder-modules"><strong>modules</strong></a>(self) -&gt; Iterator[ForwardRef('Module')]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;all&nbsp;modules&nbsp;in&nbsp;the&nbsp;network.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;a&nbsp;module&nbsp;in&nbsp;the&nbsp;network<br>
+&nbsp;<br>
+Note:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Duplicate&nbsp;modules&nbsp;are&nbsp;returned&nbsp;only&nbsp;once.&nbsp;In&nbsp;the&nbsp;following<br>
+&nbsp;&nbsp;&nbsp;&nbsp;example,&nbsp;``l``&nbsp;will&nbsp;be&nbsp;returned&nbsp;only&nbsp;once.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;l&nbsp;=&nbsp;nn.Linear(2,&nbsp;2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;net&nbsp;=&nbsp;nn.Sequential(l,&nbsp;l)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;idx,&nbsp;m&nbsp;in&nbsp;enumerate(net.<a href="#Decoder-modules">modules</a>()):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(idx,&nbsp;'-&gt;',&nbsp;m)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;-&gt;&nbsp;Sequential(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0):&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1):&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;-&gt;&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)</tt></dd></dl>
+
+<dl><dt><a name="Decoder-named_buffers"><strong>named_buffers</strong></a>(self, prefix: str = '', recurse: bool = True) -&gt; Iterator[Tuple[str, torch.Tensor]]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;module&nbsp;buffers,&nbsp;yielding&nbsp;both&nbsp;the<br>
+name&nbsp;of&nbsp;the&nbsp;buffer&nbsp;as&nbsp;well&nbsp;as&nbsp;the&nbsp;buffer&nbsp;itself.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;prefix&nbsp;(str):&nbsp;prefix&nbsp;to&nbsp;prepend&nbsp;to&nbsp;all&nbsp;buffer&nbsp;names.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;recurse&nbsp;(bool):&nbsp;if&nbsp;True,&nbsp;then&nbsp;yields&nbsp;buffers&nbsp;of&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;all&nbsp;submodules.&nbsp;Otherwise,&nbsp;yields&nbsp;only&nbsp;buffers&nbsp;that<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;direct&nbsp;members&nbsp;of&nbsp;this&nbsp;module.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(str,&nbsp;torch.Tensor):&nbsp;Tuple&nbsp;containing&nbsp;the&nbsp;name&nbsp;and&nbsp;buffer<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;name,&nbsp;buf&nbsp;in&nbsp;self.<a href="#Decoder-named_buffers">named_buffers</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;name&nbsp;in&nbsp;['running_var']:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(buf.size())</tt></dd></dl>
+
+<dl><dt><a name="Decoder-named_children"><strong>named_children</strong></a>(self) -&gt; Iterator[Tuple[str, ForwardRef('Module')]]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;immediate&nbsp;children&nbsp;modules,&nbsp;yielding&nbsp;both<br>
+the&nbsp;name&nbsp;of&nbsp;the&nbsp;module&nbsp;as&nbsp;well&nbsp;as&nbsp;the&nbsp;module&nbsp;itself.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(str,&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>):&nbsp;Tuple&nbsp;containing&nbsp;a&nbsp;name&nbsp;and&nbsp;child&nbsp;module<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;name,&nbsp;module&nbsp;in&nbsp;model.<a href="#Decoder-named_children">named_children</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;name&nbsp;in&nbsp;['conv4',&nbsp;'conv5']:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(module)</tt></dd></dl>
+
+<dl><dt><a name="Decoder-named_modules"><strong>named_modules</strong></a>(self, memo: Optional[Set[ForwardRef('Module')]] = None, prefix: str = '', remove_duplicate: bool = True)</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;all&nbsp;modules&nbsp;in&nbsp;the&nbsp;network,&nbsp;yielding<br>
+both&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;module&nbsp;as&nbsp;well&nbsp;as&nbsp;the&nbsp;module&nbsp;itself.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;memo:&nbsp;a&nbsp;memo&nbsp;to&nbsp;store&nbsp;the&nbsp;set&nbsp;of&nbsp;modules&nbsp;already&nbsp;added&nbsp;to&nbsp;the&nbsp;result<br>
+&nbsp;&nbsp;&nbsp;&nbsp;prefix:&nbsp;a&nbsp;prefix&nbsp;that&nbsp;will&nbsp;be&nbsp;added&nbsp;to&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;remove_duplicate:&nbsp;whether&nbsp;to&nbsp;remove&nbsp;the&nbsp;duplicated&nbsp;module&nbsp;instances&nbsp;in&nbsp;the&nbsp;result<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;not<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(str,&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>):&nbsp;Tuple&nbsp;of&nbsp;name&nbsp;and&nbsp;module<br>
+&nbsp;<br>
+Note:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Duplicate&nbsp;modules&nbsp;are&nbsp;returned&nbsp;only&nbsp;once.&nbsp;In&nbsp;the&nbsp;following<br>
+&nbsp;&nbsp;&nbsp;&nbsp;example,&nbsp;``l``&nbsp;will&nbsp;be&nbsp;returned&nbsp;only&nbsp;once.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;l&nbsp;=&nbsp;nn.Linear(2,&nbsp;2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;net&nbsp;=&nbsp;nn.Sequential(l,&nbsp;l)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;idx,&nbsp;m&nbsp;in&nbsp;enumerate(net.<a href="#Decoder-named_modules">named_modules</a>()):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(idx,&nbsp;'-&gt;',&nbsp;m)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;-&gt;&nbsp;('',&nbsp;Sequential(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0):&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1):&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;-&gt;&nbsp;('0',&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True))</tt></dd></dl>
+
+<dl><dt><a name="Decoder-named_parameters"><strong>named_parameters</strong></a>(self, prefix: str = '', recurse: bool = True) -&gt; Iterator[Tuple[str, torch.nn.parameter.Parameter]]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;module&nbsp;parameters,&nbsp;yielding&nbsp;both&nbsp;the<br>
+name&nbsp;of&nbsp;the&nbsp;parameter&nbsp;as&nbsp;well&nbsp;as&nbsp;the&nbsp;parameter&nbsp;itself.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;prefix&nbsp;(str):&nbsp;prefix&nbsp;to&nbsp;prepend&nbsp;to&nbsp;all&nbsp;parameter&nbsp;names.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;recurse&nbsp;(bool):&nbsp;if&nbsp;True,&nbsp;then&nbsp;yields&nbsp;parameters&nbsp;of&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;all&nbsp;submodules.&nbsp;Otherwise,&nbsp;yields&nbsp;only&nbsp;parameters&nbsp;that<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;direct&nbsp;members&nbsp;of&nbsp;this&nbsp;module.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(str,&nbsp;Parameter):&nbsp;Tuple&nbsp;containing&nbsp;the&nbsp;name&nbsp;and&nbsp;parameter<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;name,&nbsp;param&nbsp;in&nbsp;self.<a href="#Decoder-named_parameters">named_parameters</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;name&nbsp;in&nbsp;['bias']:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(param.size())</tt></dd></dl>
+
+<dl><dt><a name="Decoder-parameters"><strong>parameters</strong></a>(self, recurse: bool = True) -&gt; Iterator[torch.nn.parameter.Parameter]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;module&nbsp;parameters.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;typically&nbsp;passed&nbsp;to&nbsp;an&nbsp;optimizer.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;recurse&nbsp;(bool):&nbsp;if&nbsp;True,&nbsp;then&nbsp;yields&nbsp;parameters&nbsp;of&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;all&nbsp;submodules.&nbsp;Otherwise,&nbsp;yields&nbsp;only&nbsp;parameters&nbsp;that<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;direct&nbsp;members&nbsp;of&nbsp;this&nbsp;module.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter:&nbsp;module&nbsp;parameter<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;param&nbsp;in&nbsp;model.<a href="#Decoder-parameters">parameters</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(<a href="#Decoder-type">type</a>(param),&nbsp;param.size())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;class&nbsp;'torch.Tensor'&gt;&nbsp;(20L,)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;class&nbsp;'torch.Tensor'&gt;&nbsp;(20L,&nbsp;1L,&nbsp;5L,&nbsp;5L)</tt></dd></dl>
+
+<dl><dt><a name="Decoder-register_backward_hook"><strong>register_backward_hook</strong></a>(self, hook: Callable[[ForwardRef('Module'), Union[Tuple[torch.Tensor, ...], torch.Tensor], Union[Tuple[torch.Tensor, ...], torch.Tensor]], Optional[torch.Tensor]]) -&gt; torch.utils.hooks.RemovableHandle</dt><dd><tt>Registers&nbsp;a&nbsp;backward&nbsp;hook&nbsp;on&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;is&nbsp;deprecated&nbsp;in&nbsp;favor&nbsp;of&nbsp;:meth:`~torch.nn.<a href="torch.nn.modules.module.html#Module">Module</a>.register_full_backward_hook`&nbsp;and<br>
+the&nbsp;behavior&nbsp;of&nbsp;this&nbsp;function&nbsp;will&nbsp;change&nbsp;in&nbsp;future&nbsp;versions.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:class:`torch.utils.hooks.RemovableHandle`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;handle&nbsp;that&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;remove&nbsp;the&nbsp;added&nbsp;hook&nbsp;by&nbsp;calling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``handle.remove()``</tt></dd></dl>
+
+<dl><dt><a name="Decoder-register_buffer"><strong>register_buffer</strong></a>(self, name: str, tensor: Optional[torch.Tensor], persistent: bool = True) -&gt; None</dt><dd><tt>Adds&nbsp;a&nbsp;buffer&nbsp;to&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;typically&nbsp;used&nbsp;to&nbsp;register&nbsp;a&nbsp;buffer&nbsp;that&nbsp;should&nbsp;not&nbsp;to&nbsp;be<br>
+considered&nbsp;a&nbsp;model&nbsp;parameter.&nbsp;For&nbsp;example,&nbsp;BatchNorm's&nbsp;``running_mean``<br>
+is&nbsp;not&nbsp;a&nbsp;parameter,&nbsp;but&nbsp;is&nbsp;part&nbsp;of&nbsp;the&nbsp;module's&nbsp;state.&nbsp;Buffers,&nbsp;by<br>
+default,&nbsp;are&nbsp;persistent&nbsp;and&nbsp;will&nbsp;be&nbsp;saved&nbsp;alongside&nbsp;parameters.&nbsp;This<br>
+behavior&nbsp;can&nbsp;be&nbsp;changed&nbsp;by&nbsp;setting&nbsp;:attr:`persistent`&nbsp;to&nbsp;``False``.&nbsp;The<br>
+only&nbsp;difference&nbsp;between&nbsp;a&nbsp;persistent&nbsp;buffer&nbsp;and&nbsp;a&nbsp;non-persistent&nbsp;buffer<br>
+is&nbsp;that&nbsp;the&nbsp;latter&nbsp;will&nbsp;not&nbsp;be&nbsp;a&nbsp;part&nbsp;of&nbsp;this&nbsp;module's<br>
+:attr:`state_dict`.<br>
+&nbsp;<br>
+Buffers&nbsp;can&nbsp;be&nbsp;accessed&nbsp;as&nbsp;attributes&nbsp;using&nbsp;given&nbsp;names.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;(str):&nbsp;name&nbsp;of&nbsp;the&nbsp;buffer.&nbsp;The&nbsp;buffer&nbsp;can&nbsp;be&nbsp;accessed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;this&nbsp;module&nbsp;using&nbsp;the&nbsp;given&nbsp;name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor&nbsp;(Tensor&nbsp;or&nbsp;None):&nbsp;buffer&nbsp;to&nbsp;be&nbsp;registered.&nbsp;If&nbsp;``None``,&nbsp;then&nbsp;operations<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;that&nbsp;run&nbsp;on&nbsp;buffers,&nbsp;such&nbsp;as&nbsp;:attr:`cuda`,&nbsp;are&nbsp;ignored.&nbsp;If&nbsp;``None``,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;buffer&nbsp;is&nbsp;**not**&nbsp;included&nbsp;in&nbsp;the&nbsp;module's&nbsp;:attr:`state_dict`.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;persistent&nbsp;(bool):&nbsp;whether&nbsp;the&nbsp;buffer&nbsp;is&nbsp;part&nbsp;of&nbsp;this&nbsp;module's<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:attr:`state_dict`.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;self.<a href="#Decoder-register_buffer">register_buffer</a>('running_mean',&nbsp;torch.zeros(num_features))</tt></dd></dl>
+
+<dl><dt><a name="Decoder-register_forward_hook"><strong>register_forward_hook</strong></a>(self, hook: Callable[..., NoneType]) -&gt; torch.utils.hooks.RemovableHandle</dt><dd><tt>Registers&nbsp;a&nbsp;forward&nbsp;hook&nbsp;on&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+The&nbsp;hook&nbsp;will&nbsp;be&nbsp;called&nbsp;every&nbsp;time&nbsp;after&nbsp;:func:`forward`&nbsp;has&nbsp;computed&nbsp;an&nbsp;output.<br>
+It&nbsp;should&nbsp;have&nbsp;the&nbsp;following&nbsp;signature::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hook(module,&nbsp;input,&nbsp;output)&nbsp;-&gt;&nbsp;None&nbsp;or&nbsp;modified&nbsp;output<br>
+&nbsp;<br>
+The&nbsp;input&nbsp;contains&nbsp;only&nbsp;the&nbsp;positional&nbsp;arguments&nbsp;given&nbsp;to&nbsp;the&nbsp;module.<br>
+Keyword&nbsp;arguments&nbsp;won't&nbsp;be&nbsp;passed&nbsp;to&nbsp;the&nbsp;hooks&nbsp;and&nbsp;only&nbsp;to&nbsp;the&nbsp;``forward``.<br>
+The&nbsp;hook&nbsp;can&nbsp;modify&nbsp;the&nbsp;output.&nbsp;It&nbsp;can&nbsp;modify&nbsp;the&nbsp;input&nbsp;inplace&nbsp;but<br>
+it&nbsp;will&nbsp;not&nbsp;have&nbsp;effect&nbsp;on&nbsp;forward&nbsp;since&nbsp;this&nbsp;is&nbsp;called&nbsp;after<br>
+:func:`forward`&nbsp;is&nbsp;called.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:class:`torch.utils.hooks.RemovableHandle`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;handle&nbsp;that&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;remove&nbsp;the&nbsp;added&nbsp;hook&nbsp;by&nbsp;calling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``handle.remove()``</tt></dd></dl>
+
+<dl><dt><a name="Decoder-register_forward_pre_hook"><strong>register_forward_pre_hook</strong></a>(self, hook: Callable[..., NoneType]) -&gt; torch.utils.hooks.RemovableHandle</dt><dd><tt>Registers&nbsp;a&nbsp;forward&nbsp;pre-hook&nbsp;on&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+The&nbsp;hook&nbsp;will&nbsp;be&nbsp;called&nbsp;every&nbsp;time&nbsp;before&nbsp;:func:`forward`&nbsp;is&nbsp;invoked.<br>
+It&nbsp;should&nbsp;have&nbsp;the&nbsp;following&nbsp;signature::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hook(module,&nbsp;input)&nbsp;-&gt;&nbsp;None&nbsp;or&nbsp;modified&nbsp;input<br>
+&nbsp;<br>
+The&nbsp;input&nbsp;contains&nbsp;only&nbsp;the&nbsp;positional&nbsp;arguments&nbsp;given&nbsp;to&nbsp;the&nbsp;module.<br>
+Keyword&nbsp;arguments&nbsp;won't&nbsp;be&nbsp;passed&nbsp;to&nbsp;the&nbsp;hooks&nbsp;and&nbsp;only&nbsp;to&nbsp;the&nbsp;``forward``.<br>
+The&nbsp;hook&nbsp;can&nbsp;modify&nbsp;the&nbsp;input.&nbsp;User&nbsp;can&nbsp;either&nbsp;return&nbsp;a&nbsp;tuple&nbsp;or&nbsp;a<br>
+single&nbsp;modified&nbsp;value&nbsp;in&nbsp;the&nbsp;hook.&nbsp;We&nbsp;will&nbsp;wrap&nbsp;the&nbsp;value&nbsp;into&nbsp;a&nbsp;tuple<br>
+if&nbsp;a&nbsp;single&nbsp;value&nbsp;is&nbsp;returned(unless&nbsp;that&nbsp;value&nbsp;is&nbsp;already&nbsp;a&nbsp;tuple).<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:class:`torch.utils.hooks.RemovableHandle`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;handle&nbsp;that&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;remove&nbsp;the&nbsp;added&nbsp;hook&nbsp;by&nbsp;calling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``handle.remove()``</tt></dd></dl>
+
+<dl><dt><a name="Decoder-register_full_backward_hook"><strong>register_full_backward_hook</strong></a>(self, hook: Callable[[ForwardRef('Module'), Union[Tuple[torch.Tensor, ...], torch.Tensor], Union[Tuple[torch.Tensor, ...], torch.Tensor]], Optional[torch.Tensor]]) -&gt; torch.utils.hooks.RemovableHandle</dt><dd><tt>Registers&nbsp;a&nbsp;backward&nbsp;hook&nbsp;on&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+The&nbsp;hook&nbsp;will&nbsp;be&nbsp;called&nbsp;every&nbsp;time&nbsp;the&nbsp;gradients&nbsp;with&nbsp;respect&nbsp;to&nbsp;a&nbsp;module<br>
+are&nbsp;computed,&nbsp;i.e.&nbsp;the&nbsp;hook&nbsp;will&nbsp;execute&nbsp;if&nbsp;and&nbsp;only&nbsp;if&nbsp;the&nbsp;gradients&nbsp;with<br>
+respect&nbsp;to&nbsp;module&nbsp;outputs&nbsp;are&nbsp;computed.&nbsp;The&nbsp;hook&nbsp;should&nbsp;have&nbsp;the&nbsp;following<br>
+signature::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hook(module,&nbsp;grad_input,&nbsp;grad_output)&nbsp;-&gt;&nbsp;tuple(Tensor)&nbsp;or&nbsp;None<br>
+&nbsp;<br>
+The&nbsp;:attr:`grad_input`&nbsp;and&nbsp;:attr:`grad_output`&nbsp;are&nbsp;tuples&nbsp;that&nbsp;contain&nbsp;the&nbsp;gradients<br>
+with&nbsp;respect&nbsp;to&nbsp;the&nbsp;inputs&nbsp;and&nbsp;outputs&nbsp;respectively.&nbsp;The&nbsp;hook&nbsp;should<br>
+not&nbsp;modify&nbsp;its&nbsp;arguments,&nbsp;but&nbsp;it&nbsp;can&nbsp;optionally&nbsp;return&nbsp;a&nbsp;new&nbsp;gradient&nbsp;with<br>
+respect&nbsp;to&nbsp;the&nbsp;input&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;in&nbsp;place&nbsp;of&nbsp;:attr:`grad_input`&nbsp;in<br>
+subsequent&nbsp;computations.&nbsp;:attr:`grad_input`&nbsp;will&nbsp;only&nbsp;correspond&nbsp;to&nbsp;the&nbsp;inputs&nbsp;given<br>
+as&nbsp;positional&nbsp;arguments&nbsp;and&nbsp;all&nbsp;kwarg&nbsp;arguments&nbsp;are&nbsp;ignored.&nbsp;Entries<br>
+in&nbsp;:attr:`grad_input`&nbsp;and&nbsp;:attr:`grad_output`&nbsp;will&nbsp;be&nbsp;``None``&nbsp;for&nbsp;all&nbsp;non-Tensor<br>
+arguments.<br>
+&nbsp;<br>
+For&nbsp;technical&nbsp;reasons,&nbsp;when&nbsp;this&nbsp;hook&nbsp;is&nbsp;applied&nbsp;to&nbsp;a&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>,&nbsp;its&nbsp;forward&nbsp;function&nbsp;will<br>
+receive&nbsp;a&nbsp;view&nbsp;of&nbsp;each&nbsp;Tensor&nbsp;passed&nbsp;to&nbsp;the&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>.&nbsp;Similarly&nbsp;the&nbsp;caller&nbsp;will&nbsp;receive&nbsp;a&nbsp;view<br>
+of&nbsp;each&nbsp;Tensor&nbsp;returned&nbsp;by&nbsp;the&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>'s&nbsp;forward&nbsp;function.<br>
+&nbsp;<br>
+..&nbsp;warning&nbsp;::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Modifying&nbsp;inputs&nbsp;or&nbsp;outputs&nbsp;inplace&nbsp;is&nbsp;not&nbsp;allowed&nbsp;when&nbsp;using&nbsp;backward&nbsp;hooks&nbsp;and<br>
+&nbsp;&nbsp;&nbsp;&nbsp;will&nbsp;raise&nbsp;an&nbsp;error.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:class:`torch.utils.hooks.RemovableHandle`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;handle&nbsp;that&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;remove&nbsp;the&nbsp;added&nbsp;hook&nbsp;by&nbsp;calling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``handle.remove()``</tt></dd></dl>
+
+<dl><dt><a name="Decoder-register_load_state_dict_post_hook"><strong>register_load_state_dict_post_hook</strong></a>(self, hook)</dt><dd><tt>Registers&nbsp;a&nbsp;post&nbsp;hook&nbsp;to&nbsp;be&nbsp;run&nbsp;after&nbsp;module's&nbsp;``load_state_dict``<br>
+is&nbsp;called.<br>
+&nbsp;<br>
+It&nbsp;should&nbsp;have&nbsp;the&nbsp;following&nbsp;signature::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hook(module,&nbsp;incompatible_keys)&nbsp;-&gt;&nbsp;None<br>
+&nbsp;<br>
+The&nbsp;``module``&nbsp;argument&nbsp;is&nbsp;the&nbsp;current&nbsp;module&nbsp;that&nbsp;this&nbsp;hook&nbsp;is&nbsp;registered<br>
+on,&nbsp;and&nbsp;the&nbsp;``incompatible_keys``&nbsp;argument&nbsp;is&nbsp;a&nbsp;``NamedTuple``&nbsp;consisting<br>
+of&nbsp;attributes&nbsp;``missing_keys``&nbsp;and&nbsp;``unexpected_keys``.&nbsp;``missing_keys``<br>
+is&nbsp;a&nbsp;``list``&nbsp;of&nbsp;``str``&nbsp;containing&nbsp;the&nbsp;missing&nbsp;keys&nbsp;and<br>
+``unexpected_keys``&nbsp;is&nbsp;a&nbsp;``list``&nbsp;of&nbsp;``str``&nbsp;containing&nbsp;the&nbsp;unexpected&nbsp;keys.<br>
+&nbsp;<br>
+The&nbsp;given&nbsp;incompatible_keys&nbsp;can&nbsp;be&nbsp;modified&nbsp;inplace&nbsp;if&nbsp;needed.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;the&nbsp;checks&nbsp;performed&nbsp;when&nbsp;calling&nbsp;:func:`load_state_dict`&nbsp;with<br>
+``strict=True``&nbsp;are&nbsp;affected&nbsp;by&nbsp;modifications&nbsp;the&nbsp;hook&nbsp;makes&nbsp;to<br>
+``missing_keys``&nbsp;or&nbsp;``unexpected_keys``,&nbsp;as&nbsp;expected.&nbsp;Additions&nbsp;to&nbsp;either<br>
+set&nbsp;of&nbsp;keys&nbsp;will&nbsp;result&nbsp;in&nbsp;an&nbsp;error&nbsp;being&nbsp;thrown&nbsp;when&nbsp;``strict=True``,&nbsp;and<br>
+clearning&nbsp;out&nbsp;both&nbsp;missing&nbsp;and&nbsp;unexpected&nbsp;keys&nbsp;will&nbsp;avoid&nbsp;an&nbsp;error.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:class:`torch.utils.hooks.RemovableHandle`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;handle&nbsp;that&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;remove&nbsp;the&nbsp;added&nbsp;hook&nbsp;by&nbsp;calling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``handle.remove()``</tt></dd></dl>
+
+<dl><dt><a name="Decoder-register_module"><strong>register_module</strong></a>(self, name: str, module: Optional[ForwardRef('Module')]) -&gt; None</dt><dd><tt>Alias&nbsp;for&nbsp;:func:`add_module`.</tt></dd></dl>
+
+<dl><dt><a name="Decoder-register_parameter"><strong>register_parameter</strong></a>(self, name: str, param: Optional[torch.nn.parameter.Parameter]) -&gt; None</dt><dd><tt>Adds&nbsp;a&nbsp;parameter&nbsp;to&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+The&nbsp;parameter&nbsp;can&nbsp;be&nbsp;accessed&nbsp;as&nbsp;an&nbsp;attribute&nbsp;using&nbsp;given&nbsp;name.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;(str):&nbsp;name&nbsp;of&nbsp;the&nbsp;parameter.&nbsp;The&nbsp;parameter&nbsp;can&nbsp;be&nbsp;accessed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;this&nbsp;module&nbsp;using&nbsp;the&nbsp;given&nbsp;name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;param&nbsp;(Parameter&nbsp;or&nbsp;None):&nbsp;parameter&nbsp;to&nbsp;be&nbsp;added&nbsp;to&nbsp;the&nbsp;module.&nbsp;If<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``None``,&nbsp;then&nbsp;operations&nbsp;that&nbsp;run&nbsp;on&nbsp;parameters,&nbsp;such&nbsp;as&nbsp;:attr:`cuda`,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;ignored.&nbsp;If&nbsp;``None``,&nbsp;the&nbsp;parameter&nbsp;is&nbsp;**not**&nbsp;included&nbsp;in&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;module's&nbsp;:attr:`state_dict`.</tt></dd></dl>
+
+<dl><dt><a name="Decoder-requires_grad_"><strong>requires_grad_</strong></a>(self: ~T, requires_grad: bool = True) -&gt; ~T</dt><dd><tt>Change&nbsp;if&nbsp;autograd&nbsp;should&nbsp;record&nbsp;operations&nbsp;on&nbsp;parameters&nbsp;in&nbsp;this<br>
+module.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;sets&nbsp;the&nbsp;parameters'&nbsp;:attr:`requires_grad`&nbsp;attributes<br>
+in-place.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;is&nbsp;helpful&nbsp;for&nbsp;freezing&nbsp;part&nbsp;of&nbsp;the&nbsp;module&nbsp;for&nbsp;finetuning<br>
+or&nbsp;training&nbsp;parts&nbsp;of&nbsp;a&nbsp;model&nbsp;individually&nbsp;(e.g.,&nbsp;GAN&nbsp;training).<br>
+&nbsp;<br>
+See&nbsp;:ref:`locally-disable-grad-doc`&nbsp;for&nbsp;a&nbsp;comparison&nbsp;between<br>
+`.<a href="#Decoder-requires_grad_">requires_grad_</a>()`&nbsp;and&nbsp;several&nbsp;similar&nbsp;mechanisms&nbsp;that&nbsp;may&nbsp;be&nbsp;confused&nbsp;with&nbsp;it.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;requires_grad&nbsp;(bool):&nbsp;whether&nbsp;autograd&nbsp;should&nbsp;record&nbsp;operations&nbsp;on<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parameters&nbsp;in&nbsp;this&nbsp;module.&nbsp;Default:&nbsp;``True``.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Decoder-set_extra_state"><strong>set_extra_state</strong></a>(self, state: Any)</dt><dd><tt>This&nbsp;function&nbsp;is&nbsp;called&nbsp;from&nbsp;:func:`load_state_dict`&nbsp;to&nbsp;handle&nbsp;any&nbsp;extra&nbsp;state<br>
+found&nbsp;within&nbsp;the&nbsp;`state_dict`.&nbsp;Implement&nbsp;this&nbsp;function&nbsp;and&nbsp;a&nbsp;corresponding<br>
+:func:`get_extra_state`&nbsp;for&nbsp;your&nbsp;module&nbsp;if&nbsp;you&nbsp;need&nbsp;to&nbsp;store&nbsp;extra&nbsp;state&nbsp;within&nbsp;its<br>
+`state_dict`.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;state&nbsp;(dict):&nbsp;Extra&nbsp;state&nbsp;from&nbsp;the&nbsp;`state_dict`</tt></dd></dl>
+
+<dl><dt><a name="Decoder-share_memory"><strong>share_memory</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>See&nbsp;:meth:`torch.Tensor.share_memory_`</tt></dd></dl>
+
+<dl><dt><a name="Decoder-state_dict"><strong>state_dict</strong></a>(self, *args, destination=None, prefix='', keep_vars=False)</dt><dd><tt>Returns&nbsp;a&nbsp;dictionary&nbsp;containing&nbsp;references&nbsp;to&nbsp;the&nbsp;whole&nbsp;state&nbsp;of&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+Both&nbsp;parameters&nbsp;and&nbsp;persistent&nbsp;buffers&nbsp;(e.g.&nbsp;running&nbsp;averages)&nbsp;are<br>
+included.&nbsp;Keys&nbsp;are&nbsp;corresponding&nbsp;parameter&nbsp;and&nbsp;buffer&nbsp;names.<br>
+Parameters&nbsp;and&nbsp;buffers&nbsp;set&nbsp;to&nbsp;``None``&nbsp;are&nbsp;not&nbsp;included.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;returned&nbsp;<a href="builtins.html#object">object</a>&nbsp;is&nbsp;a&nbsp;shallow&nbsp;copy.&nbsp;It&nbsp;contains&nbsp;references<br>
+&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;the&nbsp;module's&nbsp;parameters&nbsp;and&nbsp;buffers.<br>
+&nbsp;<br>
+..&nbsp;warning::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Currently&nbsp;``<a href="#Decoder-state_dict">state_dict</a>()``&nbsp;also&nbsp;accepts&nbsp;positional&nbsp;arguments&nbsp;for<br>
+&nbsp;&nbsp;&nbsp;&nbsp;``destination``,&nbsp;``prefix``&nbsp;and&nbsp;``keep_vars``&nbsp;in&nbsp;order.&nbsp;However,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this&nbsp;is&nbsp;being&nbsp;deprecated&nbsp;and&nbsp;keyword&nbsp;arguments&nbsp;will&nbsp;be&nbsp;enforced&nbsp;in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;future&nbsp;releases.<br>
+&nbsp;<br>
+..&nbsp;warning::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Please&nbsp;avoid&nbsp;the&nbsp;use&nbsp;of&nbsp;argument&nbsp;``destination``&nbsp;as&nbsp;it&nbsp;is&nbsp;not<br>
+&nbsp;&nbsp;&nbsp;&nbsp;designed&nbsp;for&nbsp;end-users.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;destination&nbsp;(dict,&nbsp;optional):&nbsp;If&nbsp;provided,&nbsp;the&nbsp;state&nbsp;of&nbsp;module&nbsp;will<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;be&nbsp;updated&nbsp;into&nbsp;the&nbsp;dict&nbsp;and&nbsp;the&nbsp;same&nbsp;<a href="builtins.html#object">object</a>&nbsp;is&nbsp;returned.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise,&nbsp;an&nbsp;``OrderedDict``&nbsp;will&nbsp;be&nbsp;created&nbsp;and&nbsp;returned.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default:&nbsp;``None``.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;prefix&nbsp;(str,&nbsp;optional):&nbsp;a&nbsp;prefix&nbsp;added&nbsp;to&nbsp;parameter&nbsp;and&nbsp;buffer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;names&nbsp;to&nbsp;compose&nbsp;the&nbsp;keys&nbsp;in&nbsp;state_dict.&nbsp;Default:&nbsp;``''``.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;keep_vars&nbsp;(bool,&nbsp;optional):&nbsp;by&nbsp;default&nbsp;the&nbsp;:class:`~torch.Tensor`&nbsp;s<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returned&nbsp;in&nbsp;the&nbsp;state&nbsp;dict&nbsp;are&nbsp;detached&nbsp;from&nbsp;autograd.&nbsp;If&nbsp;it's<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set&nbsp;to&nbsp;``True``,&nbsp;detaching&nbsp;will&nbsp;not&nbsp;be&nbsp;performed.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default:&nbsp;``False``.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;dictionary&nbsp;containing&nbsp;a&nbsp;whole&nbsp;state&nbsp;of&nbsp;the&nbsp;module<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;module.<a href="#Decoder-state_dict">state_dict</a>().keys()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;['bias',&nbsp;'weight']</tt></dd></dl>
+
+<dl><dt><a name="Decoder-to"><strong>to</strong></a>(self, *args, **kwargs)</dt><dd><tt>Moves&nbsp;and/or&nbsp;casts&nbsp;the&nbsp;parameters&nbsp;and&nbsp;buffers.<br>
+&nbsp;<br>
+This&nbsp;can&nbsp;be&nbsp;called&nbsp;as<br>
+&nbsp;<br>
+..&nbsp;function::&nbsp;<a href="#Decoder-to">to</a>(device=None,&nbsp;dtype=None,&nbsp;non_blocking=False)<br>
+&nbsp;&nbsp;&nbsp;:noindex:<br>
+&nbsp;<br>
+..&nbsp;function::&nbsp;<a href="#Decoder-to">to</a>(dtype,&nbsp;non_blocking=False)<br>
+&nbsp;&nbsp;&nbsp;:noindex:<br>
+&nbsp;<br>
+..&nbsp;function::&nbsp;<a href="#Decoder-to">to</a>(tensor,&nbsp;non_blocking=False)<br>
+&nbsp;&nbsp;&nbsp;:noindex:<br>
+&nbsp;<br>
+..&nbsp;function::&nbsp;<a href="#Decoder-to">to</a>(memory_format=torch.channels_last)<br>
+&nbsp;&nbsp;&nbsp;:noindex:<br>
+&nbsp;<br>
+Its&nbsp;signature&nbsp;is&nbsp;similar&nbsp;to&nbsp;:meth:`torch.Tensor.to`,&nbsp;but&nbsp;only&nbsp;accepts<br>
+floating&nbsp;point&nbsp;or&nbsp;complex&nbsp;:attr:`dtype`\&nbsp;s.&nbsp;In&nbsp;addition,&nbsp;this&nbsp;method&nbsp;will<br>
+only&nbsp;cast&nbsp;the&nbsp;floating&nbsp;point&nbsp;or&nbsp;complex&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;:attr:`dtype`<br>
+(if&nbsp;given).&nbsp;The&nbsp;integral&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;will&nbsp;be&nbsp;moved<br>
+:attr:`device`,&nbsp;if&nbsp;that&nbsp;is&nbsp;given,&nbsp;but&nbsp;with&nbsp;dtypes&nbsp;unchanged.&nbsp;When<br>
+:attr:`non_blocking`&nbsp;is&nbsp;set,&nbsp;it&nbsp;tries&nbsp;to&nbsp;convert/move&nbsp;asynchronously<br>
+with&nbsp;respect&nbsp;to&nbsp;the&nbsp;host&nbsp;if&nbsp;possible,&nbsp;e.g.,&nbsp;moving&nbsp;CPU&nbsp;Tensors&nbsp;with<br>
+pinned&nbsp;memory&nbsp;to&nbsp;CUDA&nbsp;devices.<br>
+&nbsp;<br>
+See&nbsp;below&nbsp;for&nbsp;examples.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;(:class:`torch.device`):&nbsp;the&nbsp;desired&nbsp;device&nbsp;of&nbsp;the&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;buffers&nbsp;in&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dtype&nbsp;(:class:`torch.dtype`):&nbsp;the&nbsp;desired&nbsp;floating&nbsp;point&nbsp;or&nbsp;complex&nbsp;dtype&nbsp;of<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;in&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor&nbsp;(torch.Tensor):&nbsp;Tensor&nbsp;whose&nbsp;dtype&nbsp;and&nbsp;device&nbsp;are&nbsp;the&nbsp;desired<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dtype&nbsp;and&nbsp;device&nbsp;for&nbsp;all&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;in&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;memory_format&nbsp;(:class:`torch.memory_format`):&nbsp;the&nbsp;desired&nbsp;memory<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;format&nbsp;for&nbsp;4D&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;in&nbsp;this&nbsp;module&nbsp;(keyword<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;only&nbsp;argument)<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self<br>
+&nbsp;<br>
+Examples::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+IGNORE_WANT("non-deterministic")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear&nbsp;=&nbsp;nn.Linear(2,&nbsp;2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.weight<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[&nbsp;0.1913,&nbsp;-0.3420],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-0.5113,&nbsp;-0.2325]])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.<a href="#Decoder-to">to</a>(torch.double)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.weight<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[&nbsp;0.1913,&nbsp;-0.3420],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-0.5113,&nbsp;-0.2325]],&nbsp;dtype=torch.float64)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+REQUIRES(env:TORCH_DOCTEST_CUDA1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;gpu1&nbsp;=&nbsp;torch.device("cuda:1")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.<a href="#Decoder-to">to</a>(gpu1,&nbsp;dtype=torch.half,&nbsp;non_blocking=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.weight<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[&nbsp;0.1914,&nbsp;-0.3420],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-0.5112,&nbsp;-0.2324]],&nbsp;dtype=torch.float16,&nbsp;device='cuda:1')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;cpu&nbsp;=&nbsp;torch.device("cpu")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.<a href="#Decoder-to">to</a>(cpu)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.weight<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[&nbsp;0.1914,&nbsp;-0.3420],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-0.5112,&nbsp;-0.2324]],&nbsp;dtype=torch.float16)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear&nbsp;=&nbsp;nn.Linear(2,&nbsp;2,&nbsp;bias=None).<a href="#Decoder-to">to</a>(torch.cdouble)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.weight<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[&nbsp;0.3741+0.j,&nbsp;&nbsp;0.2382+0.j],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;0.5593+0.j,&nbsp;-0.4443+0.j]],&nbsp;dtype=torch.complex128)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear(torch.ones(3,&nbsp;2,&nbsp;dtype=torch.cdouble))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[0.6122+0.j,&nbsp;0.1150+0.j],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0.6122+0.j,&nbsp;0.1150+0.j],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0.6122+0.j,&nbsp;0.1150+0.j]],&nbsp;dtype=torch.complex128)</tt></dd></dl>
+
+<dl><dt><a name="Decoder-to_empty"><strong>to_empty</strong></a>(self: ~T, *, device: Union[str, torch.device]) -&gt; ~T</dt><dd><tt>Moves&nbsp;the&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;the&nbsp;specified&nbsp;device&nbsp;without&nbsp;copying&nbsp;storage.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;(:class:`torch.device`):&nbsp;The&nbsp;desired&nbsp;device&nbsp;of&nbsp;the&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;buffers&nbsp;in&nbsp;this&nbsp;module.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Decoder-train"><strong>train</strong></a>(self: ~T, mode: bool = True) -&gt; ~T</dt><dd><tt>Sets&nbsp;the&nbsp;module&nbsp;in&nbsp;training&nbsp;mode.<br>
+&nbsp;<br>
+This&nbsp;has&nbsp;any&nbsp;effect&nbsp;only&nbsp;on&nbsp;certain&nbsp;modules.&nbsp;See&nbsp;documentations&nbsp;of<br>
+particular&nbsp;modules&nbsp;for&nbsp;details&nbsp;of&nbsp;their&nbsp;behaviors&nbsp;in&nbsp;training/evaluation<br>
+mode,&nbsp;if&nbsp;they&nbsp;are&nbsp;affected,&nbsp;e.g.&nbsp;:class:`Dropout`,&nbsp;:class:`BatchNorm`,<br>
+etc.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mode&nbsp;(bool):&nbsp;whether&nbsp;to&nbsp;set&nbsp;training&nbsp;mode&nbsp;(``True``)&nbsp;or&nbsp;evaluation<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mode&nbsp;(``False``).&nbsp;Default:&nbsp;``True``.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Decoder-type"><strong>type</strong></a>(self: ~T, dst_type: Union[torch.dtype, str]) -&gt; ~T</dt><dd><tt>Casts&nbsp;all&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;:attr:`dst_type`.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dst_type&nbsp;(type&nbsp;or&nbsp;string):&nbsp;the&nbsp;desired&nbsp;type<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Decoder-xpu"><strong>xpu</strong></a>(self: ~T, device: Union[int, torch.device, NoneType] = None) -&gt; ~T</dt><dd><tt>Moves&nbsp;all&nbsp;model&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;the&nbsp;XPU.<br>
+&nbsp;<br>
+This&nbsp;also&nbsp;makes&nbsp;associated&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;different&nbsp;objects.&nbsp;So<br>
+it&nbsp;should&nbsp;be&nbsp;called&nbsp;before&nbsp;constructing&nbsp;optimizer&nbsp;if&nbsp;the&nbsp;module&nbsp;will<br>
+live&nbsp;on&nbsp;XPU&nbsp;while&nbsp;being&nbsp;optimized.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Arguments:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;(int,&nbsp;optional):&nbsp;if&nbsp;specified,&nbsp;all&nbsp;parameters&nbsp;will&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copied&nbsp;to&nbsp;that&nbsp;device<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Decoder-zero_grad"><strong>zero_grad</strong></a>(self, set_to_none: bool = False) -&gt; None</dt><dd><tt>Sets&nbsp;gradients&nbsp;of&nbsp;all&nbsp;model&nbsp;parameters&nbsp;to&nbsp;zero.&nbsp;See&nbsp;similar&nbsp;function<br>
+under&nbsp;:class:`torch.optim.Optimizer`&nbsp;for&nbsp;more&nbsp;context.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;set_to_none&nbsp;(bool):&nbsp;instead&nbsp;of&nbsp;setting&nbsp;to&nbsp;zero,&nbsp;set&nbsp;the&nbsp;grads&nbsp;to&nbsp;None.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See&nbsp;:meth:`torch.optim.Optimizer.zero_grad`&nbsp;for&nbsp;details.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="torch.nn.modules.module.html#Module">torch.nn.modules.module.Module</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="torch.nn.modules.module.html#Module">torch.nn.modules.module.Module</a>:<br>
+<dl><dt><strong>T_destination</strong> = ~T_destination</dl>
+
+<dl><dt><strong>dump_patches</strong> = False</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Encoder">class <strong>Encoder</strong></a>(<a href="torch.nn.modules.module.html#Module">torch.nn.modules.module.Module</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Encoder">Encoder</a>(in_channels=1,&nbsp;out_channels=64,&nbsp;latent_dim=1000,&nbsp;act_fn=ReLU())<br>
+&nbsp;<br>
+<a href="#Encoder">Encoder</a>&nbsp;class.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="conv_autoencoder.html#Encoder">Encoder</a></dd>
+<dd><a href="torch.nn.modules.module.html#Module">torch.nn.modules.module.Module</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Encoder-__init__"><strong>__init__</strong></a>(self, in_channels=1, out_channels=64, latent_dim=1000, act_fn=ReLU())</dt><dd><tt>Initializes&nbsp;internal&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>&nbsp;state,&nbsp;shared&nbsp;by&nbsp;both&nbsp;nn.<a href="torch.nn.modules.module.html#Module">Module</a>&nbsp;and&nbsp;ScriptModule.</tt></dd></dl>
+
+<dl><dt><a name="Encoder-forward"><strong>forward</strong></a>(self, in_)</dt><dd><tt>Forward&nbsp;function&nbsp;in&nbsp;the&nbsp;encoder.</tt></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__annotations__</strong> = {}</dl>
+
+<hr>
+Methods inherited from <a href="torch.nn.modules.module.html#Module">torch.nn.modules.module.Module</a>:<br>
+<dl><dt><a name="Encoder-__call__"><strong>__call__</strong></a> = <a href="#Encoder-_call_impl">_call_impl</a>(self, *input, **kwargs)</dt></dl>
+
+<dl><dt><a name="Encoder-__delattr__"><strong>__delattr__</strong></a>(self, name)</dt><dd><tt>Implement&nbsp;delattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl><dt><a name="Encoder-__dir__"><strong>__dir__</strong></a>(self)</dt><dd><tt>Default&nbsp;dir()&nbsp;implementation.</tt></dd></dl>
+
+<dl><dt><a name="Encoder-__getattr__"><strong>__getattr__</strong></a>(self, name: str) -&gt; Union[torch.Tensor, ForwardRef('Module')]</dt></dl>
+
+<dl><dt><a name="Encoder-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="Encoder-__setattr__"><strong>__setattr__</strong></a>(self, name: str, value: Union[torch.Tensor, ForwardRef('Module')]) -&gt; None</dt><dd><tt>Implement&nbsp;setattr(self,&nbsp;name,&nbsp;value).</tt></dd></dl>
+
+<dl><dt><a name="Encoder-__setstate__"><strong>__setstate__</strong></a>(self, state)</dt></dl>
+
+<dl><dt><a name="Encoder-add_module"><strong>add_module</strong></a>(self, name: str, module: Optional[ForwardRef('Module')]) -&gt; None</dt><dd><tt>Adds&nbsp;a&nbsp;child&nbsp;module&nbsp;to&nbsp;the&nbsp;current&nbsp;module.<br>
+&nbsp;<br>
+The&nbsp;module&nbsp;can&nbsp;be&nbsp;accessed&nbsp;as&nbsp;an&nbsp;attribute&nbsp;using&nbsp;the&nbsp;given&nbsp;name.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;(str):&nbsp;name&nbsp;of&nbsp;the&nbsp;child&nbsp;module.&nbsp;The&nbsp;child&nbsp;module&nbsp;can&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accessed&nbsp;from&nbsp;this&nbsp;module&nbsp;using&nbsp;the&nbsp;given&nbsp;name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;module&nbsp;(<a href="torch.nn.modules.module.html#Module">Module</a>):&nbsp;child&nbsp;module&nbsp;to&nbsp;be&nbsp;added&nbsp;to&nbsp;the&nbsp;module.</tt></dd></dl>
+
+<dl><dt><a name="Encoder-apply"><strong>apply</strong></a>(self: ~T, fn: Callable[[ForwardRef('Module')], NoneType]) -&gt; ~T</dt><dd><tt>Applies&nbsp;``fn``&nbsp;recursively&nbsp;to&nbsp;every&nbsp;submodule&nbsp;(as&nbsp;returned&nbsp;by&nbsp;``.<a href="#Encoder-children">children</a>()``)<br>
+as&nbsp;well&nbsp;as&nbsp;self.&nbsp;Typical&nbsp;use&nbsp;includes&nbsp;initializing&nbsp;the&nbsp;parameters&nbsp;of&nbsp;a&nbsp;model<br>
+(see&nbsp;also&nbsp;:ref:`nn-init-doc`).<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;fn&nbsp;(:class:`<a href="torch.nn.modules.module.html#Module">Module</a>`&nbsp;-&gt;&nbsp;None):&nbsp;function&nbsp;to&nbsp;be&nbsp;applied&nbsp;to&nbsp;each&nbsp;submodule<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;@torch.no_grad()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;def&nbsp;init_weights(m):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(m)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;<a href="#Encoder-type">type</a>(m)&nbsp;==&nbsp;nn.Linear:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m.weight.fill_(1.0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(m.weight)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;net&nbsp;=&nbsp;nn.Sequential(nn.Linear(2,&nbsp;2),&nbsp;nn.Linear(2,&nbsp;2))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;net.<a href="#Encoder-apply">apply</a>(init_weights)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[1.,&nbsp;1.],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.,&nbsp;1.]],&nbsp;requires_grad=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[1.,&nbsp;1.],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.,&nbsp;1.]],&nbsp;requires_grad=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Sequential(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0):&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1):&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</tt></dd></dl>
+
+<dl><dt><a name="Encoder-bfloat16"><strong>bfloat16</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>Casts&nbsp;all&nbsp;floating&nbsp;point&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;``bfloat16``&nbsp;datatype.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Encoder-buffers"><strong>buffers</strong></a>(self, recurse: bool = True) -&gt; Iterator[torch.Tensor]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;module&nbsp;buffers.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;recurse&nbsp;(bool):&nbsp;if&nbsp;True,&nbsp;then&nbsp;yields&nbsp;buffers&nbsp;of&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;all&nbsp;submodules.&nbsp;Otherwise,&nbsp;yields&nbsp;only&nbsp;buffers&nbsp;that<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;direct&nbsp;members&nbsp;of&nbsp;this&nbsp;module.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;torch.Tensor:&nbsp;module&nbsp;buffer<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;buf&nbsp;in&nbsp;model.<a href="#Encoder-buffers">buffers</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(<a href="#Encoder-type">type</a>(buf),&nbsp;buf.size())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;class&nbsp;'torch.Tensor'&gt;&nbsp;(20L,)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;class&nbsp;'torch.Tensor'&gt;&nbsp;(20L,&nbsp;1L,&nbsp;5L,&nbsp;5L)</tt></dd></dl>
+
+<dl><dt><a name="Encoder-children"><strong>children</strong></a>(self) -&gt; Iterator[ForwardRef('Module')]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;immediate&nbsp;children&nbsp;modules.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;a&nbsp;child&nbsp;module</tt></dd></dl>
+
+<dl><dt><a name="Encoder-cpu"><strong>cpu</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>Moves&nbsp;all&nbsp;model&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;the&nbsp;CPU.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Encoder-cuda"><strong>cuda</strong></a>(self: ~T, device: Union[int, torch.device, NoneType] = None) -&gt; ~T</dt><dd><tt>Moves&nbsp;all&nbsp;model&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;the&nbsp;GPU.<br>
+&nbsp;<br>
+This&nbsp;also&nbsp;makes&nbsp;associated&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;different&nbsp;objects.&nbsp;So<br>
+it&nbsp;should&nbsp;be&nbsp;called&nbsp;before&nbsp;constructing&nbsp;optimizer&nbsp;if&nbsp;the&nbsp;module&nbsp;will<br>
+live&nbsp;on&nbsp;GPU&nbsp;while&nbsp;being&nbsp;optimized.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;(int,&nbsp;optional):&nbsp;if&nbsp;specified,&nbsp;all&nbsp;parameters&nbsp;will&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copied&nbsp;to&nbsp;that&nbsp;device<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Encoder-double"><strong>double</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>Casts&nbsp;all&nbsp;floating&nbsp;point&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;``double``&nbsp;datatype.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Encoder-eval"><strong>eval</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>Sets&nbsp;the&nbsp;module&nbsp;in&nbsp;evaluation&nbsp;mode.<br>
+&nbsp;<br>
+This&nbsp;has&nbsp;any&nbsp;effect&nbsp;only&nbsp;on&nbsp;certain&nbsp;modules.&nbsp;See&nbsp;documentations&nbsp;of<br>
+particular&nbsp;modules&nbsp;for&nbsp;details&nbsp;of&nbsp;their&nbsp;behaviors&nbsp;in&nbsp;training/evaluation<br>
+mode,&nbsp;if&nbsp;they&nbsp;are&nbsp;affected,&nbsp;e.g.&nbsp;:class:`Dropout`,&nbsp;:class:`BatchNorm`,<br>
+etc.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;equivalent&nbsp;with&nbsp;:meth:`self.<a href="#Encoder-train">train</a>(False)&nbsp;&lt;torch.nn.<a href="torch.nn.modules.module.html#Module">Module</a>.train&gt;`.<br>
+&nbsp;<br>
+See&nbsp;:ref:`locally-disable-grad-doc`&nbsp;for&nbsp;a&nbsp;comparison&nbsp;between<br>
+`.<a href="#Encoder-eval">eval</a>()`&nbsp;and&nbsp;several&nbsp;similar&nbsp;mechanisms&nbsp;that&nbsp;may&nbsp;be&nbsp;confused&nbsp;with&nbsp;it.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Encoder-extra_repr"><strong>extra_repr</strong></a>(self) -&gt; str</dt><dd><tt>Set&nbsp;the&nbsp;extra&nbsp;representation&nbsp;of&nbsp;the&nbsp;module<br>
+&nbsp;<br>
+To&nbsp;print&nbsp;customized&nbsp;extra&nbsp;information,&nbsp;you&nbsp;should&nbsp;re-implement<br>
+this&nbsp;method&nbsp;in&nbsp;your&nbsp;own&nbsp;modules.&nbsp;Both&nbsp;single-line&nbsp;and&nbsp;multi-line<br>
+strings&nbsp;are&nbsp;acceptable.</tt></dd></dl>
+
+<dl><dt><a name="Encoder-float"><strong>float</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>Casts&nbsp;all&nbsp;floating&nbsp;point&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;``float``&nbsp;datatype.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Encoder-get_buffer"><strong>get_buffer</strong></a>(self, target: str) -&gt; 'Tensor'</dt><dd><tt>Returns&nbsp;the&nbsp;buffer&nbsp;given&nbsp;by&nbsp;``target``&nbsp;if&nbsp;it&nbsp;exists,<br>
+otherwise&nbsp;throws&nbsp;an&nbsp;error.<br>
+&nbsp;<br>
+See&nbsp;the&nbsp;docstring&nbsp;for&nbsp;``get_submodule``&nbsp;for&nbsp;a&nbsp;more&nbsp;detailed<br>
+explanation&nbsp;of&nbsp;this&nbsp;method's&nbsp;functionality&nbsp;as&nbsp;well&nbsp;as&nbsp;how&nbsp;to<br>
+correctly&nbsp;specify&nbsp;``target``.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;target:&nbsp;The&nbsp;fully-qualified&nbsp;string&nbsp;name&nbsp;of&nbsp;the&nbsp;buffer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;look&nbsp;for.&nbsp;(See&nbsp;``get_submodule``&nbsp;for&nbsp;how&nbsp;to&nbsp;specify&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fully-qualified&nbsp;string.)<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;torch.Tensor:&nbsp;The&nbsp;buffer&nbsp;referenced&nbsp;by&nbsp;``target``<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;AttributeError:&nbsp;If&nbsp;the&nbsp;target&nbsp;string&nbsp;references&nbsp;an&nbsp;invalid<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;or&nbsp;resolves&nbsp;to&nbsp;something&nbsp;that&nbsp;is&nbsp;not&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buffer</tt></dd></dl>
+
+<dl><dt><a name="Encoder-get_extra_state"><strong>get_extra_state</strong></a>(self) -&gt; Any</dt><dd><tt>Returns&nbsp;any&nbsp;extra&nbsp;state&nbsp;to&nbsp;include&nbsp;in&nbsp;the&nbsp;module's&nbsp;state_dict.<br>
+Implement&nbsp;this&nbsp;and&nbsp;a&nbsp;corresponding&nbsp;:func:`set_extra_state`&nbsp;for&nbsp;your&nbsp;module<br>
+if&nbsp;you&nbsp;need&nbsp;to&nbsp;store&nbsp;extra&nbsp;state.&nbsp;This&nbsp;function&nbsp;is&nbsp;called&nbsp;when&nbsp;building&nbsp;the<br>
+module's&nbsp;`<a href="#Encoder-state_dict">state_dict</a>()`.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;extra&nbsp;state&nbsp;should&nbsp;be&nbsp;pickleable&nbsp;to&nbsp;ensure&nbsp;working&nbsp;serialization<br>
+of&nbsp;the&nbsp;state_dict.&nbsp;We&nbsp;only&nbsp;provide&nbsp;provide&nbsp;backwards&nbsp;compatibility&nbsp;guarantees<br>
+for&nbsp;serializing&nbsp;Tensors;&nbsp;other&nbsp;objects&nbsp;may&nbsp;break&nbsp;backwards&nbsp;compatibility&nbsp;if<br>
+their&nbsp;serialized&nbsp;pickled&nbsp;form&nbsp;changes.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="builtins.html#object">object</a>:&nbsp;Any&nbsp;extra&nbsp;state&nbsp;to&nbsp;store&nbsp;in&nbsp;the&nbsp;module's&nbsp;state_dict</tt></dd></dl>
+
+<dl><dt><a name="Encoder-get_parameter"><strong>get_parameter</strong></a>(self, target: str) -&gt; 'Parameter'</dt><dd><tt>Returns&nbsp;the&nbsp;parameter&nbsp;given&nbsp;by&nbsp;``target``&nbsp;if&nbsp;it&nbsp;exists,<br>
+otherwise&nbsp;throws&nbsp;an&nbsp;error.<br>
+&nbsp;<br>
+See&nbsp;the&nbsp;docstring&nbsp;for&nbsp;``get_submodule``&nbsp;for&nbsp;a&nbsp;more&nbsp;detailed<br>
+explanation&nbsp;of&nbsp;this&nbsp;method's&nbsp;functionality&nbsp;as&nbsp;well&nbsp;as&nbsp;how&nbsp;to<br>
+correctly&nbsp;specify&nbsp;``target``.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;target:&nbsp;The&nbsp;fully-qualified&nbsp;string&nbsp;name&nbsp;of&nbsp;the&nbsp;Parameter<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;look&nbsp;for.&nbsp;(See&nbsp;``get_submodule``&nbsp;for&nbsp;how&nbsp;to&nbsp;specify&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fully-qualified&nbsp;string.)<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;torch.nn.Parameter:&nbsp;The&nbsp;Parameter&nbsp;referenced&nbsp;by&nbsp;``target``<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;AttributeError:&nbsp;If&nbsp;the&nbsp;target&nbsp;string&nbsp;references&nbsp;an&nbsp;invalid<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;or&nbsp;resolves&nbsp;to&nbsp;something&nbsp;that&nbsp;is&nbsp;not&nbsp;an<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``nn.Parameter``</tt></dd></dl>
+
+<dl><dt><a name="Encoder-get_submodule"><strong>get_submodule</strong></a>(self, target: str) -&gt; 'Module'</dt><dd><tt>Returns&nbsp;the&nbsp;submodule&nbsp;given&nbsp;by&nbsp;``target``&nbsp;if&nbsp;it&nbsp;exists,<br>
+otherwise&nbsp;throws&nbsp;an&nbsp;error.<br>
+&nbsp;<br>
+For&nbsp;example,&nbsp;let's&nbsp;say&nbsp;you&nbsp;have&nbsp;an&nbsp;``nn.<a href="torch.nn.modules.module.html#Module">Module</a>``&nbsp;``A``&nbsp;that<br>
+looks&nbsp;like&nbsp;this:<br>
+&nbsp;<br>
+..&nbsp;code-block::&nbsp;text<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;A(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(net_b):&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(net_c):&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(conv):&nbsp;Conv2d(16,&nbsp;33,&nbsp;kernel_size=(3,&nbsp;3),&nbsp;stride=(2,&nbsp;2))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(linear):&nbsp;Linear(in_features=100,&nbsp;out_features=200,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;<br>
+(The&nbsp;diagram&nbsp;shows&nbsp;an&nbsp;``nn.<a href="torch.nn.modules.module.html#Module">Module</a>``&nbsp;``A``.&nbsp;``A``&nbsp;has&nbsp;a&nbsp;nested<br>
+submodule&nbsp;``net_b``,&nbsp;which&nbsp;itself&nbsp;has&nbsp;two&nbsp;submodules&nbsp;``net_c``<br>
+and&nbsp;``linear``.&nbsp;``net_c``&nbsp;then&nbsp;has&nbsp;a&nbsp;submodule&nbsp;``conv``.)<br>
+&nbsp;<br>
+To&nbsp;check&nbsp;whether&nbsp;or&nbsp;not&nbsp;we&nbsp;have&nbsp;the&nbsp;``linear``&nbsp;submodule,&nbsp;we<br>
+would&nbsp;call&nbsp;``<a href="#Encoder-get_submodule">get_submodule</a>("net_b.linear")``.&nbsp;To&nbsp;check&nbsp;whether<br>
+we&nbsp;have&nbsp;the&nbsp;``conv``&nbsp;submodule,&nbsp;we&nbsp;would&nbsp;call<br>
+``<a href="#Encoder-get_submodule">get_submodule</a>("net_b.net_c.conv")``.<br>
+&nbsp;<br>
+The&nbsp;runtime&nbsp;of&nbsp;``get_submodule``&nbsp;is&nbsp;bounded&nbsp;by&nbsp;the&nbsp;degree<br>
+of&nbsp;module&nbsp;nesting&nbsp;in&nbsp;``target``.&nbsp;A&nbsp;query&nbsp;against<br>
+``named_modules``&nbsp;achieves&nbsp;the&nbsp;same&nbsp;result,&nbsp;but&nbsp;it&nbsp;is&nbsp;O(N)&nbsp;in<br>
+the&nbsp;number&nbsp;of&nbsp;transitive&nbsp;modules.&nbsp;So,&nbsp;for&nbsp;a&nbsp;simple&nbsp;check&nbsp;to&nbsp;see<br>
+if&nbsp;some&nbsp;submodule&nbsp;exists,&nbsp;``get_submodule``&nbsp;should&nbsp;always&nbsp;be<br>
+used.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;target:&nbsp;The&nbsp;fully-qualified&nbsp;string&nbsp;name&nbsp;of&nbsp;the&nbsp;submodule<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;look&nbsp;for.&nbsp;(See&nbsp;above&nbsp;example&nbsp;for&nbsp;how&nbsp;to&nbsp;specify&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fully-qualified&nbsp;string.)<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;torch.nn.<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;The&nbsp;submodule&nbsp;referenced&nbsp;by&nbsp;``target``<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;AttributeError:&nbsp;If&nbsp;the&nbsp;target&nbsp;string&nbsp;references&nbsp;an&nbsp;invalid<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;or&nbsp;resolves&nbsp;to&nbsp;something&nbsp;that&nbsp;is&nbsp;not&nbsp;an<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``nn.<a href="torch.nn.modules.module.html#Module">Module</a>``</tt></dd></dl>
+
+<dl><dt><a name="Encoder-half"><strong>half</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>Casts&nbsp;all&nbsp;floating&nbsp;point&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;``half``&nbsp;datatype.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Encoder-ipu"><strong>ipu</strong></a>(self: ~T, device: Union[int, torch.device, NoneType] = None) -&gt; ~T</dt><dd><tt>Moves&nbsp;all&nbsp;model&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;the&nbsp;IPU.<br>
+&nbsp;<br>
+This&nbsp;also&nbsp;makes&nbsp;associated&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;different&nbsp;objects.&nbsp;So<br>
+it&nbsp;should&nbsp;be&nbsp;called&nbsp;before&nbsp;constructing&nbsp;optimizer&nbsp;if&nbsp;the&nbsp;module&nbsp;will<br>
+live&nbsp;on&nbsp;IPU&nbsp;while&nbsp;being&nbsp;optimized.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Arguments:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;(int,&nbsp;optional):&nbsp;if&nbsp;specified,&nbsp;all&nbsp;parameters&nbsp;will&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copied&nbsp;to&nbsp;that&nbsp;device<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Encoder-load_state_dict"><strong>load_state_dict</strong></a>(self, state_dict: Mapping[str, Any], strict: bool = True)</dt><dd><tt>Copies&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;from&nbsp;:attr:`state_dict`&nbsp;into<br>
+this&nbsp;module&nbsp;and&nbsp;its&nbsp;descendants.&nbsp;If&nbsp;:attr:`strict`&nbsp;is&nbsp;``True``,&nbsp;then<br>
+the&nbsp;keys&nbsp;of&nbsp;:attr:`state_dict`&nbsp;must&nbsp;exactly&nbsp;match&nbsp;the&nbsp;keys&nbsp;returned<br>
+by&nbsp;this&nbsp;module's&nbsp;:meth:`~torch.nn.<a href="torch.nn.modules.module.html#Module">Module</a>.state_dict`&nbsp;function.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;state_dict&nbsp;(dict):&nbsp;a&nbsp;dict&nbsp;containing&nbsp;parameters&nbsp;and<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistent&nbsp;buffers.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;strict&nbsp;(bool,&nbsp;optional):&nbsp;whether&nbsp;to&nbsp;strictly&nbsp;enforce&nbsp;that&nbsp;the&nbsp;keys<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;:attr:`state_dict`&nbsp;match&nbsp;the&nbsp;keys&nbsp;returned&nbsp;by&nbsp;this&nbsp;module's<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:meth:`~torch.nn.<a href="torch.nn.modules.module.html#Module">Module</a>.state_dict`&nbsp;function.&nbsp;Default:&nbsp;``True``<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;``NamedTuple``&nbsp;with&nbsp;``missing_keys``&nbsp;and&nbsp;``unexpected_keys``&nbsp;fields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;**missing_keys**&nbsp;is&nbsp;a&nbsp;list&nbsp;of&nbsp;str&nbsp;containing&nbsp;the&nbsp;missing&nbsp;keys<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;**unexpected_keys**&nbsp;is&nbsp;a&nbsp;list&nbsp;of&nbsp;str&nbsp;containing&nbsp;the&nbsp;unexpected&nbsp;keys<br>
+&nbsp;<br>
+Note:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;a&nbsp;parameter&nbsp;or&nbsp;buffer&nbsp;is&nbsp;registered&nbsp;as&nbsp;``None``&nbsp;and&nbsp;its&nbsp;corresponding&nbsp;key<br>
+&nbsp;&nbsp;&nbsp;&nbsp;exists&nbsp;in&nbsp;:attr:`state_dict`,&nbsp;:meth:`load_state_dict`&nbsp;will&nbsp;raise&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;``RuntimeError``.</tt></dd></dl>
+
+<dl><dt><a name="Encoder-modules"><strong>modules</strong></a>(self) -&gt; Iterator[ForwardRef('Module')]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;all&nbsp;modules&nbsp;in&nbsp;the&nbsp;network.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;a&nbsp;module&nbsp;in&nbsp;the&nbsp;network<br>
+&nbsp;<br>
+Note:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Duplicate&nbsp;modules&nbsp;are&nbsp;returned&nbsp;only&nbsp;once.&nbsp;In&nbsp;the&nbsp;following<br>
+&nbsp;&nbsp;&nbsp;&nbsp;example,&nbsp;``l``&nbsp;will&nbsp;be&nbsp;returned&nbsp;only&nbsp;once.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;l&nbsp;=&nbsp;nn.Linear(2,&nbsp;2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;net&nbsp;=&nbsp;nn.Sequential(l,&nbsp;l)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;idx,&nbsp;m&nbsp;in&nbsp;enumerate(net.<a href="#Encoder-modules">modules</a>()):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(idx,&nbsp;'-&gt;',&nbsp;m)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;-&gt;&nbsp;Sequential(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0):&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1):&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;-&gt;&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)</tt></dd></dl>
+
+<dl><dt><a name="Encoder-named_buffers"><strong>named_buffers</strong></a>(self, prefix: str = '', recurse: bool = True) -&gt; Iterator[Tuple[str, torch.Tensor]]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;module&nbsp;buffers,&nbsp;yielding&nbsp;both&nbsp;the<br>
+name&nbsp;of&nbsp;the&nbsp;buffer&nbsp;as&nbsp;well&nbsp;as&nbsp;the&nbsp;buffer&nbsp;itself.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;prefix&nbsp;(str):&nbsp;prefix&nbsp;to&nbsp;prepend&nbsp;to&nbsp;all&nbsp;buffer&nbsp;names.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;recurse&nbsp;(bool):&nbsp;if&nbsp;True,&nbsp;then&nbsp;yields&nbsp;buffers&nbsp;of&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;all&nbsp;submodules.&nbsp;Otherwise,&nbsp;yields&nbsp;only&nbsp;buffers&nbsp;that<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;direct&nbsp;members&nbsp;of&nbsp;this&nbsp;module.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(str,&nbsp;torch.Tensor):&nbsp;Tuple&nbsp;containing&nbsp;the&nbsp;name&nbsp;and&nbsp;buffer<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;name,&nbsp;buf&nbsp;in&nbsp;self.<a href="#Encoder-named_buffers">named_buffers</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;name&nbsp;in&nbsp;['running_var']:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(buf.size())</tt></dd></dl>
+
+<dl><dt><a name="Encoder-named_children"><strong>named_children</strong></a>(self) -&gt; Iterator[Tuple[str, ForwardRef('Module')]]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;immediate&nbsp;children&nbsp;modules,&nbsp;yielding&nbsp;both<br>
+the&nbsp;name&nbsp;of&nbsp;the&nbsp;module&nbsp;as&nbsp;well&nbsp;as&nbsp;the&nbsp;module&nbsp;itself.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(str,&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>):&nbsp;Tuple&nbsp;containing&nbsp;a&nbsp;name&nbsp;and&nbsp;child&nbsp;module<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;name,&nbsp;module&nbsp;in&nbsp;model.<a href="#Encoder-named_children">named_children</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;name&nbsp;in&nbsp;['conv4',&nbsp;'conv5']:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(module)</tt></dd></dl>
+
+<dl><dt><a name="Encoder-named_modules"><strong>named_modules</strong></a>(self, memo: Optional[Set[ForwardRef('Module')]] = None, prefix: str = '', remove_duplicate: bool = True)</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;all&nbsp;modules&nbsp;in&nbsp;the&nbsp;network,&nbsp;yielding<br>
+both&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;module&nbsp;as&nbsp;well&nbsp;as&nbsp;the&nbsp;module&nbsp;itself.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;memo:&nbsp;a&nbsp;memo&nbsp;to&nbsp;store&nbsp;the&nbsp;set&nbsp;of&nbsp;modules&nbsp;already&nbsp;added&nbsp;to&nbsp;the&nbsp;result<br>
+&nbsp;&nbsp;&nbsp;&nbsp;prefix:&nbsp;a&nbsp;prefix&nbsp;that&nbsp;will&nbsp;be&nbsp;added&nbsp;to&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;remove_duplicate:&nbsp;whether&nbsp;to&nbsp;remove&nbsp;the&nbsp;duplicated&nbsp;module&nbsp;instances&nbsp;in&nbsp;the&nbsp;result<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;not<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(str,&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>):&nbsp;Tuple&nbsp;of&nbsp;name&nbsp;and&nbsp;module<br>
+&nbsp;<br>
+Note:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Duplicate&nbsp;modules&nbsp;are&nbsp;returned&nbsp;only&nbsp;once.&nbsp;In&nbsp;the&nbsp;following<br>
+&nbsp;&nbsp;&nbsp;&nbsp;example,&nbsp;``l``&nbsp;will&nbsp;be&nbsp;returned&nbsp;only&nbsp;once.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;l&nbsp;=&nbsp;nn.Linear(2,&nbsp;2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;net&nbsp;=&nbsp;nn.Sequential(l,&nbsp;l)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;idx,&nbsp;m&nbsp;in&nbsp;enumerate(net.<a href="#Encoder-named_modules">named_modules</a>()):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(idx,&nbsp;'-&gt;',&nbsp;m)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;-&gt;&nbsp;('',&nbsp;Sequential(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0):&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1):&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;-&gt;&nbsp;('0',&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True))</tt></dd></dl>
+
+<dl><dt><a name="Encoder-named_parameters"><strong>named_parameters</strong></a>(self, prefix: str = '', recurse: bool = True) -&gt; Iterator[Tuple[str, torch.nn.parameter.Parameter]]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;module&nbsp;parameters,&nbsp;yielding&nbsp;both&nbsp;the<br>
+name&nbsp;of&nbsp;the&nbsp;parameter&nbsp;as&nbsp;well&nbsp;as&nbsp;the&nbsp;parameter&nbsp;itself.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;prefix&nbsp;(str):&nbsp;prefix&nbsp;to&nbsp;prepend&nbsp;to&nbsp;all&nbsp;parameter&nbsp;names.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;recurse&nbsp;(bool):&nbsp;if&nbsp;True,&nbsp;then&nbsp;yields&nbsp;parameters&nbsp;of&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;all&nbsp;submodules.&nbsp;Otherwise,&nbsp;yields&nbsp;only&nbsp;parameters&nbsp;that<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;direct&nbsp;members&nbsp;of&nbsp;this&nbsp;module.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(str,&nbsp;Parameter):&nbsp;Tuple&nbsp;containing&nbsp;the&nbsp;name&nbsp;and&nbsp;parameter<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;name,&nbsp;param&nbsp;in&nbsp;self.<a href="#Encoder-named_parameters">named_parameters</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;name&nbsp;in&nbsp;['bias']:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(param.size())</tt></dd></dl>
+
+<dl><dt><a name="Encoder-parameters"><strong>parameters</strong></a>(self, recurse: bool = True) -&gt; Iterator[torch.nn.parameter.Parameter]</dt><dd><tt>Returns&nbsp;an&nbsp;iterator&nbsp;over&nbsp;module&nbsp;parameters.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;typically&nbsp;passed&nbsp;to&nbsp;an&nbsp;optimizer.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;recurse&nbsp;(bool):&nbsp;if&nbsp;True,&nbsp;then&nbsp;yields&nbsp;parameters&nbsp;of&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;all&nbsp;submodules.&nbsp;Otherwise,&nbsp;yields&nbsp;only&nbsp;parameters&nbsp;that<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;direct&nbsp;members&nbsp;of&nbsp;this&nbsp;module.<br>
+&nbsp;<br>
+Yields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter:&nbsp;module&nbsp;parameter<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;for&nbsp;param&nbsp;in&nbsp;model.<a href="#Encoder-parameters">parameters</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(<a href="#Encoder-type">type</a>(param),&nbsp;param.size())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;class&nbsp;'torch.Tensor'&gt;&nbsp;(20L,)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;class&nbsp;'torch.Tensor'&gt;&nbsp;(20L,&nbsp;1L,&nbsp;5L,&nbsp;5L)</tt></dd></dl>
+
+<dl><dt><a name="Encoder-register_backward_hook"><strong>register_backward_hook</strong></a>(self, hook: Callable[[ForwardRef('Module'), Union[Tuple[torch.Tensor, ...], torch.Tensor], Union[Tuple[torch.Tensor, ...], torch.Tensor]], Optional[torch.Tensor]]) -&gt; torch.utils.hooks.RemovableHandle</dt><dd><tt>Registers&nbsp;a&nbsp;backward&nbsp;hook&nbsp;on&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;is&nbsp;deprecated&nbsp;in&nbsp;favor&nbsp;of&nbsp;:meth:`~torch.nn.<a href="torch.nn.modules.module.html#Module">Module</a>.register_full_backward_hook`&nbsp;and<br>
+the&nbsp;behavior&nbsp;of&nbsp;this&nbsp;function&nbsp;will&nbsp;change&nbsp;in&nbsp;future&nbsp;versions.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:class:`torch.utils.hooks.RemovableHandle`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;handle&nbsp;that&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;remove&nbsp;the&nbsp;added&nbsp;hook&nbsp;by&nbsp;calling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``handle.remove()``</tt></dd></dl>
+
+<dl><dt><a name="Encoder-register_buffer"><strong>register_buffer</strong></a>(self, name: str, tensor: Optional[torch.Tensor], persistent: bool = True) -&gt; None</dt><dd><tt>Adds&nbsp;a&nbsp;buffer&nbsp;to&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;typically&nbsp;used&nbsp;to&nbsp;register&nbsp;a&nbsp;buffer&nbsp;that&nbsp;should&nbsp;not&nbsp;to&nbsp;be<br>
+considered&nbsp;a&nbsp;model&nbsp;parameter.&nbsp;For&nbsp;example,&nbsp;BatchNorm's&nbsp;``running_mean``<br>
+is&nbsp;not&nbsp;a&nbsp;parameter,&nbsp;but&nbsp;is&nbsp;part&nbsp;of&nbsp;the&nbsp;module's&nbsp;state.&nbsp;Buffers,&nbsp;by<br>
+default,&nbsp;are&nbsp;persistent&nbsp;and&nbsp;will&nbsp;be&nbsp;saved&nbsp;alongside&nbsp;parameters.&nbsp;This<br>
+behavior&nbsp;can&nbsp;be&nbsp;changed&nbsp;by&nbsp;setting&nbsp;:attr:`persistent`&nbsp;to&nbsp;``False``.&nbsp;The<br>
+only&nbsp;difference&nbsp;between&nbsp;a&nbsp;persistent&nbsp;buffer&nbsp;and&nbsp;a&nbsp;non-persistent&nbsp;buffer<br>
+is&nbsp;that&nbsp;the&nbsp;latter&nbsp;will&nbsp;not&nbsp;be&nbsp;a&nbsp;part&nbsp;of&nbsp;this&nbsp;module's<br>
+:attr:`state_dict`.<br>
+&nbsp;<br>
+Buffers&nbsp;can&nbsp;be&nbsp;accessed&nbsp;as&nbsp;attributes&nbsp;using&nbsp;given&nbsp;names.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;(str):&nbsp;name&nbsp;of&nbsp;the&nbsp;buffer.&nbsp;The&nbsp;buffer&nbsp;can&nbsp;be&nbsp;accessed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;this&nbsp;module&nbsp;using&nbsp;the&nbsp;given&nbsp;name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor&nbsp;(Tensor&nbsp;or&nbsp;None):&nbsp;buffer&nbsp;to&nbsp;be&nbsp;registered.&nbsp;If&nbsp;``None``,&nbsp;then&nbsp;operations<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;that&nbsp;run&nbsp;on&nbsp;buffers,&nbsp;such&nbsp;as&nbsp;:attr:`cuda`,&nbsp;are&nbsp;ignored.&nbsp;If&nbsp;``None``,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;buffer&nbsp;is&nbsp;**not**&nbsp;included&nbsp;in&nbsp;the&nbsp;module's&nbsp;:attr:`state_dict`.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;persistent&nbsp;(bool):&nbsp;whether&nbsp;the&nbsp;buffer&nbsp;is&nbsp;part&nbsp;of&nbsp;this&nbsp;module's<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:attr:`state_dict`.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;self.<a href="#Encoder-register_buffer">register_buffer</a>('running_mean',&nbsp;torch.zeros(num_features))</tt></dd></dl>
+
+<dl><dt><a name="Encoder-register_forward_hook"><strong>register_forward_hook</strong></a>(self, hook: Callable[..., NoneType]) -&gt; torch.utils.hooks.RemovableHandle</dt><dd><tt>Registers&nbsp;a&nbsp;forward&nbsp;hook&nbsp;on&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+The&nbsp;hook&nbsp;will&nbsp;be&nbsp;called&nbsp;every&nbsp;time&nbsp;after&nbsp;:func:`forward`&nbsp;has&nbsp;computed&nbsp;an&nbsp;output.<br>
+It&nbsp;should&nbsp;have&nbsp;the&nbsp;following&nbsp;signature::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hook(module,&nbsp;input,&nbsp;output)&nbsp;-&gt;&nbsp;None&nbsp;or&nbsp;modified&nbsp;output<br>
+&nbsp;<br>
+The&nbsp;input&nbsp;contains&nbsp;only&nbsp;the&nbsp;positional&nbsp;arguments&nbsp;given&nbsp;to&nbsp;the&nbsp;module.<br>
+Keyword&nbsp;arguments&nbsp;won't&nbsp;be&nbsp;passed&nbsp;to&nbsp;the&nbsp;hooks&nbsp;and&nbsp;only&nbsp;to&nbsp;the&nbsp;``forward``.<br>
+The&nbsp;hook&nbsp;can&nbsp;modify&nbsp;the&nbsp;output.&nbsp;It&nbsp;can&nbsp;modify&nbsp;the&nbsp;input&nbsp;inplace&nbsp;but<br>
+it&nbsp;will&nbsp;not&nbsp;have&nbsp;effect&nbsp;on&nbsp;forward&nbsp;since&nbsp;this&nbsp;is&nbsp;called&nbsp;after<br>
+:func:`forward`&nbsp;is&nbsp;called.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:class:`torch.utils.hooks.RemovableHandle`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;handle&nbsp;that&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;remove&nbsp;the&nbsp;added&nbsp;hook&nbsp;by&nbsp;calling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``handle.remove()``</tt></dd></dl>
+
+<dl><dt><a name="Encoder-register_forward_pre_hook"><strong>register_forward_pre_hook</strong></a>(self, hook: Callable[..., NoneType]) -&gt; torch.utils.hooks.RemovableHandle</dt><dd><tt>Registers&nbsp;a&nbsp;forward&nbsp;pre-hook&nbsp;on&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+The&nbsp;hook&nbsp;will&nbsp;be&nbsp;called&nbsp;every&nbsp;time&nbsp;before&nbsp;:func:`forward`&nbsp;is&nbsp;invoked.<br>
+It&nbsp;should&nbsp;have&nbsp;the&nbsp;following&nbsp;signature::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hook(module,&nbsp;input)&nbsp;-&gt;&nbsp;None&nbsp;or&nbsp;modified&nbsp;input<br>
+&nbsp;<br>
+The&nbsp;input&nbsp;contains&nbsp;only&nbsp;the&nbsp;positional&nbsp;arguments&nbsp;given&nbsp;to&nbsp;the&nbsp;module.<br>
+Keyword&nbsp;arguments&nbsp;won't&nbsp;be&nbsp;passed&nbsp;to&nbsp;the&nbsp;hooks&nbsp;and&nbsp;only&nbsp;to&nbsp;the&nbsp;``forward``.<br>
+The&nbsp;hook&nbsp;can&nbsp;modify&nbsp;the&nbsp;input.&nbsp;User&nbsp;can&nbsp;either&nbsp;return&nbsp;a&nbsp;tuple&nbsp;or&nbsp;a<br>
+single&nbsp;modified&nbsp;value&nbsp;in&nbsp;the&nbsp;hook.&nbsp;We&nbsp;will&nbsp;wrap&nbsp;the&nbsp;value&nbsp;into&nbsp;a&nbsp;tuple<br>
+if&nbsp;a&nbsp;single&nbsp;value&nbsp;is&nbsp;returned(unless&nbsp;that&nbsp;value&nbsp;is&nbsp;already&nbsp;a&nbsp;tuple).<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:class:`torch.utils.hooks.RemovableHandle`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;handle&nbsp;that&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;remove&nbsp;the&nbsp;added&nbsp;hook&nbsp;by&nbsp;calling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``handle.remove()``</tt></dd></dl>
+
+<dl><dt><a name="Encoder-register_full_backward_hook"><strong>register_full_backward_hook</strong></a>(self, hook: Callable[[ForwardRef('Module'), Union[Tuple[torch.Tensor, ...], torch.Tensor], Union[Tuple[torch.Tensor, ...], torch.Tensor]], Optional[torch.Tensor]]) -&gt; torch.utils.hooks.RemovableHandle</dt><dd><tt>Registers&nbsp;a&nbsp;backward&nbsp;hook&nbsp;on&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+The&nbsp;hook&nbsp;will&nbsp;be&nbsp;called&nbsp;every&nbsp;time&nbsp;the&nbsp;gradients&nbsp;with&nbsp;respect&nbsp;to&nbsp;a&nbsp;module<br>
+are&nbsp;computed,&nbsp;i.e.&nbsp;the&nbsp;hook&nbsp;will&nbsp;execute&nbsp;if&nbsp;and&nbsp;only&nbsp;if&nbsp;the&nbsp;gradients&nbsp;with<br>
+respect&nbsp;to&nbsp;module&nbsp;outputs&nbsp;are&nbsp;computed.&nbsp;The&nbsp;hook&nbsp;should&nbsp;have&nbsp;the&nbsp;following<br>
+signature::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hook(module,&nbsp;grad_input,&nbsp;grad_output)&nbsp;-&gt;&nbsp;tuple(Tensor)&nbsp;or&nbsp;None<br>
+&nbsp;<br>
+The&nbsp;:attr:`grad_input`&nbsp;and&nbsp;:attr:`grad_output`&nbsp;are&nbsp;tuples&nbsp;that&nbsp;contain&nbsp;the&nbsp;gradients<br>
+with&nbsp;respect&nbsp;to&nbsp;the&nbsp;inputs&nbsp;and&nbsp;outputs&nbsp;respectively.&nbsp;The&nbsp;hook&nbsp;should<br>
+not&nbsp;modify&nbsp;its&nbsp;arguments,&nbsp;but&nbsp;it&nbsp;can&nbsp;optionally&nbsp;return&nbsp;a&nbsp;new&nbsp;gradient&nbsp;with<br>
+respect&nbsp;to&nbsp;the&nbsp;input&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;in&nbsp;place&nbsp;of&nbsp;:attr:`grad_input`&nbsp;in<br>
+subsequent&nbsp;computations.&nbsp;:attr:`grad_input`&nbsp;will&nbsp;only&nbsp;correspond&nbsp;to&nbsp;the&nbsp;inputs&nbsp;given<br>
+as&nbsp;positional&nbsp;arguments&nbsp;and&nbsp;all&nbsp;kwarg&nbsp;arguments&nbsp;are&nbsp;ignored.&nbsp;Entries<br>
+in&nbsp;:attr:`grad_input`&nbsp;and&nbsp;:attr:`grad_output`&nbsp;will&nbsp;be&nbsp;``None``&nbsp;for&nbsp;all&nbsp;non-Tensor<br>
+arguments.<br>
+&nbsp;<br>
+For&nbsp;technical&nbsp;reasons,&nbsp;when&nbsp;this&nbsp;hook&nbsp;is&nbsp;applied&nbsp;to&nbsp;a&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>,&nbsp;its&nbsp;forward&nbsp;function&nbsp;will<br>
+receive&nbsp;a&nbsp;view&nbsp;of&nbsp;each&nbsp;Tensor&nbsp;passed&nbsp;to&nbsp;the&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>.&nbsp;Similarly&nbsp;the&nbsp;caller&nbsp;will&nbsp;receive&nbsp;a&nbsp;view<br>
+of&nbsp;each&nbsp;Tensor&nbsp;returned&nbsp;by&nbsp;the&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>'s&nbsp;forward&nbsp;function.<br>
+&nbsp;<br>
+..&nbsp;warning&nbsp;::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Modifying&nbsp;inputs&nbsp;or&nbsp;outputs&nbsp;inplace&nbsp;is&nbsp;not&nbsp;allowed&nbsp;when&nbsp;using&nbsp;backward&nbsp;hooks&nbsp;and<br>
+&nbsp;&nbsp;&nbsp;&nbsp;will&nbsp;raise&nbsp;an&nbsp;error.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:class:`torch.utils.hooks.RemovableHandle`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;handle&nbsp;that&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;remove&nbsp;the&nbsp;added&nbsp;hook&nbsp;by&nbsp;calling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``handle.remove()``</tt></dd></dl>
+
+<dl><dt><a name="Encoder-register_load_state_dict_post_hook"><strong>register_load_state_dict_post_hook</strong></a>(self, hook)</dt><dd><tt>Registers&nbsp;a&nbsp;post&nbsp;hook&nbsp;to&nbsp;be&nbsp;run&nbsp;after&nbsp;module's&nbsp;``load_state_dict``<br>
+is&nbsp;called.<br>
+&nbsp;<br>
+It&nbsp;should&nbsp;have&nbsp;the&nbsp;following&nbsp;signature::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hook(module,&nbsp;incompatible_keys)&nbsp;-&gt;&nbsp;None<br>
+&nbsp;<br>
+The&nbsp;``module``&nbsp;argument&nbsp;is&nbsp;the&nbsp;current&nbsp;module&nbsp;that&nbsp;this&nbsp;hook&nbsp;is&nbsp;registered<br>
+on,&nbsp;and&nbsp;the&nbsp;``incompatible_keys``&nbsp;argument&nbsp;is&nbsp;a&nbsp;``NamedTuple``&nbsp;consisting<br>
+of&nbsp;attributes&nbsp;``missing_keys``&nbsp;and&nbsp;``unexpected_keys``.&nbsp;``missing_keys``<br>
+is&nbsp;a&nbsp;``list``&nbsp;of&nbsp;``str``&nbsp;containing&nbsp;the&nbsp;missing&nbsp;keys&nbsp;and<br>
+``unexpected_keys``&nbsp;is&nbsp;a&nbsp;``list``&nbsp;of&nbsp;``str``&nbsp;containing&nbsp;the&nbsp;unexpected&nbsp;keys.<br>
+&nbsp;<br>
+The&nbsp;given&nbsp;incompatible_keys&nbsp;can&nbsp;be&nbsp;modified&nbsp;inplace&nbsp;if&nbsp;needed.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;the&nbsp;checks&nbsp;performed&nbsp;when&nbsp;calling&nbsp;:func:`load_state_dict`&nbsp;with<br>
+``strict=True``&nbsp;are&nbsp;affected&nbsp;by&nbsp;modifications&nbsp;the&nbsp;hook&nbsp;makes&nbsp;to<br>
+``missing_keys``&nbsp;or&nbsp;``unexpected_keys``,&nbsp;as&nbsp;expected.&nbsp;Additions&nbsp;to&nbsp;either<br>
+set&nbsp;of&nbsp;keys&nbsp;will&nbsp;result&nbsp;in&nbsp;an&nbsp;error&nbsp;being&nbsp;thrown&nbsp;when&nbsp;``strict=True``,&nbsp;and<br>
+clearning&nbsp;out&nbsp;both&nbsp;missing&nbsp;and&nbsp;unexpected&nbsp;keys&nbsp;will&nbsp;avoid&nbsp;an&nbsp;error.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:class:`torch.utils.hooks.RemovableHandle`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;handle&nbsp;that&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;remove&nbsp;the&nbsp;added&nbsp;hook&nbsp;by&nbsp;calling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``handle.remove()``</tt></dd></dl>
+
+<dl><dt><a name="Encoder-register_module"><strong>register_module</strong></a>(self, name: str, module: Optional[ForwardRef('Module')]) -&gt; None</dt><dd><tt>Alias&nbsp;for&nbsp;:func:`add_module`.</tt></dd></dl>
+
+<dl><dt><a name="Encoder-register_parameter"><strong>register_parameter</strong></a>(self, name: str, param: Optional[torch.nn.parameter.Parameter]) -&gt; None</dt><dd><tt>Adds&nbsp;a&nbsp;parameter&nbsp;to&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+The&nbsp;parameter&nbsp;can&nbsp;be&nbsp;accessed&nbsp;as&nbsp;an&nbsp;attribute&nbsp;using&nbsp;given&nbsp;name.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;(str):&nbsp;name&nbsp;of&nbsp;the&nbsp;parameter.&nbsp;The&nbsp;parameter&nbsp;can&nbsp;be&nbsp;accessed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;this&nbsp;module&nbsp;using&nbsp;the&nbsp;given&nbsp;name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;param&nbsp;(Parameter&nbsp;or&nbsp;None):&nbsp;parameter&nbsp;to&nbsp;be&nbsp;added&nbsp;to&nbsp;the&nbsp;module.&nbsp;If<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``None``,&nbsp;then&nbsp;operations&nbsp;that&nbsp;run&nbsp;on&nbsp;parameters,&nbsp;such&nbsp;as&nbsp;:attr:`cuda`,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;ignored.&nbsp;If&nbsp;``None``,&nbsp;the&nbsp;parameter&nbsp;is&nbsp;**not**&nbsp;included&nbsp;in&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;module's&nbsp;:attr:`state_dict`.</tt></dd></dl>
+
+<dl><dt><a name="Encoder-requires_grad_"><strong>requires_grad_</strong></a>(self: ~T, requires_grad: bool = True) -&gt; ~T</dt><dd><tt>Change&nbsp;if&nbsp;autograd&nbsp;should&nbsp;record&nbsp;operations&nbsp;on&nbsp;parameters&nbsp;in&nbsp;this<br>
+module.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;sets&nbsp;the&nbsp;parameters'&nbsp;:attr:`requires_grad`&nbsp;attributes<br>
+in-place.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;is&nbsp;helpful&nbsp;for&nbsp;freezing&nbsp;part&nbsp;of&nbsp;the&nbsp;module&nbsp;for&nbsp;finetuning<br>
+or&nbsp;training&nbsp;parts&nbsp;of&nbsp;a&nbsp;model&nbsp;individually&nbsp;(e.g.,&nbsp;GAN&nbsp;training).<br>
+&nbsp;<br>
+See&nbsp;:ref:`locally-disable-grad-doc`&nbsp;for&nbsp;a&nbsp;comparison&nbsp;between<br>
+`.<a href="#Encoder-requires_grad_">requires_grad_</a>()`&nbsp;and&nbsp;several&nbsp;similar&nbsp;mechanisms&nbsp;that&nbsp;may&nbsp;be&nbsp;confused&nbsp;with&nbsp;it.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;requires_grad&nbsp;(bool):&nbsp;whether&nbsp;autograd&nbsp;should&nbsp;record&nbsp;operations&nbsp;on<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parameters&nbsp;in&nbsp;this&nbsp;module.&nbsp;Default:&nbsp;``True``.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Encoder-set_extra_state"><strong>set_extra_state</strong></a>(self, state: Any)</dt><dd><tt>This&nbsp;function&nbsp;is&nbsp;called&nbsp;from&nbsp;:func:`load_state_dict`&nbsp;to&nbsp;handle&nbsp;any&nbsp;extra&nbsp;state<br>
+found&nbsp;within&nbsp;the&nbsp;`state_dict`.&nbsp;Implement&nbsp;this&nbsp;function&nbsp;and&nbsp;a&nbsp;corresponding<br>
+:func:`get_extra_state`&nbsp;for&nbsp;your&nbsp;module&nbsp;if&nbsp;you&nbsp;need&nbsp;to&nbsp;store&nbsp;extra&nbsp;state&nbsp;within&nbsp;its<br>
+`state_dict`.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;state&nbsp;(dict):&nbsp;Extra&nbsp;state&nbsp;from&nbsp;the&nbsp;`state_dict`</tt></dd></dl>
+
+<dl><dt><a name="Encoder-share_memory"><strong>share_memory</strong></a>(self: ~T) -&gt; ~T</dt><dd><tt>See&nbsp;:meth:`torch.Tensor.share_memory_`</tt></dd></dl>
+
+<dl><dt><a name="Encoder-state_dict"><strong>state_dict</strong></a>(self, *args, destination=None, prefix='', keep_vars=False)</dt><dd><tt>Returns&nbsp;a&nbsp;dictionary&nbsp;containing&nbsp;references&nbsp;to&nbsp;the&nbsp;whole&nbsp;state&nbsp;of&nbsp;the&nbsp;module.<br>
+&nbsp;<br>
+Both&nbsp;parameters&nbsp;and&nbsp;persistent&nbsp;buffers&nbsp;(e.g.&nbsp;running&nbsp;averages)&nbsp;are<br>
+included.&nbsp;Keys&nbsp;are&nbsp;corresponding&nbsp;parameter&nbsp;and&nbsp;buffer&nbsp;names.<br>
+Parameters&nbsp;and&nbsp;buffers&nbsp;set&nbsp;to&nbsp;``None``&nbsp;are&nbsp;not&nbsp;included.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;returned&nbsp;<a href="builtins.html#object">object</a>&nbsp;is&nbsp;a&nbsp;shallow&nbsp;copy.&nbsp;It&nbsp;contains&nbsp;references<br>
+&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;the&nbsp;module's&nbsp;parameters&nbsp;and&nbsp;buffers.<br>
+&nbsp;<br>
+..&nbsp;warning::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Currently&nbsp;``<a href="#Encoder-state_dict">state_dict</a>()``&nbsp;also&nbsp;accepts&nbsp;positional&nbsp;arguments&nbsp;for<br>
+&nbsp;&nbsp;&nbsp;&nbsp;``destination``,&nbsp;``prefix``&nbsp;and&nbsp;``keep_vars``&nbsp;in&nbsp;order.&nbsp;However,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this&nbsp;is&nbsp;being&nbsp;deprecated&nbsp;and&nbsp;keyword&nbsp;arguments&nbsp;will&nbsp;be&nbsp;enforced&nbsp;in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;future&nbsp;releases.<br>
+&nbsp;<br>
+..&nbsp;warning::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Please&nbsp;avoid&nbsp;the&nbsp;use&nbsp;of&nbsp;argument&nbsp;``destination``&nbsp;as&nbsp;it&nbsp;is&nbsp;not<br>
+&nbsp;&nbsp;&nbsp;&nbsp;designed&nbsp;for&nbsp;end-users.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;destination&nbsp;(dict,&nbsp;optional):&nbsp;If&nbsp;provided,&nbsp;the&nbsp;state&nbsp;of&nbsp;module&nbsp;will<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;be&nbsp;updated&nbsp;into&nbsp;the&nbsp;dict&nbsp;and&nbsp;the&nbsp;same&nbsp;<a href="builtins.html#object">object</a>&nbsp;is&nbsp;returned.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise,&nbsp;an&nbsp;``OrderedDict``&nbsp;will&nbsp;be&nbsp;created&nbsp;and&nbsp;returned.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default:&nbsp;``None``.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;prefix&nbsp;(str,&nbsp;optional):&nbsp;a&nbsp;prefix&nbsp;added&nbsp;to&nbsp;parameter&nbsp;and&nbsp;buffer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;names&nbsp;to&nbsp;compose&nbsp;the&nbsp;keys&nbsp;in&nbsp;state_dict.&nbsp;Default:&nbsp;``''``.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;keep_vars&nbsp;(bool,&nbsp;optional):&nbsp;by&nbsp;default&nbsp;the&nbsp;:class:`~torch.Tensor`&nbsp;s<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returned&nbsp;in&nbsp;the&nbsp;state&nbsp;dict&nbsp;are&nbsp;detached&nbsp;from&nbsp;autograd.&nbsp;If&nbsp;it's<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set&nbsp;to&nbsp;``True``,&nbsp;detaching&nbsp;will&nbsp;not&nbsp;be&nbsp;performed.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default:&nbsp;``False``.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;dictionary&nbsp;containing&nbsp;a&nbsp;whole&nbsp;state&nbsp;of&nbsp;the&nbsp;module<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+SKIP("undefined&nbsp;vars")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;module.<a href="#Encoder-state_dict">state_dict</a>().keys()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;['bias',&nbsp;'weight']</tt></dd></dl>
+
+<dl><dt><a name="Encoder-to"><strong>to</strong></a>(self, *args, **kwargs)</dt><dd><tt>Moves&nbsp;and/or&nbsp;casts&nbsp;the&nbsp;parameters&nbsp;and&nbsp;buffers.<br>
+&nbsp;<br>
+This&nbsp;can&nbsp;be&nbsp;called&nbsp;as<br>
+&nbsp;<br>
+..&nbsp;function::&nbsp;<a href="#Encoder-to">to</a>(device=None,&nbsp;dtype=None,&nbsp;non_blocking=False)<br>
+&nbsp;&nbsp;&nbsp;:noindex:<br>
+&nbsp;<br>
+..&nbsp;function::&nbsp;<a href="#Encoder-to">to</a>(dtype,&nbsp;non_blocking=False)<br>
+&nbsp;&nbsp;&nbsp;:noindex:<br>
+&nbsp;<br>
+..&nbsp;function::&nbsp;<a href="#Encoder-to">to</a>(tensor,&nbsp;non_blocking=False)<br>
+&nbsp;&nbsp;&nbsp;:noindex:<br>
+&nbsp;<br>
+..&nbsp;function::&nbsp;<a href="#Encoder-to">to</a>(memory_format=torch.channels_last)<br>
+&nbsp;&nbsp;&nbsp;:noindex:<br>
+&nbsp;<br>
+Its&nbsp;signature&nbsp;is&nbsp;similar&nbsp;to&nbsp;:meth:`torch.Tensor.to`,&nbsp;but&nbsp;only&nbsp;accepts<br>
+floating&nbsp;point&nbsp;or&nbsp;complex&nbsp;:attr:`dtype`\&nbsp;s.&nbsp;In&nbsp;addition,&nbsp;this&nbsp;method&nbsp;will<br>
+only&nbsp;cast&nbsp;the&nbsp;floating&nbsp;point&nbsp;or&nbsp;complex&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;:attr:`dtype`<br>
+(if&nbsp;given).&nbsp;The&nbsp;integral&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;will&nbsp;be&nbsp;moved<br>
+:attr:`device`,&nbsp;if&nbsp;that&nbsp;is&nbsp;given,&nbsp;but&nbsp;with&nbsp;dtypes&nbsp;unchanged.&nbsp;When<br>
+:attr:`non_blocking`&nbsp;is&nbsp;set,&nbsp;it&nbsp;tries&nbsp;to&nbsp;convert/move&nbsp;asynchronously<br>
+with&nbsp;respect&nbsp;to&nbsp;the&nbsp;host&nbsp;if&nbsp;possible,&nbsp;e.g.,&nbsp;moving&nbsp;CPU&nbsp;Tensors&nbsp;with<br>
+pinned&nbsp;memory&nbsp;to&nbsp;CUDA&nbsp;devices.<br>
+&nbsp;<br>
+See&nbsp;below&nbsp;for&nbsp;examples.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;(:class:`torch.device`):&nbsp;the&nbsp;desired&nbsp;device&nbsp;of&nbsp;the&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;buffers&nbsp;in&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dtype&nbsp;(:class:`torch.dtype`):&nbsp;the&nbsp;desired&nbsp;floating&nbsp;point&nbsp;or&nbsp;complex&nbsp;dtype&nbsp;of<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;in&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor&nbsp;(torch.Tensor):&nbsp;Tensor&nbsp;whose&nbsp;dtype&nbsp;and&nbsp;device&nbsp;are&nbsp;the&nbsp;desired<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dtype&nbsp;and&nbsp;device&nbsp;for&nbsp;all&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;in&nbsp;this&nbsp;module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;memory_format&nbsp;(:class:`torch.memory_format`):&nbsp;the&nbsp;desired&nbsp;memory<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;format&nbsp;for&nbsp;4D&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;in&nbsp;this&nbsp;module&nbsp;(keyword<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;only&nbsp;argument)<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self<br>
+&nbsp;<br>
+Examples::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+IGNORE_WANT("non-deterministic")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear&nbsp;=&nbsp;nn.Linear(2,&nbsp;2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.weight<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[&nbsp;0.1913,&nbsp;-0.3420],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-0.5113,&nbsp;-0.2325]])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.<a href="#Encoder-to">to</a>(torch.double)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.weight<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[&nbsp;0.1913,&nbsp;-0.3420],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-0.5113,&nbsp;-0.2325]],&nbsp;dtype=torch.float64)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;#&nbsp;xdoctest:&nbsp;+REQUIRES(env:TORCH_DOCTEST_CUDA1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;gpu1&nbsp;=&nbsp;torch.device("cuda:1")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.<a href="#Encoder-to">to</a>(gpu1,&nbsp;dtype=torch.half,&nbsp;non_blocking=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.weight<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[&nbsp;0.1914,&nbsp;-0.3420],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-0.5112,&nbsp;-0.2324]],&nbsp;dtype=torch.float16,&nbsp;device='cuda:1')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;cpu&nbsp;=&nbsp;torch.device("cpu")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.<a href="#Encoder-to">to</a>(cpu)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Linear(in_features=2,&nbsp;out_features=2,&nbsp;bias=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.weight<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[&nbsp;0.1914,&nbsp;-0.3420],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-0.5112,&nbsp;-0.2324]],&nbsp;dtype=torch.float16)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear&nbsp;=&nbsp;nn.Linear(2,&nbsp;2,&nbsp;bias=None).<a href="#Encoder-to">to</a>(torch.cdouble)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear.weight<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[&nbsp;0.3741+0.j,&nbsp;&nbsp;0.2382+0.j],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;0.5593+0.j,&nbsp;-0.4443+0.j]],&nbsp;dtype=torch.complex128)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;linear(torch.ones(3,&nbsp;2,&nbsp;dtype=torch.cdouble))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tensor([[0.6122+0.j,&nbsp;0.1150+0.j],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0.6122+0.j,&nbsp;0.1150+0.j],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0.6122+0.j,&nbsp;0.1150+0.j]],&nbsp;dtype=torch.complex128)</tt></dd></dl>
+
+<dl><dt><a name="Encoder-to_empty"><strong>to_empty</strong></a>(self: ~T, *, device: Union[str, torch.device]) -&gt; ~T</dt><dd><tt>Moves&nbsp;the&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;the&nbsp;specified&nbsp;device&nbsp;without&nbsp;copying&nbsp;storage.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;(:class:`torch.device`):&nbsp;The&nbsp;desired&nbsp;device&nbsp;of&nbsp;the&nbsp;parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;buffers&nbsp;in&nbsp;this&nbsp;module.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Encoder-train"><strong>train</strong></a>(self: ~T, mode: bool = True) -&gt; ~T</dt><dd><tt>Sets&nbsp;the&nbsp;module&nbsp;in&nbsp;training&nbsp;mode.<br>
+&nbsp;<br>
+This&nbsp;has&nbsp;any&nbsp;effect&nbsp;only&nbsp;on&nbsp;certain&nbsp;modules.&nbsp;See&nbsp;documentations&nbsp;of<br>
+particular&nbsp;modules&nbsp;for&nbsp;details&nbsp;of&nbsp;their&nbsp;behaviors&nbsp;in&nbsp;training/evaluation<br>
+mode,&nbsp;if&nbsp;they&nbsp;are&nbsp;affected,&nbsp;e.g.&nbsp;:class:`Dropout`,&nbsp;:class:`BatchNorm`,<br>
+etc.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mode&nbsp;(bool):&nbsp;whether&nbsp;to&nbsp;set&nbsp;training&nbsp;mode&nbsp;(``True``)&nbsp;or&nbsp;evaluation<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mode&nbsp;(``False``).&nbsp;Default:&nbsp;``True``.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Encoder-type"><strong>type</strong></a>(self: ~T, dst_type: Union[torch.dtype, str]) -&gt; ~T</dt><dd><tt>Casts&nbsp;all&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;:attr:`dst_type`.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dst_type&nbsp;(type&nbsp;or&nbsp;string):&nbsp;the&nbsp;desired&nbsp;type<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Encoder-xpu"><strong>xpu</strong></a>(self: ~T, device: Union[int, torch.device, NoneType] = None) -&gt; ~T</dt><dd><tt>Moves&nbsp;all&nbsp;model&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;to&nbsp;the&nbsp;XPU.<br>
+&nbsp;<br>
+This&nbsp;also&nbsp;makes&nbsp;associated&nbsp;parameters&nbsp;and&nbsp;buffers&nbsp;different&nbsp;objects.&nbsp;So<br>
+it&nbsp;should&nbsp;be&nbsp;called&nbsp;before&nbsp;constructing&nbsp;optimizer&nbsp;if&nbsp;the&nbsp;module&nbsp;will<br>
+live&nbsp;on&nbsp;XPU&nbsp;while&nbsp;being&nbsp;optimized.<br>
+&nbsp;<br>
+..&nbsp;note::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;modifies&nbsp;the&nbsp;module&nbsp;in-place.<br>
+&nbsp;<br>
+Arguments:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;(int,&nbsp;optional):&nbsp;if&nbsp;specified,&nbsp;all&nbsp;parameters&nbsp;will&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copied&nbsp;to&nbsp;that&nbsp;device<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="torch.nn.modules.module.html#Module">Module</a>:&nbsp;self</tt></dd></dl>
+
+<dl><dt><a name="Encoder-zero_grad"><strong>zero_grad</strong></a>(self, set_to_none: bool = False) -&gt; None</dt><dd><tt>Sets&nbsp;gradients&nbsp;of&nbsp;all&nbsp;model&nbsp;parameters&nbsp;to&nbsp;zero.&nbsp;See&nbsp;similar&nbsp;function<br>
+under&nbsp;:class:`torch.optim.Optimizer`&nbsp;for&nbsp;more&nbsp;context.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;set_to_none&nbsp;(bool):&nbsp;instead&nbsp;of&nbsp;setting&nbsp;to&nbsp;zero,&nbsp;set&nbsp;the&nbsp;grads&nbsp;to&nbsp;None.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See&nbsp;:meth:`torch.optim.Optimizer.zero_grad`&nbsp;for&nbsp;details.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="torch.nn.modules.module.html#Module">torch.nn.modules.module.Module</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="torch.nn.modules.module.html#Module">torch.nn.modules.module.Module</a>:<br>
+<dl><dt><strong>T_destination</strong> = ~T_destination</dl>
+
+<dl><dt><strong>dump_patches</strong> = False</dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>color_channels</strong> = 1<br>
+<strong>device</strong> = device(type='cuda', index=1)</td></tr></table>
+</body></html>

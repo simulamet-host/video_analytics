@@ -22,10 +22,14 @@ def plot_CAE_training(df, network, color_channels):
             #  sending reconstructed and images to cpu to allow for visualization
             reconstructed_imgs = reconstructed_imgs.cpu()
             visual_images = visual_images.cpu()
+        
         fig, (ax1, ax2) = plt.subplots(1, 2)
         fig.suptitle('Original/Reconstructed')
+        if color_channels == 1:
+            ax2.imshow(reconstructed_imgs.reshape(224, 224, color_channels), cmap='gray')
+        else:
+            ax2.imshow(reconstructed_imgs.reshape(224, 224, color_channels))
         ax1.imshow(visual_images.squeeze())
-        ax2.imshow(reconstructed_imgs.reshape(224, 224, color_channels))
         for ax_ in [ax1, ax2]:
             ax_.axis('off')
         file_name = './results/cae_' + str(counter) + '.jpg' 

@@ -2,6 +2,7 @@
 Image preprocessing module.
 Main functionality:
     * Resize images according to a given input dimensions.
+    * Convert images to grayscale.
 """
 import os
 import argparse
@@ -30,10 +31,10 @@ def get_images(dir_, img_format, re_size, resize_dim=(224,224), gray_scale = Tru
         images_ = glob.glob(folder_name + "/"+ img_format )
         for img_ in images_:
             img = cv2.imread(img_) # pylint: disable=E1101
-            if re_size:
-                img = cv2.resize(img, resize_dim)
             if gray_scale:
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            if re_size:
+                img = cv2.resize(img, resize_dim)
             all_images.append(img_as_float32(img))
     all_images = np.array(all_images)
     return all_images
