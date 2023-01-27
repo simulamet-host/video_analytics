@@ -6,4 +6,4 @@ Those are domain independent, but can be tailored towards specific problems by p
 ![system design](System%20Pipeline.drawio.svg)
 
 ## Documentation
-[Documentation of the package](docs/video_analysis/index.html)
+[Documentation of the package](https://simulamet-host.github.io/video_analytics/E2Evideo.html)
