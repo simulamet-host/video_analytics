@@ -5,7 +5,7 @@ Last updated January 2023
 """
 import sys
 
-sys.path.append('./video_analysis')
+sys.path.append('./E2Evideo')
 
 import torch
 from torch import nn
