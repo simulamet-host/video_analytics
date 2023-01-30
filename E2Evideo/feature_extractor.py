@@ -55,7 +55,7 @@ def main(args):
         visual_data, test_data = train_test_split(test_data, test_size=0.98, random_state=42)
     #  training model
     model = ConvolutionalAutoencoder(Autoencoder(Encoder(), Decoder()))
-    training_args = {'loss_function': nn.MSELoss(), 'epochs': 1000 , 'batch_size': 16,
+    training_args = {'loss_function': nn.BCELoss(), 'epochs': 10000 , 'batch_size': 16,
                 'training_set': training_data, 'test_set': test_data, 'visual_set': visual_data}
     log_dict = model.train(training_args) 
 
