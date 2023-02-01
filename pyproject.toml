@@ -5,7 +5,7 @@ build-backend = "flit_core.buildapi"
 [project]
 name = "E2Evideo"
 authors = [{name = "Faiga Alawad", email = "faiga@simula.no"}]
-requires-python = ">=3.10"
+requires-python = ">=3.8"
 dynamic = ["version", "description"]
 
 dependencies = [
