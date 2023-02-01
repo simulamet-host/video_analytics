@@ -5,8 +5,6 @@ Main functionality:
     * Create './images' folder, if it does not exist already.
     * Read all videos from a given videos folder and a specified video extension (default mp4).
     * Choose between either Saving all frames or one frame per second, in a video in corresponding images folder with the same video file name.
-
-Author Faiga Alawad 2022.
 """
 # import packages needed
 import argparse
