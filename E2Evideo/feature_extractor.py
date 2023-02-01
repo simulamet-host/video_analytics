@@ -34,6 +34,7 @@ def main(args):
                                 transform=transforms.ToTensor())
         test_set = Datasets.CIFAR10(root='../data/', download=True, train=False,
                                 transform=transforms.ToTensor())
+        visual_data = test_data
         #  extracting training images
         training_images = [x for x in training_set.data]
         #  extracting test images
@@ -56,7 +57,7 @@ def main(args):
     #  training model
     model = ConvolutionalAutoencoder(Autoencoder(Encoder(), Decoder()))
     training_args = {'loss_function': nn.BCELoss(), 'epochs': 10000 , 'batch_size': 16,
-                'training_set': training_data, 'test_set': test_data}
+                'training_set': training_data, 'test_set': test_data, 'visual_set': visual_data}
     log_dict = model.train(training_args) 
 
 if __name__ == '__main__':
