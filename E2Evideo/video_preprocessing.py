@@ -3,7 +3,8 @@ Video pre-processing module that extract frames from videos.
 Main functionality:
     * Create './images' folder, if it does not exist already.
     * Read all videos from a given videos folder and a specified video extension (default mp4).
-    * Choose between either Saving all frames or one frame per second, in a video in corresponding images folder with the same video file name.
+    * Choose between either Saving all frames or one frame per second,
+        in a video in corresponding images folder with the same video file name.
 """
 # import packages needed
 import argparse
@@ -41,9 +42,9 @@ def main(options):
         create_folder(images_folder)
         # capture the video from the video file
         cap = cv2.VideoCapture(video_file) # pylint: disable=E1101
-        frame_rate = cap.get(cv2.CAP_PROP_FPS)
+        frame_rate = cap.get(cv2.CAP_PROP_FPS) # pylint: disable=E1101
         while cap.isOpened():
-            frame_id = cap.get(cv2.CAP_PROP_POS_FRAMES)
+            frame_id = cap.get(cv2.CAP_PROP_POS_FRAMES) # pylint: disable=E1101
             ret, frame = cap.read()
             if not ret:
                 break
@@ -52,8 +53,8 @@ def main(options):
             if options.how_often == 'all_frames':
                 cv2.imwrite(images_folder + '/' + file_name, frame) # pylint: disable=E1101
             elif options.how_often == 'per_second':
-                if (frame_id % math.floor(frame_rate) == 0):
-                    cv2.imwrite(images_folder + '/'  + file_name, frame)
+                if frame_id % math.floor(frame_rate) == 0:
+                    cv2.imwrite(images_folder + '/'  + file_name, frame) # pylint: disable=E1101
         cap.release()
         print(f"\nDone! {count} images of format JPG is saved in {images_folder}" )
 
