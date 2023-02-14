@@ -9,7 +9,7 @@ def get_device():
     #  configuring device
     if is_available():
         # pylint: disable=E1101
-        which_device = device('cuda:1')
+        which_device = device('cuda:0')
         print('Running on the GPU')
     else:
         which_device = device('cpu') # pylint:disable=E1101

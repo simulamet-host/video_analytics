@@ -34,7 +34,6 @@ class Encoder(nn.Module):
             nn.BatchNorm2d(out_channels), 
             act_fn, 
             nn.MaxPool2d(kernel_size = 2, stride = 2), # (112, 112, 64)
-
             # Conv-2            
             nn.Conv2d(out_channels, 2 * out_channels, 3, padding=1), # (112, 112, 128)
             nn.BatchNorm2d(2 * out_channels),
@@ -43,7 +42,6 @@ class Encoder(nn.Module):
             nn.BatchNorm2d(2 * out_channels),
             act_fn,
             nn.MaxPool2d(kernel_size = 2, stride = 2), # (56, 56, 128)
-
             #Conv-3
             nn.Conv2d(2 * out_channels, 4*out_channels, 3, padding=1), # (56, 56, 256)
             nn.BatchNorm2d(4*out_channels),
@@ -55,7 +53,6 @@ class Encoder(nn.Module):
             nn.BatchNorm2d(4*out_channels),
             act_fn,
             nn.MaxPool2d(kernel_size = 2, stride = 2), # (28, 28 , 256)
-
             # Conv-4
             nn.Conv2d(4*out_channels, 8*out_channels, 3, padding=1), # (28, 28 , 512)
             nn.BatchNorm2d(8*out_channels),
@@ -67,7 +64,6 @@ class Encoder(nn.Module):
             nn.BatchNorm2d(8*out_channels),
             act_fn,
             nn.MaxPool2d(kernel_size = 2, stride = 2), # (14, 14 , 512)
-            
             #Conv-5
             nn.Conv2d(8*out_channels, 8*out_channels, 3, padding=1), # (14, 14 , 512)
             nn.BatchNorm2d(8*out_channels),
@@ -79,7 +75,6 @@ class Encoder(nn.Module):
             nn.BatchNorm2d(8*out_channels),
             act_fn,
             nn.MaxPool2d(kernel_size = 2, stride = 2), # (7, 7 , 512)
-
             nn.Flatten(),
             nn.Linear(8*out_channels*7*7, latent_dim), #(1000)
             act_fn)
@@ -184,7 +179,6 @@ class ConvolutionalAutoencoder():
         loaders['test_loader'] = DataLoader(training_args['test_set'],
                                             training_args['batch_size'])
         loaders['visual_loader'] = DataLoader(training_args['visual_set'])
-
         #  setting convnet to training mode
         self.network.train()
         self.network.to(device)
@@ -219,7 +213,6 @@ class ConvolutionalAutoencoder():
                 test_loss = training_args['loss_function'](output, test_images.view(-1, color_channels, 224, 224))
             # LOGGING
             log_dict['test_loss_per_batch'].append(test_loss.item())
-
         print(f'training_loss: {round(loss.item(), 4)} test_loss: {round(test_loss.item(), 4)}')
         plot_CAE_training(loaders['visual_loader'], self.network, color_channels)
         return log_dict

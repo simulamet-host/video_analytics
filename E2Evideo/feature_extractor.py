@@ -38,7 +38,6 @@ def main(args):
         training_images = [x for x in training_set.data]
         #  extracting test images
         test_images = [x for x in test_set.data]
-        
         #  creating pytorch datasets
         training_data = CustomDataset(training_images, transforms=transforms.Compose([transforms.ToTensor(),
                                                                         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
@@ -55,9 +54,11 @@ def main(args):
         visual_data, test_data = train_test_split(test_data, test_size=0.98, random_state=42)
     #  training model
     model = ConvolutionalAutoencoder(Autoencoder(Encoder(), Decoder()))
-    training_args = {'loss_function': nn.BCELoss(), 'epochs': 10000 , 'batch_size': 16,
+    training_args = {'loss_function': nn.BCELoss(), 'epochs': 10 , 'batch_size': 16,
                 'training_set': training_data, 'test_set': test_data, 'visual_set': visual_data}
-    log_dict = model.train(training_args) 
+    log_dict = model.train(training_args)
+    # save the model
+    torch.save(model, '../results/encoder_model.pkl')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
