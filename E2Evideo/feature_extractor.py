@@ -44,7 +44,8 @@ def main(args):
         test_data = CustomDataset(test_images, transforms=transforms.Compose([transforms.ToTensor(),
                                                                                         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
         test_data = CustomDataset(test_images, transforms=transforms.Compose([transforms.ToTensor(),
-                                                                                        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
+                                                                             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
+        visual_data = test_data
 
     if args.dataset_name == "handwashing":
         _dir = "./images/"

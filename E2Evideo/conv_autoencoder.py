@@ -1,7 +1,6 @@
 """
 Convolutional autoencoder module for unsupervised feature extraction.
 Part of the code adapted from https://blog.paperspace.com/convolutional-autoencoder/
-Last updated January 2023
 """
 import sys
 
