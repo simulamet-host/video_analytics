@@ -9,7 +9,7 @@ import argparse
 import glob
 import numpy as np
 import cv2
-from skimage import img_as_float32 
+from skimage import img_as_float32
 
 def get_images(dir_, img_format, re_size, resize_dim=(224,224), gray_scale = True):
     """
@@ -32,9 +32,9 @@ def get_images(dir_, img_format, re_size, resize_dim=(224,224), gray_scale = Tru
         for img_ in images_:
             img = cv2.imread(img_) # pylint: disable=E1101
             if gray_scale:
-                img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # pylint: disable=E1101
             if re_size:
-                img = cv2.resize(img, resize_dim)
+                img = cv2.resize(img, resize_dim) # pylint: disable=E1101
             all_images.append(img_as_float32(img))
     all_images = np.array(all_images)
     return all_images

@@ -2,26 +2,22 @@
 Convolutional autoencoder module for unsupervised feature extraction.
 Part of the code adapted from https://blog.paperspace.com/convolutional-autoencoder/
 """
-import sys
-
-sys.path.append('./E2Evideo')
-
 import torch
 from torch import nn
 from torch.utils.data import DataLoader
-from plot_results import plot_CAE_training
 from tqdm import tqdm
-from utils import get_device
+from e2evideo import plot_results
+from e2evideo import utils
 
-device = get_device()
-color_channels = 1
+device = utils.get_device()
+CCH = 1
 # The parameter 'latent dim' refers to the size of the bottleneck = 1000
 #  defining encoder
 class Encoder(nn.Module):
     """
     Encoder class.
     """
-    def __init__(self, in_channels=color_channels, out_channels=64, latent_dim=1000, act_fn=nn.ReLU()):
+    def __init__(self, in_channels=CCH, out_channels=64, latent_dim=1000, act_fn=nn.ReLU()):
         super().__init__()
 
         self.net = nn.Sequential(
@@ -29,11 +25,11 @@ class Encoder(nn.Module):
             nn.Conv2d(in_channels, out_channels, 3, padding=1), # (224, 244, 64)
             nn.BatchNorm2d(out_channels),
             act_fn,
-            nn.Conv2d(out_channels, out_channels, 3, padding=1), 
-            nn.BatchNorm2d(out_channels), 
-            act_fn, 
+            nn.Conv2d(out_channels, out_channels, 3, padding=1),
+            nn.BatchNorm2d(out_channels),
+            act_fn,
             nn.MaxPool2d(kernel_size = 2, stride = 2), # (112, 112, 64)
-            # Conv-2            
+            # Conv-2
             nn.Conv2d(out_channels, 2 * out_channels, 3, padding=1), # (112, 112, 128)
             nn.BatchNorm2d(2 * out_channels),
             act_fn,
@@ -81,7 +77,7 @@ class Encoder(nn.Module):
         """
         Forward function in the encoder.
         """
-        in_ = in_.view(-1, color_channels, 224, 224)
+        in_ = in_.view(-1, CCH, 224, 224)
         output = self.net(in_)
         return output
 
@@ -90,7 +86,7 @@ class Decoder(nn.Module):
     """
     Decoder class.
     """
-    def __init__(self, in_channels=color_channels, out_channels=64, latent_dim=1000, act_fn=nn.ReLU()):
+    def __init__(self, in_channels=CCH, out_channels=64, latent_dim=1000, act_fn=nn.ReLU()):
         super().__init__()
         self.out_channels = out_channels
         self.linear = nn.Sequential(
@@ -105,10 +101,11 @@ class Decoder(nn.Module):
             nn.ConvTranspose2d(4*out_channels, 2*out_channels, 3, padding=1,
                             stride=2, output_padding=1), # (28, 28, 128)
             act_fn,
-            nn.ConvTranspose2d(2*out_channels, out_channels, 3, padding=1, stride=2, output_padding=1), # (56, 56, 64)
+            nn.ConvTranspose2d(2*out_channels, out_channels, 3, padding=1, stride=2,
+                output_padding=1), # (56, 56, 64)
             act_fn,
             nn.ConvTranspose2d(out_channels, out_channels, 3, padding=1,
-                            stride=2, output_padding=1), # (112, 112, 64)
+            stride=2, output_padding=1), # (112, 112, 64)
             act_fn,
             nn.ConvTranspose2d(out_channels, out_channels, 3, padding=1,
                             stride=2, output_padding=1), # (224, 224, 64)
@@ -193,7 +190,7 @@ class ConvolutionalAutoencoder():
             #  reconstructing images
             output = self.network(images)
             #  computing loss
-            loss = training_args['loss_function'](output, images.view(-1, color_channels, 224, 224))
+            loss = training_args['loss_function'](output, images.view(-1, CCH, 224, 224))
             #  calculating gradients
             loss.backward()
             #  optimizing weights
@@ -209,11 +206,12 @@ class ConvolutionalAutoencoder():
                 #  reconstructing images
                 output = self.network(test_images)
                 #  computing test loss
-                test_loss = training_args['loss_function'](output, test_images.view(-1, color_channels, 224, 224))
+                test_loss = training_args['loss_function'](output, test_images.view(-1,
+                                            CCH, 224, 224))
             # LOGGING
             log_dict['test_loss_per_batch'].append(test_loss.item())
         print(f'training_loss: {round(loss.item(), 4)} test_loss: {round(test_loss.item(), 4)}')
-        plot_CAE_training(loaders['visual_loader'], self.network, color_channels)
+        plot_results.plot_cae_training(loaders['visual_loader'], self.network, CCH)
         return log_dict
 
     def autoencode(self, in_):

@@ -1,20 +1,20 @@
 """
 This moduel contains all the plots produced from the package.
 """
+import argparse
 import matplotlib.pyplot as plt
 import torch
 from tqdm import tqdm
-from utils import get_device
-import argparse
+from e2evideo import utils
 
-device = get_device()
+device = utils.get_device()
 
-def plot_CAE_training(df, network, color_channels):
+def plot_cae_training(data, network, color_channels):
     """
-    Plot the CAE training results, it results in plotting the original Vs. reconstruced image. 
+    Plot the CAE training results, it results in plotting the original Vs. reconstruced image.
     """
     counter = 0
-    for visual_images in tqdm(df):
+    for visual_images in tqdm(data):
         #  sending test images to device
         visual_images = visual_images.to(device)
         with torch.no_grad():
@@ -32,7 +32,7 @@ def plot_CAE_training(df, network, color_channels):
         ax1.imshow(visual_images.squeeze())
         for ax_ in [ax1, ax2]:
             ax_.axis('off')
-        file_name = './results/cae_' + str(counter) + '.jpg' 
+        file_name = './results/cae_' + str(counter) + '.jpg'
         counter += 1
         plt.show()
         plt.savefig(file_name)
@@ -43,4 +43,4 @@ if __name__ == '__main__':
     parser.add_argument('--nn')
     parser.add_argument('--color_channels')
     args = parser.parse_args()
-    plot_CAE_training(args.data_frame, args.nn, args.color_channels)
+    plot_cae_training(args.data_frame, args.nn, args.color_channels)
