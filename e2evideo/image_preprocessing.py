@@ -34,6 +34,7 @@ def get_images(dir_, img_format, re_size, resize_dim=(224,224), gray_scale = Tru
             if gray_scale:
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # pylint: disable=E1101
             if re_size:
+                print('Resizing image to', resize_dim)
                 img = cv2.resize(img, resize_dim) # pylint: disable=E1101
             all_images.append(img_as_float32(img))
     all_images = np.array(all_images)
@@ -43,9 +44,10 @@ if __name__ == '__main__':
     parser_ = argparse.ArgumentParser()
     parser_.add_argument('--dir', default='./images/')
     parser_.add_argument('--img_format', default='*.jpg')
-    parser_.add_argument('--is_resize', default=True)
-    parser_.add_argument('--resize_dim', default=(224, 224))
+    parser_.add_argument('--is_resize', default=False)
+    parser_.add_argument('--resize_dim', default=(224, 224), type=tuple)
+    parser_.add_argument('--gray_scale', default=False)
     args_ = parser_.parse_args()
 
-    _images = get_images(args_.dir, args_.img_format, args_.is_resize, args_.resize_dim)
-    print('Images saved in array of arrays with size ', _images.shape)
+    _images = get_images(args_.dir, args_.img_format, args_.is_resize, args_.resize_dim, args_.gray_scale)
+    print('Images saved in array of arrays with size', str(_images.shape))
