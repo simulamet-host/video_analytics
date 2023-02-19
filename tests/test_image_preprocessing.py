@@ -79,3 +79,7 @@ def test_get_images_term(image_folder):
     process_gray = subprocess.run(cmd, capture_output=True)
     assert process_gray.returncode == 0
     assert process_gray.stdout == b'Images saved in array of arrays with size (3, 32, 32)\n'
+
+if __name__ == '__main__':
+    test_get_images_call(image_folder)
+    test_get_images_term(image_folder)
