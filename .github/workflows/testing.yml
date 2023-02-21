@@ -20,7 +20,8 @@ jobs:
         pip install pytest
     - name: Analysing the code with pylint
       run: |
-        find . -name '*.py' -exec pylint {} \ ;
+        find . -name '*.py' -exec pylint {} \;
     - name: Run pytest
       run: |
-        pytest 
+        cd tests/
+        pytest .
