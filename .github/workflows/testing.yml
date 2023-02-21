@@ -23,5 +23,6 @@ jobs:
         find . -name '*.py' -exec pylint {} \;
     - name: Run pytest
       run: |
+        pip install .
         cd tests/
         pytest .
