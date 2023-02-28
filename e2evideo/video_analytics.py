@@ -20,14 +20,14 @@ from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-label_data = pd.read_csv("./data/UCF-101/ucfTrainTestlist/classInd.txt", sep=' ', header=None)
+label_data = pd.read_csv("../data/UCF-101/ucfTrainTestlist/classInd.txt", sep=' ', header=None)
 label_data.columns=['index', 'labels']
 label_data = label_data.drop(['index'], axis=1)
 label_data.head()
 
 path=[]
 for label in label_data.labels.values:
-    path.append('./data/UCF-101/'+label+"/")
+    path.append('../data/UCF-101/'+label+"/")
 
 #Function for Feature Extraction
 def feature_extraction(video_path):
