@@ -19,5 +19,6 @@ dependencies = [
 "torchvision",
 "scikit-learn",
 "opencv-python",
-"scikit-image"
+"scikit-image",
+"tensorflow"
 ]

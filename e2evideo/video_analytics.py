@@ -152,11 +152,11 @@ def plot_frames_and_predictions(label_data):
         # Getting Class Name using Random Index
         selected_class_Name = all_classes_names[random_index]
         # Getting a list of all the video files present in a Class Directory
-        video_files_names_list = os.listdir(f'./data/UCF-101/{selected_class_Name}')
+        video_files_names_list = os.listdir(f'../data/UCF-101/{selected_class_Name}')
         # Randomly selecting a video file
         selected_video_file_name = random.choice(video_files_names_list)
         # Reading the Video File Using the Video Capture
-        video_reader = cv2.VideoCapture(f'./data/UCF-101/{selected_class_Name}/{selected_video_file_name}')
+        video_reader = cv2.VideoCapture(f'../data/UCF-101/{selected_class_Name}/{selected_video_file_name}')
         # Reading The First Frame of the Video File
         _, bgr_frame = video_reader.read()
         # Closing the VideoCapture object and releasing all resources.
