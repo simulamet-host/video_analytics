@@ -21,6 +21,8 @@ from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
+print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+
 label_data = pd.read_csv("../data/UCF-101/ucfTrainTestlist/classInd.txt", sep=' ', header=None)
 label_data.columns=['index', 'labels']
 label_data = label_data.drop(['index'], axis=1)
