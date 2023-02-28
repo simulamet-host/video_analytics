@@ -81,19 +81,24 @@ def object_detection_model(x_train, y_train, x_test, y_test):
     print("Object Detection")
     # Define the model
     model = Sequential()
-    model.add(BatchNormalization(momentum=0.8, input_shape=(x_train.shape[1],x_train.shape[2], x_train.shape[3], 3)))
-    model.add(ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU', data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
+    model.add(BatchNormalization(momentum=0.8, input_shape=(x_train.shape[1],x_train.shape[2],
+                                                            x_train.shape[3], 3)))
+    model.add(ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
+                         data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
     model.add(MaxPooling3D(pool_size=(1,2,2), padding='same', data_format='channels_last'))
     model.add(TimeDistributed(Dropout(0.2)))
-    model.add(ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU', data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
+    model.add(ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
+                         data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
     model.add(BatchNormalization(momentum=0.8))
     model.add(MaxPooling3D(pool_size=(1,2,2), padding='same', data_format='channels_last'))
     model.add(TimeDistributed(Dropout(0.2)))
-    model.add(ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU', data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
+    model.add(ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
+                        data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
     model.add(BatchNormalization(momentum=0.8))
     model.add(MaxPooling3D(pool_size=(1,2,2), padding='same', data_format='channels_last'))
     model.add(TimeDistributed(Dropout(0.3)))
-    model.add(ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU', data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
+    model.add(ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
+                        data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
     model.add(BatchNormalization(momentum=0.8))
     model.add(MaxPooling3D(pool_size=(1,2,2), padding='same', data_format='channels_last'))
     model.add(TimeDistributed(Dropout(0.3)))
@@ -107,7 +112,8 @@ def object_detection_model(x_train, y_train, x_test, y_test):
 
     #Model training
     es = EarlyStopping(monitor='val_loss', patience=5, mode='min', restore_best_weights=True)
-    history = model.fit(x_train, to_categorical(y_train), batch_size=32, epochs=50, validation_data=(x_test, to_categorical(y_test)), callbacks=[es])
+    history = model.fit(x_train, to_categorical(y_train), batch_size=32, epochs=50,
+                        validation_data=(x_test, to_categorical(y_test)), callbacks=[es])
 
     # save the model
     model.save('./results/models/convlstm_model.h5')
