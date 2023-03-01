@@ -24,7 +24,10 @@ E2Evideo provides the following features:
 # Installation
 To install E2Evideo, you can use the following command after git Clone this Repo, then run the following in the main directory:
 
-``pip install .`` 
+``
+pip install .
+`` 
+
 
 # Contributing
 Contributions to E2Evideo are welcome! If you would like to contribute, please fork the repository and create a pull request.

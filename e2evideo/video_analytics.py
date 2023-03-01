@@ -104,14 +104,14 @@ def object_detection_model(x_train, y_train, x_test, y_test):
     model.add(TimeDistributed(Dropout(0.3)))
     model.add(Flatten())
     model.add(Dense(4096,activation="relu"))
-    model.add(Dense(10, activation='softmax'))
+    model.add(Dense(2, activation='softmax'))
     model.summary()
 
     #compile model
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics='accuracy')
     #Model training
     es = EarlyStopping(monitor='val_loss', patience=5, mode='min', restore_best_weights=True)
-    history = model.fit(x_train, to_categorical(y_train), batch_size=32, epochs=50,
+    history = model.fit(x_train, to_categorical(y_train), batch_size=32, epochs=5,
                         validation_data=(x_test, to_categorical(y_test)), callbacks=[es])
 
     # save the model
@@ -197,7 +197,6 @@ if __name__ == '__main__':
     label_data.columns=['index', 'labels']
     label_data = label_data.drop(['index'], axis=1)
     label_data.head()
-
     path=[]
     for label in label_data.labels.values:
         path.append('../data/UCF-101/'+label+"/")
@@ -205,7 +204,7 @@ if __name__ == '__main__':
     images, labels = load_video(path[:2])
     #Train Test Split
     x_train, x_test, y_train, y_test=train_test_split(images, labels, test_size=0.06, random_state=10)
-    x_train.shape, x_test.shape, np.array(y_train).shape, np.array(y_test).shape
+    print(x_train.shape, x_test.shape, np.array(y_train).shape, np.array(y_test).shape)
 
     model, history = object_detection_model(x_train, y_train, x_test, y_test)
     
@@ -213,6 +212,11 @@ if __name__ == '__main__':
     model = tf.keras.models.load_model('./results/models/convlstm_model.h5')
   
     predicted_classes = plot_accuracy(history)
+    print(predicted_classes)
+    
     get_accuracy(model, x_test, y_test)
-    plot_frames_and_predictions(label_data)
+    
+    #TODO I need to re-write this function
+    #plot_frames_and_predictions(label_data)
+    
     plot_confusion_matrix(y_test, predicted_classes)
