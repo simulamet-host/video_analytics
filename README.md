@@ -10,3 +10,25 @@ Those are domain independent, but can be tailored towards specific problems by p
 
 ![system design](System%20Pipeline.drawio.svg)
 
+# Features
+E2Evideo provides the following features:
+- Video and image loading from disk or from a URL
+- Video and image resizing, cropping, and normalization
+- Video and image frame extraction
+- (In-progress) Object detection and tracking in video and images
+- (TODO) Face detection and recognition in video and images
+- Deep feature extraction using pre-trained models (e.g. VGG16, ResNet50)
+- (TODO) Data augmentation techniques for video and image data
+
+
+# Installation
+To install E2Evideo, you can use the following command after git Clone this Repo, then run the following in the main directory:
+
+``pip install .`` 
+
+# Contributing
+Contributions to E2Evideo are welcome! If you would like to contribute, please fork the repository and create a pull request.
+
+# License
+E2Evideo is licensed under the MIT License. See LICENSE for more information.
+
