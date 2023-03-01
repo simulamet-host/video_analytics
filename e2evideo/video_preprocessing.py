@@ -39,7 +39,7 @@ def main(options):
         count = 0
         folder_name_len = len(options.videos_folder)
         video_format_len = len(options.video_format) + 1
-        images_folder = './images/' + video_file[folder_name_len:-video_format_len ]
+        images_folder =  options.output_folder + video_file[folder_name_len:-video_format_len ]
         create_folder(images_folder)
         # capture the video from the video file
         cap = cv2.VideoCapture(video_file) # pylint: disable=E1101
