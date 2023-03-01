@@ -116,7 +116,7 @@ def object_detection_model(x_train, y_train, x_test, y_test):
 
     # save the model
     model.save('./results/models/convlstm_model.h5')
-    return model, history
+    return  history
 
 def plot_accuracy(history):
     """
@@ -206,16 +206,17 @@ if __name__ == '__main__':
     x_train, x_test, y_train, y_test=train_test_split(images, labels, test_size=0.06, random_state=10)
     print(x_train.shape, x_test.shape, np.array(y_train).shape, np.array(y_test).shape)
 
-    model, history = object_detection_model(x_train, y_train, x_test, y_test)
+    history = object_detection_model(x_train, y_train, x_test, y_test)
     
     # load model from file
     model = tf.keras.models.load_model('./results/models/convlstm_model.h5')
   
-    predicted_classes = plot_accuracy(history)
-    print(predicted_classes)
-    
-    get_accuracy(model, x_test, y_test)
-    
+    y_pred = model.predict(x_test)
+    predicted_classes=[]
+    for i in range(len(y_test)):
+        predicted_classes.append(np.argmax(y_pred[i]))
+    print(accuracy_score(y_test, predicted_classes))
+        
     #TODO I need to re-write this function
     #plot_frames_and_predictions(label_data)
     
