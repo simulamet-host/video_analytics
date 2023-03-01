@@ -31,8 +31,9 @@ def main(options):
     Main function will run when the python file is called from terminal.
     """
     assert os.path.isdir(options.videos_folder), 'The given videos_folder does not exist'
-    create_folder('./images')
-    video_files = glob.glob(options.videos_folder + "*." + options.video_format)
+    create_folder(options.output_folder)
+    video_files = glob.glob(options.videos_folder + "/**/*." + options.video_format,
+                            recursive=True)
     assert len(video_files) != 0 , 'The given videos folder does not contain any vidoes'
     for video_file in video_files:
         count = 0
@@ -65,5 +66,6 @@ if __name__ == '__main__':
     parser.add_argument('--image_format', default='jpg',
                         help='choose the format for the output images.')
     parser.add_argument('--how_often', default='all_frames', choices= ['all_frames', 'per_second'])
+    parser.add_argument('--output_folder', default='./images')
     opts = parser.parse_args()
     main(opts)

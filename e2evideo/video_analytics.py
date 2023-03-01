@@ -19,9 +19,12 @@ from tensorflow.keras.layers import *
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 
+from e2evideo import image_preprocessing
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 #Function for Feature Extraction
+# TODO call video_preprocessing function instead of feature_extraction
 def feature_extraction(video_path):
     """
     This function is used to extract the frames from the video.
@@ -54,6 +57,7 @@ def feature_extraction(video_path):
     return frames_list
 
 #Function for loading video files, Process and store in a data set
+# Call image_preprocessing function instead of load_video
 def load_video(datasets):
     """
     This function is used to load the video files from the dataset.
@@ -131,18 +135,6 @@ def plot_accuracy(history):
     plt.savefig('./results/accuracy_vs_epochs.png')
     plt.show()
 
-def get_accuracy(model, x_test, y_test):
-    """
-    This function is used to get the accuracy of the model.
-    """
-    #Get the accuracy of the model
-    y_pred = model.predict(x_test)
-    predicted_classes=[]
-    for i in range(len(y_test)):
-        predicted_classes.append(np.argmax(y_pred[i]))
-    print(accuracy_score(y_test, predicted_classes))
-    return predicted_classes
-
 def plot_frames_and_predictions(label_data):
     """
     This function is used to plot the frames and predictions of the model.
@@ -193,6 +185,7 @@ def plot_confusion_matrix(y_test, predicted_classes):
 if __name__ == '__main__':
     print('Video Classification using ConvLSTM')
     print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+    
     label_data = pd.read_csv("../data/UCF-101/ucfTrainTestlist/classInd.txt", sep=' ', header=None)
     label_data.columns=['index', 'labels']
     label_data = label_data.drop(['index'], axis=1)
@@ -201,13 +194,16 @@ if __name__ == '__main__':
     for label in label_data.labels.values:
         path.append('../data/UCF-101/'+label+"/")
 
+    
     images, labels = load_video(path[:2])
+    
     #Train Test Split
     x_train, x_test, y_train, y_test=train_test_split(images, labels, test_size=0.06, random_state=10)
     print(x_train.shape, x_test.shape, np.array(y_train).shape, np.array(y_test).shape)
 
     history = object_detection_model(x_train, y_train, x_test, y_test)
-    
+    plot_accuracy(history)
+
     # load model from file
     model = tf.keras.models.load_model('./results/models/convlstm_model.h5')
   
