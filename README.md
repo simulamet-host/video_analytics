@@ -1,7 +1,7 @@
 # E2E Video and Image Preprocessing for DL: Domain Independent Pipeline
 
 ![Test](https://github.com/simulamet-host/video_analytics/actions/workflows/testing.yml/badge.svg)
-## Contributing [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/simulamet-host/video_analytics/issues)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/simulamet-host/video_analytics/issues)
 
 
 **`Documentation`** |
