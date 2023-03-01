@@ -1,7 +1,7 @@
 # E2E Video and Image Preprocessing for DL: Domain Independent Pipeline
 
 [![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-3816/)
-[](https://img.shields.io/badge/-3.9-blue.svg)
+![](https://img.shields.io/badge/-3.9-blue.svg)
 [![Test](https://github.com/simulamet-host/video_analytics/actions/workflows/testing.yml/badge.svg)](https://github.com/simulamet-host/video_analytics/actions/workflows/testing.yml)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/simulamet-host/video_analytics/issues)
 
