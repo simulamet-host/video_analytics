@@ -1,6 +1,6 @@
 # E2E Video and Image Preprocessing for DL: Domain Independent Pipeline
 
-[build-image]: https://github.com/simulamet-host/video_analytics/actions/workflows/testing.yml
+[Test](https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AOcticons-mark-github.svg&psig=AOvVaw1VXtOzWPTDTiyyI-v56mvG&ust=1677752932198000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCOCEjO7Cuv0CFQAAAAAdAAAAABAE): https://github.com/simulamet-host/video_analytics/actions/workflows/testing.yml
 
 **`Documentation`** |
 ------------------- |
