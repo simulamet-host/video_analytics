@@ -48,7 +48,7 @@ if __name__ == '__main__':
     parser_.add_argument('--img_height', default=224, type=int)
     parser_.add_argument('--gray_scale', default=False)
     args_ = parser_.parse_args()
-  
+    
     _images = get_images(args_)
   
     print('Images saved in array of arrays with size', str(_images.shape))

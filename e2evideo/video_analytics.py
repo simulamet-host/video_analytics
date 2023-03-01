@@ -3,6 +3,7 @@ Object_detection module. It contains functions that are designed
 to perform object detection tasks on specific datasets.
 This initial version is tailored specifically for the object detection dataset.
 """
+import argparse
 import numpy as np
 import pandas as pd
 import os
@@ -77,6 +78,19 @@ def load_video(datasets):
             labels.append(label_index)
         label_index+=1
     return np.array(images, dtype='float16'), np.array(labels, dtype='int8')
+
+def load_label(datasets):
+    """
+    """
+    global image
+    label_index=0
+    labels=[]
+    #Iterate through each foler corresponding to category
+    for folder in datasets:
+        for file in tqdm(os.listdir(folder)):
+            labels.append(label_index)
+        label_index+=1
+    return np.array(labels, dtype='int8')
 
 def object_detection_model(x_train, y_train, x_test, y_test):
     """
@@ -194,8 +208,10 @@ if __name__ == '__main__':
     for label in label_data.labels.values:
         path.append('../data/UCF-101/'+label+"/")
 
-    
-    images, labels = load_video(path[:2])
+    opt_dict = {'dir': str('../data/images_ucf101'), 'img_format': '*.jpg', 'resize': True, 'img_width': 60, 'img_height': 60, 'gray_scale': False}
+    opt_ = argparse.Namespace(**opt_dict)
+    images = image_preprocessing.get_images(opt_)
+    labels = load_label(path[:2])
     
     #Train Test Split
     x_train, x_test, y_train, y_test=train_test_split(images, labels, test_size=0.06, random_state=10)
