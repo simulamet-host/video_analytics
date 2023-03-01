@@ -111,12 +111,12 @@ def object_detection_model(x_train, y_train, x_test, y_test):
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics='accuracy')
     #Model training
     es = EarlyStopping(monitor='val_loss', patience=5, mode='min', restore_best_weights=True)
-    model.fit(x_train, to_categorical(y_train), batch_size=32, epochs=50,
+    history = model.fit(x_train, to_categorical(y_train), batch_size=32, epochs=50,
                         validation_data=(x_test, to_categorical(y_test)), callbacks=[es])
 
     # save the model
     model.save('./results/models/convlstm_model.h5')
-   
+    return model, history
 
 def plot_accuracy(history):
     """
@@ -202,17 +202,17 @@ if __name__ == '__main__':
     for label in label_data.labels.values:
         path.append('../data/UCF-101/'+label+"/")
 
-    images, labels = load_video(path[:10])
+    images, labels = load_video(path[:2])
     #Train Test Split
     x_train, x_test, y_train, y_test=train_test_split(images, labels, test_size=0.06, random_state=10)
     x_train.shape, x_test.shape, np.array(y_train).shape, np.array(y_test).shape
 
-    object_detection_model(x_train, y_train, x_test, y_test)
+    model, history = object_detection_model(x_train, y_train, x_test, y_test)
     
     # load model from file
     model = tf.keras.models.load_model('./results/models/convlstm_model.h5')
   
-    predicted_classes = plot_accuracy(model)
+    predicted_classes = plot_accuracy(history)
     get_accuracy(model, x_test, y_test)
     plot_frames_and_predictions(label_data)
     plot_confusion_matrix(y_test, predicted_classes)
