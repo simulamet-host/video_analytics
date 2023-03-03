@@ -82,7 +82,6 @@ def load_video(datasets):
 def load_label(datasets):
     """
     """
-    global image
     label_index=0
     labels=[]
     #Iterate through each foler corresponding to category
@@ -204,15 +203,17 @@ if __name__ == '__main__':
     label_data.columns=['index', 'labels']
     label_data = label_data.drop(['index'], axis=1)
     label_data.head()
+
     path=[]
     for label in label_data.labels.values:
-        path.append('../data/UCF-101/'+label+"/")
-
-    opt_dict = {'dir': str('../data/images_ucf101'), 'img_format': '*.jpg', 'resize': True, 'img_width': 60, 'img_height': 60, 'gray_scale': False}
+        path.append('../data/images_ucf101/'+label+"/")
+    print(len(path))
+    opt_dict = {'dir': str('../data/images_ucf101/'), 'img_format': '*.jpg', 'resize': True, 'img_width': 60, 'img_height': 60, 'gray_scale': False}
     opt_ = argparse.Namespace(**opt_dict)
     images = image_preprocessing.get_images(opt_)
-    labels = load_label(path[:2])
-    
+    labels = load_label(path)
+    print(images.shape, len(labels))
+
     #Train Test Split
     x_train, x_test, y_train, y_test=train_test_split(images, labels, test_size=0.06, random_state=10)
     print(x_train.shape, x_test.shape, np.array(y_train).shape, np.array(y_test).shape)
