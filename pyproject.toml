@@ -20,5 +20,5 @@ dependencies = [
 "scikit-learn",
 "opencv-python",
 "scikit-image",
-"tensorflow"
+"tensorflow>=2.9.3"
 ]
