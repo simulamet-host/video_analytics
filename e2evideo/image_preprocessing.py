@@ -37,6 +37,8 @@ def get_images(args_opt):
                 img = cv2.resize(img, (args_opt.img_width, args_opt.img_height)) # pylint: disable=E1101
             all_images.append(img_as_float32(img))
     all_images = np.array(all_images)
+    # save all_images in a numpy array 
+    np.save(args_opt.output, all_images)
     return all_images
 
 if __name__ == '__main__':
@@ -47,6 +49,7 @@ if __name__ == '__main__':
     parser_.add_argument('--img_width', default=224, type=int)
     parser_.add_argument('--img_height', default=224, type=int)
     parser_.add_argument('--gray_scale', default=False)
+    parser_.add_argument('--output', default='./results/all_images.npy')
     args_ = parser_.parse_args()
     
     _images = get_images(args_)

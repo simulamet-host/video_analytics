@@ -137,3 +137,5 @@ VISEM-Tracking.zip.download/VISEM-Tracking.zip
 VISEM-Tracking.zip.download/Info.plist
 .DS_Store
 condaenv.q97f72li.requirements.txt
+e2evideo/jobs/image_preprocessing.sh
+e2evideo/results/all_images.npy
