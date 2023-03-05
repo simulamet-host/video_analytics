@@ -26,9 +26,6 @@ def get_images(args_opt):
                         This array is of size = (num_images, height, width, no_channels)
     """
     img_folders = [x[0] for x in os.walk(args_opt.dir)]
-    # Each folder is its own video
-    print('Number of folders', len(img_folders[1:]))
-
     all_images = []
     for folder_name in img_folders:
         video_file = []
@@ -40,7 +37,6 @@ def get_images(args_opt):
             if args_opt.resize:
                 img = cv2.resize(img, (args_opt.img_width, args_opt.img_height)) # pylint: disable=E1101
             video_file.append(img_as_float32(img))
-        print('Number of images in folder:', folder_name , ' is equal to ', len(video_file))
         if len(video_file) !=0:
             all_images.append(video_file)
     # find the maximum length of the videos in the dataset
@@ -68,4 +64,4 @@ if __name__ == '__main__':
     
     _images = get_images(args_)
 
-    print('Images saved in array of arrays with size', str(_images.shape))
+    print('Images saved in array of array of size', str(_images.shape))
