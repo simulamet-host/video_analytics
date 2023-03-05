@@ -24,61 +24,6 @@ from e2evideo import image_preprocessing
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-#Function for Feature Extraction
-# TODO call video_preprocessing function instead of feature_extraction
-def feature_extraction(video_path):
-    """
-    This function is used to extract the frames from the video.
-    """
-    width=60
-    height=60
-    sequence_length=10
-    frames_list=[]
-    #Read the Video
-    video_reader = cv2.VideoCapture(video_path)
-    #get the frame count
-    frame_count=int(video_reader.get(cv2.CAP_PROP_FRAME_COUNT))
-    #Calculate the interval after which frames will be added to the list
-    skip_interval = max(int(frame_count/sequence_length), 1)
-    #iterate through video frames
-    for counter in range(sequence_length):
-        #Set the current frame postion of the video
-        video_reader.set(cv2.CAP_PROP_POS_FRAMES, counter * skip_interval)
-        #Read the current frame
-        ret, frame = video_reader.read()
-        if not ret:
-            break
-        #Resize the image
-        frame=cv2.resize(frame, (height, width))
-        frame = frame/255
-        #Append to the frame
-        frames_list.append(frame)
-    video_reader.release()
-    #Return the Frames List
-    return frames_list
-
-#Function for loading video files, Process and store in a data set
-# Call image_preprocessing function instead of load_video
-def load_video(datasets):
-    """
-    This function is used to load the video files from the dataset.
-    """
-    global image
-    label_index=0
-    labels=[]
-    images=[]
-    #Iterate through each foler corresponding to category
-    for folder in datasets:
-        for file in tqdm(os.listdir(folder)):
-            #Get the path name for each video
-            video_path = os.path.join(folder, file)
-            #Extract the frames of the current video
-            frames_list = feature_extraction(video_path)
-            images.append(frames_list)
-            labels.append(label_index)
-        label_index+=1
-    return np.array(images, dtype='float16'), np.array(labels, dtype='int8')
-
 def load_label(datasets):
     """
     """
@@ -198,7 +143,7 @@ def plot_confusion_matrix(y_test, predicted_classes):
 if __name__ == '__main__':
     print('Video Classification using ConvLSTM')
     print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
-    
+
     label_data = pd.read_csv("../data/UCF-101/ucfTrainTestlist/classInd.txt", sep=' ', header=None)
     label_data.columns=['index', 'labels']
     label_data = label_data.drop(['index'], axis=1)
@@ -208,10 +153,9 @@ if __name__ == '__main__':
     for label in label_data.labels.values:
         path.append('../data/images_ucf101/'+label+"/")
     print(len(path))
-    opt_dict = {'dir': str('../data/images_ucf101/'), 'img_format': '*.jpg', 'resize': True, 'img_width': 60, 'img_height': 60, 'gray_scale': False}
-    opt_ = argparse.Namespace(**opt_dict)
-    images = image_preprocessing.get_images(opt_)
-    labels = load_label(path)
+    # load images from file in the same folder
+    images = np.load('./results/all_images.npy')
+    labels = load_label(path[:1])
     print(images.shape, len(labels))
 
     #Train Test Split
