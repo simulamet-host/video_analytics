@@ -12,12 +12,12 @@ Those are domain independent, but can be tailored towards specific problems by p
 
 # Features :rocket:
 E2Evideo provides the following features:
-- Video and image loading from disk or from a URL :file_folder:	
-- Video and image resizing, cropping, and normalization :camera_flash:	
-- Video and image frame extraction :camera:	
+- :white_check_mark: Video and image loading from disk or from a URL :file_folder:	
+- :white_check_mark: Video and image resizing, cropping, and normalization :camera_flash:	
+- :white_check_mark: Video and image frame extraction :camera:	
 - (In-progress) Object detection and tracking in video and images :film_projector:
 - (TODO) Face detection and recognition in video and images :female_detective:
-- Deep feature extraction using pre-trained models (e.g. VGG16, ResNet50) :robot:	
+- (In-progress) Deep feature extraction using pre-trained models (e.g. VGG16, ResNet50) :robot:	
 - (TODO) Data augmentation techniques for video and image data :framed_picture:	
 
 
