@@ -37,48 +37,27 @@ def get_images(args_opt):
             if args_opt.resize:
                 img = cv2.resize(img, (args_opt.img_width, args_opt.img_height)) # pylint: disable=E1101
             video_file.append(img_as_float32(img))
-            
+
         if len(video_file) !=0:
             # convert video_file to numpy array
             video_file = np.array(video_file)
             all_videos.append(video_file)
 
+    
     # find the maximum length of the videos (number of frames) in a video
     max_frames = max([len(x) for x in all_videos])
-    print(max_frames)
     # find the maximum shape of the arrays
     #max_shape = max([arr.shape for arr in all_images])
     # create a new array with the maximum shape
     # specify the desired shape of the padded arrays
     frame_dim = all_videos[0][0].shape
     frames_in_videos_dim = (len(all_videos), max_frames) + frame_dim
+    frames_in_videos = np.zeros(frames_in_videos_dim)
 
-    # generate a list of pad tuples for each array in frames_arr
-    pad_tuples = [tuple([(0, max_frames - arr.shape[i]) for i in range(len(arr.shape))]) for arr in all_videos]
-    print(pad_tuples)
-    # Pad each array in frames_arr with zeros
-    padded_arrs = [np.pad(arr, pad_tuple, mode='constant') for arr, pad_tuple in zip(all_videos, pad_tuples)]
-
-    #frames_in_videos = np.zeros(frames_in_videos_dim)
     # pad the shorter videos with zeros at the end to make them all the same length
-    """
-    for i in range(len(all_videos)):
-        frames_arr = all_videos[i]
-        if len(frames_arr) < max_frames:
-            # generate a list of pad tuples for each array in frames_arr
-            pad_tuples = [tuple([(0, max_frames[j] - arr.shape[j]) for j in range(len(arr.shape))]) for arr in frames_arr]
-            # pad each array in frames_arr with zeros
-            padded_arrs = [np.pad(arr, pad_tuple, mode='constant') for arr, pad_tuple in zip(frames_arr, pad_tuples)]
-
-            #pad_tuple = tuple([(0, max_frames - frames_arr[j].shape) for j in range(len(frames_arr[0].shape))])
-            #padded_arr = np.pad(frames_arr, pad_tuple, mode='constant', constant_values=0)
-            frames_in_videos[i] = padded_arrs
-        else:
-            frames_in_videos[i] = frames_arr
-    """
-
-    np.save(args_opt.output, padded_arrs)
-    return padded_arrs
+    for index_, video_ in enumerate(all_videos):
+        frames_in_videos[index_][0:len(video_)] = video_
+    return frames_in_videos
 
 if __name__ == '__main__':
     parser_ = argparse.ArgumentParser()
