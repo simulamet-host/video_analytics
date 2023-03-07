@@ -66,7 +66,7 @@ def object_detection_model(x_train, y_train, x_test, y_test, frames_per_video):
     model.add(TimeDistributed(Dropout(0.3)))
     model.add(Flatten())
     model.add(Dense(4096,activation="relu"))
-    model.add(Dense(frames_per_video, activation='softmax'))
+    model.add(Dense(1, activation='softmax'))
     model.summary()
 
     #compile model
@@ -74,10 +74,15 @@ def object_detection_model(x_train, y_train, x_test, y_test, frames_per_video):
     #Model training
     es = EarlyStopping(monitor='val_loss', patience=5, mode='min', restore_best_weights=True)
 
-    print(x_train.shape, x_test.shape, to_categorical(y_train, num_classes=10).shape, to_categorical(y_test, num_classes=10).shape)
-
-    history = model.fit(x_train, to_categorical(y_train), batch_size=32, epochs=5,
-                        validation_data=(x_test, to_categorical(y_test)), callbacks=[es])
+    print(x_train.shape, x_test.shape, np.array(y_train).shape, np.array(y_test).shape)
+    #y_train = to_categorical([y_train])
+    #y_train = y_train.reshape(y_train.shape[1], y_train.shape[0])
+    #y_train = np.array(tf.stack(y_train))
+    #print(y_train)
+    #print(y_train.shape)
+    
+    history = model.fit(x_train,  to_categorical(y_train) , batch_size=32, epochs=5,
+                        validation_data=(x_test, to_categorical(y_train)), callbacks=[es])
 
     # save the model
     model.save('./results/models/convlstm_model.h5')
