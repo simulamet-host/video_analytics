@@ -82,7 +82,7 @@ def object_detection_model(x_train, y_train, x_test, y_test, frames_per_video):
     #print(y_train.shape)
     
     history = model.fit(x_train,  to_categorical(y_train) , batch_size=32, epochs=5,
-                        validation_data=(x_test, to_categorical(y_train)), callbacks=[es])
+                        validation_data=(x_test, to_categorical(y_test)), callbacks=[es])
 
     # save the model
     model.save('./results/models/convlstm_model.h5')
@@ -169,7 +169,7 @@ if __name__ == '__main__':
     x_train, x_test, y_train, y_test=train_test_split(images, labels, test_size=0.06, random_state=10)
         
     no_video = x_train.shape[0]
-    history = object_detection_model(x_train, np.transpose(y_train), x_test, np.transpose(y_test), no_video)
+    history = object_detection_model(x_train, y_train, x_test, y_test, no_video)
     plot_accuracy(history)
 
     # load model from file
@@ -184,4 +184,4 @@ if __name__ == '__main__':
     #TODO I need to re-write this function
     #plot_frames_and_predictions(label_data)
     
-    plot_confusion_matrix(y_test, predicted_classes)
+    #plot_confusion_matrix(y_test, predicted_classes)
