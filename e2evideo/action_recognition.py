@@ -163,7 +163,7 @@ if __name__ == '__main__':
     
     # load images from file in the same folder
     images = np.load('./results/all_images.npy')
-    labels = load_label(path[:1])
+    labels = load_label(path)
 
     #Train Test Split
     x_train, x_test, y_train, y_test=train_test_split(images, labels, test_size=0.06, random_state=10)
