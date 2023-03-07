@@ -36,7 +36,7 @@ def load_label(datasets):
         label_index+=1
     return np.array(labels, dtype='int8')
 
-def object_detection_model(x_train, y_train, x_test, y_test):
+def object_detection_model(x_train, y_train, x_test, y_test, frames_per_video):
     """
     This function is used to perform object detection on the dataset.
     """
@@ -66,13 +66,16 @@ def object_detection_model(x_train, y_train, x_test, y_test):
     model.add(TimeDistributed(Dropout(0.3)))
     model.add(Flatten())
     model.add(Dense(4096,activation="relu"))
-    model.add(Dense(2, activation='softmax'))
+    model.add(Dense(frames_per_video, activation='softmax'))
     model.summary()
 
     #compile model
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics='accuracy')
     #Model training
     es = EarlyStopping(monitor='val_loss', patience=5, mode='min', restore_best_weights=True)
+
+    print(x_train.shape, x_test.shape, to_categorical(y_train, num_classes=10).shape, to_categorical(y_test, num_classes=10).shape)
+
     history = model.fit(x_train, to_categorical(y_train), batch_size=32, epochs=5,
                         validation_data=(x_test, to_categorical(y_test)), callbacks=[es])
 
@@ -152,17 +155,16 @@ if __name__ == '__main__':
     path=[]
     for label in label_data.labels.values:
         path.append('../data/images_ucf101/'+label+"/")
-    print(len(path))
+    
     # load images from file in the same folder
     images = np.load('./results/all_images.npy')
     labels = load_label(path[:1])
-    print(images.shape, len(labels))
 
     #Train Test Split
     x_train, x_test, y_train, y_test=train_test_split(images, labels, test_size=0.06, random_state=10)
-    print(x_train.shape, x_test.shape, np.array(y_train).shape, np.array(y_test).shape)
-
-    history = object_detection_model(x_train, y_train, x_test, y_test)
+        
+    no_video = x_train.shape[0]
+    history = object_detection_model(x_train, np.transpose(y_train), x_test, np.transpose(y_test), no_video)
     plot_accuracy(history)
 
     # load model from file

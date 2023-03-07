@@ -57,6 +57,8 @@ def get_images(args_opt):
     # pad the shorter videos with zeros at the end to make them all the same length
     for index_, video_ in enumerate(all_videos):
         frames_in_videos[index_][0:len(video_)] = video_
+    # save frames_in_videos to a file
+    np.save(args_opt.output, frames_in_videos)
     return frames_in_videos
 
 if __name__ == '__main__':
