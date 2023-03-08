@@ -21,6 +21,7 @@ from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 
 from e2evideo import image_preprocessing
+from e2evideo import plot_results
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
@@ -36,7 +37,7 @@ def load_label(datasets):
         label_index+=1
     return np.array(labels, dtype='int8')
 
-def object_detection_model(x_train, y_train, x_test, y_test, frames_per_video):
+def object_detection_model(x_train, y_train, x_test, y_test):
     """
     This function is used to perform object detection on the dataset.
     """
@@ -101,38 +102,6 @@ def plot_accuracy(history):
     plt.savefig('./results/accuracy_vs_epochs.png')
     plt.show()
 
-def plot_frames_and_predictions(label_data):
-    """
-    This function is used to plot the frames and predictions of the model.
-    """
-    plt.figure(figsize = (30, 30))
-    # Get Names of all classes in UCF101
-    all_classes_names = label_data.labels.values
-    # Generate a random sample of images each time the cell runs
-    random_range = random.sample(range(len(all_classes_names[0:10])), 5)
-    # Iterating through all the random samples
-    for counter, random_index in enumerate(random_range, 1):
-        # Getting Class Name using Random Index
-        selected_class_Name = all_classes_names[random_index]
-        # Getting a list of all the video files present in a Class Directory
-        video_files_names_list = os.listdir(f'../data/UCF-101/{selected_class_Name}')
-        # Randomly selecting a video file
-        selected_video_file_name = random.choice(video_files_names_list)
-        # Reading the Video File Using the Video Capture
-        video_reader = cv2.VideoCapture(f'../data/UCF-101/{selected_class_Name}/{selected_video_file_name}')
-        # Reading The First Frame of the Video File
-        _, bgr_frame = video_reader.read()
-        # Closing the VideoCapture object and releasing all resources.
-        video_reader.release()
-        # Converting the BGR Frame to RGB Frame
-        rgb_frame = cv2.cvtColor(bgr_frame, cv2.COLOR_BGR2RGB)
-        # Adding The Class Name Text on top of the Video Frame.
-        cv2.putText(rgb_frame, selected_class_Name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
-        # Assigning the Frame to a specific position of a subplot
-        plt.subplot(5, 4, counter)
-        plt.imshow(rgb_frame)
-        plt.axis('off')
-    plt.savefig('./results/UCF101.png')
 
 def plot_confusion_matrix(y_test, predicted_classes):
     """
@@ -152,6 +121,8 @@ if __name__ == '__main__':
     print('Video Classification using ConvLSTM')
     print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--mode', type=str, default='train', options = ['train', 'test'], help='train or test')
     label_data = pd.read_csv("../data/UCF-101/ucfTrainTestlist/classInd.txt", sep=' ', header=None)
     label_data.columns=['index', 'labels']
     label_data = label_data.drop(['index'], axis=1)
@@ -161,20 +132,22 @@ if __name__ == '__main__':
     for label in label_data.labels.values:
         path.append('../data/images_ucf101/'+label+"/")
     
+    plot_results.plot_ucf101(label_data)
+
     # load images from file in the same folder
     images = np.load('./results/all_images.npy')
     labels = load_label(path)
 
     #Train Test Split
     x_train, x_test, y_train, y_test=train_test_split(images, labels, test_size=0.06, random_state=10)
-        
-    no_video = x_train.shape[0]
-    history = object_detection_model(x_train, y_train, x_test, y_test, no_video)
+
+    #Train the model
+    history = object_detection_model(x_train, y_train, x_test, y_test)
     plot_accuracy(history)
 
     # load model from file
     model = tf.keras.models.load_model('./results/models/convlstm_model.h5')
-  
+    # evaluate the model
     y_pred = model.predict(x_test)
     predicted_classes=[]
     for i in range(len(y_test)):
