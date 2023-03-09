@@ -9,3 +9,4 @@ Those are domain independent, but can be tailored towards specific problems by p
 Author Faiga Alawad 2023, Last updated Feb 2023.
 """
 __version__ = "0.0.0"
+__author__ = "Faiga Alawad"

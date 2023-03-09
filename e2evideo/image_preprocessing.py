@@ -43,7 +43,6 @@ def get_images(args_opt):
             video_file = np.array(video_file)
             all_videos.append(video_file)
 
-    
     # find the maximum length of the videos (number of frames) in a video
     max_frames = max([len(x) for x in all_videos])
     # find the maximum shape of the arrays
@@ -71,7 +70,7 @@ if __name__ == '__main__':
     parser_.add_argument('--gray_scale', default=False)
     parser_.add_argument('--output', default='./results/all_images.npy')
     args_ = parser_.parse_args()
-    
+
     _images = get_images(args_)
 
     print('Images saved in array of array of size', str(_images.shape))

@@ -3,12 +3,14 @@ This moduel contains all the plots produced from the package.
 """
 import argparse
 import os
+import itertools
+import random
 import matplotlib.pyplot as plt
 import torch
+from sklearn.metrics import confusion_matrix
 from tqdm import tqdm
-from e2evideo import utils
-import random
 import cv2
+import utils
 
 device = utils.get_device()
 
@@ -41,52 +43,82 @@ def plot_cae_training(data, network, color_channels):
         plt.savefig(file_name)
 
 def plot_ucf101(label_data):
+    """
+    This function is used to plot the UCF101 dataset.
+    """
     # Create a Matplotlib figure
     plt.figure(figsize = (30, 30))
-    
+
     # Get Names of all classes in UCF101
     all_classes_names = label_data.labels.values
-    
+
     # Generate a random sample of images each time the cell runs
     random_range = random.sample(range(len(all_classes_names[0:10])), 8)
-    
+
     # Iterating through all the random samples
     for counter, random_index in enumerate(random_range, 1):
-    
+
         # Getting Class Name using Random Index
-        selected_class_Name = all_classes_names[random_index]
-    
+        selected_class_name = all_classes_names[random_index]
+
         # Getting a list of all the video files present in a Class Directory
-        video_files_names_list = os.listdir(f'./data/UCF-101/{selected_class_Name}')
-    
+        video_files_names_list = os.listdir(f'../data/UCF-101/{selected_class_name}')
+
         # Randomly selecting a video file
         selected_video_file_name = random.choice(video_files_names_list)
-    
+
         # Reading the Video File Using the Video Capture
-        video_reader = cv2.VideoCapture(f'./data/UCF-101/{selected_class_Name}/{selected_video_file_name}')
-        
+        video_file = f'../data/UCF-101/{selected_class_name}/{selected_video_file_name}'
+        video_reader = cv2.VideoCapture(video_file)
         # Reading The First Frame of the Video File
         _, bgr_frame = video_reader.read()
-    
-        # Closing the VideoCapture object and releasing all resources. 
-        video_reader.release()
-    
-        # Converting the BGR Frame to RGB Frame 
-        rgb_frame = cv2.cvtColor(bgr_frame, cv2.COLOR_BGR2RGB)
-    
-        # Adding The Class Name Text on top of the Video Frame.
-    
-        cv2.rectangle(rgb_frame, (30, 200), (290, 240), (255,255,255), -1)
-        cv2.putText(rgb_frame, selected_class_Name, (30, 230), cv2.FONT_HERSHEY_SIMPLEX, 1, (160,32,240), 2, cv2.LINE_AA)
-        cv2.rectangle(rgb_frame, (1, 1), (320, 240), (160,32,240), 10)
 
+        # Closing the VideoCapture object and releasing all resources.
+        video_reader.release()
+
+        # Converting the BGR Frame to RGB Frame
+        rgb_frame = cv2.cvtColor(bgr_frame, cv2.COLOR_BGR2RGB)
+
+        # Adding The Class Name Text on top of the Video Frame.
+
+        cv2.rectangle(rgb_frame, (30, 200), (290, 240), (255,255,255), -1)
+        cv2.putText(rgb_frame, selected_class_name, (30, 230), cv2.FONT_HERSHEY_SIMPLEX,
+                    1, (160,32,240), 2, cv2.LINE_AA)
+        cv2.rectangle(rgb_frame, (1, 1), (320, 240), (160,32,240), 10)
         # Assigning the Frame to a specific position of a subplot
         plt.subplot(5, 4, counter)
         plt.imshow(rgb_frame)
         plt.axis('off')
-        # save image to a file 
+        # save image to a file
         plt.savefig('./results/ucf101.jpg')
         print('image saved to file')
+
+def plot_accuracy(history):
+    """
+    This function is used to plot the accuracy of the model.
+    """
+    #Plot the graph to check training and testing accuracy over the period of time
+    plt.figure(figsize=(13,5))
+    plt.title("Accuracy vs Epochs")
+    plt.plot(history.history['accuracy'], label='Train Accuracy')
+    plt.plot(history.history['val_accuracy'], label='Validation Accuracy')
+    plt.legend(loc='best')
+    plt.savefig('./results/accuracy_vs_epochs.png')
+    plt.show()
+
+def plot_confusion_matrix(y_test, predicted_classes):
+    """
+    This function is used to plot the confusion matrix of the model.
+    """
+    #Confusion Matrix
+    plt.figure(figsize=(25,25))
+    plt.title("Confusion matrix")
+    cm=confusion_matrix(y_test, predicted_classes)
+    plt.imshow(cm)
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, cm[i, j], horizontalalignment="center")
+    plt.savefig('./results/confusion_matrix.png')
+    plt.show()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
