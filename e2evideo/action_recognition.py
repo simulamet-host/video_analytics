@@ -89,7 +89,7 @@ def object_detection_model(train_dataset, test_dataset):
 if __name__ == '__main__':
     print('Video Classification using ConvLSTM')
     print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
-    
+
     # calculate and print the time needed to run the code below using time
     start_time = time.time()
 
@@ -98,6 +98,7 @@ if __name__ == '__main__':
                         help='train or test')
     args = parser.parse_args()
 
+    print('\n Loading data...\n')
     label_data = pd.read_csv("../data/UCF-101/ucfTrainTestlist/classInd.txt", sep=' ', header=None)
     label_data.columns=['index', 'labels']
     label_data = label_data.drop(['index'], axis=1)
@@ -106,28 +107,37 @@ if __name__ == '__main__':
     for label in label_data.labels.values:
         path.append('../data/images_ucf101/'+label+"/")
 
+    print('\n Plotting the data...\n')
     plot_ucf101(label_data)
 
     # load images from file in the same folder
+    print('\n Loading images...\n')
     images = np.load('./results/all_images.npy')
+    print('\n Loading labels...\n')
     labels_list = load_label(path)
 
     #Train Test Split
+    print('\n Splitting the data into training and test...\n')
     x_train, x_test, y_train, y_test=train_test_split(images, labels_list, test_size=0.06,
                                                       random_state=10)
-    
+
     # implement tensorflow input data pipeline
+    print('\n Implementing tensorflow input data pipeline...\n')
     train_dataset = tf.data.Dataset.from_tensor_slices((x_train, to_categorical(y_train)))
     test_dataset = tf.data.Dataset.from_tensor_slices((x_test, to_categorical(y_test)))
 
     #Train the model
     if args.mode == 'train':
+        print('\n Training the model...\n')
         history = object_detection_model(train_dataset, test_dataset)
+        print('\n Plotting the accuracy and loss...\n')
         plot_accuracy(history)
     else:
         # load model from file
+        print('\n Loading the model...\n')
         model = tf.keras.models.load_model('./results/models/convlstm_model.h5')
         # evaluate the model
+        print('\n Evaluating the model...\n')
         y_pred = model.predict(x_test)
         predicted_classes=[]
         for i in range(len(y_test)):

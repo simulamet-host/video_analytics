@@ -141,3 +141,4 @@ e2evideo/jobs/image_preprocessing.sh
 e2evideo/results/all_images.npy
 tests/all_images.npy
 tests/images.npy
+e2evideo/results/all_images.pkl
