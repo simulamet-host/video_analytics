@@ -9,7 +9,6 @@ import argparse
 import glob
 import numpy as np
 import cv2
-import pickle
 from skimage import img_as_float32
 
 def get_images(args_opt):
@@ -58,9 +57,8 @@ def get_images(args_opt):
     for index_, video_ in enumerate(all_videos):
         frames_in_videos[index_][0:len(video_)] = video_
     # save frames_in_videos to a file
-    #np.save(args_opt.output, frames_in_videos)
-    # save the array frames_in_videos as a pikle file
-    pickle.dump(frames_in_videos, open(args_opt.output, 'wb'))
+    np.savez_compressed(args_opt.output, frames_in_videos)
+    
     return frames_in_videos
 
 if __name__ == '__main__':
@@ -71,7 +69,7 @@ if __name__ == '__main__':
     parser_.add_argument('--img_width', default=224, type=int)
     parser_.add_argument('--img_height', default=224, type=int)
     parser_.add_argument('--gray_scale', default=False)
-    parser_.add_argument('--output', default='./results/all_images.pkl')
+    parser_.add_argument('--output', default='./results/all_images.npz')
     args_ = parser_.parse_args()
 
     _images = get_images(args_)

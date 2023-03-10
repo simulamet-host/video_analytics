@@ -145,3 +145,4 @@ e2evideo/results/all_images.pkl
 e2evideo/pylint
 .gitignore
 e2evideo/.pylintrc
+e2evideo/results/all_images.npz

@@ -112,7 +112,7 @@ if __name__ == '__main__':
 
     # load images from file in the same folder
     print('\n Loading images...\n')
-    images = np.load('./results/all_images.npy')
+    images = np.load('./results/all_images.npz')
     print('\n Loading labels...\n')
     labels_list = load_label(path)
 
