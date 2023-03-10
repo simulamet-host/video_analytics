@@ -99,7 +99,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     print('\n Loading data...\n')
-    label_data = pd.read_csv("../data/UCF-101/ucfTrainTestlist/classInd.txt", sep=' ', header=None)
+    label_data = pd.read_csv("../data/UCF-101/ucfTrainTestlist/classInd.txt", sep=' ', header=None, engine="pyarrow")
     label_data.columns=['index', 'labels']
     label_data = label_data.drop(['index'], axis=1)
     label_data.head()
@@ -112,7 +112,9 @@ if __name__ == '__main__':
 
     # load images from file in the same folder
     print('\n Loading images...\n')
-    images = np.load('./results/all_images.npz')
+    images_file = np.load('./results/all_images.npz')
+    images = images_file['arr_0']
+    print(images.f.arr_0)
     print('\n Loading labels...\n')
     labels_list = load_label(path)
 
