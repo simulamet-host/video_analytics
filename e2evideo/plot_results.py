@@ -113,10 +113,10 @@ def plot_confusion_matrix(y_test, predicted_classes):
     #Confusion Matrix
     plt.figure(figsize=(25,25))
     plt.title("Confusion matrix")
-    cm=confusion_matrix(y_test, predicted_classes)
-    plt.imshow(cm)
-    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
-        plt.text(j, i, cm[i, j], horizontalalignment="center")
+    cm_=confusion_matrix(y_test, predicted_classes)
+    plt.imshow(cm_)
+    for i, j in itertools.product(range(cm_.shape[0]), range(cm_.shape[1])):
+        plt.text(j, i, cm_[i, j], horizontalalignment="center")
     plt.savefig('./results/confusion_matrix.png')
     plt.show()
 

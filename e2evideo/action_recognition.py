@@ -11,11 +11,10 @@ import pandas as pd
 from tqdm import tqdm
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+
 import tensorflow as tf
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import *
-from tensorflow.keras.utils import to_categorical
-from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow import keras
+from keras import models, layers, utils, callbacks
 
 from plot_results import plot_ucf101, plot_accuracy
 
@@ -40,37 +39,38 @@ def object_detection_model(train_dataset, test_dataset):
     """
     print("Object Detection")
     # Define the model
-    model = Sequential()
-    model.add(BatchNormalization(momentum=0.8, input_shape=(x_train.shape[1],x_train.shape[2],
-                                                            x_train.shape[3], 3)))
-    model.add(ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
+    model = models.Sequential()
+    model.add(layers.BatchNormalization(momentum=0.8, input_shape=(x_train.shape[1],
+                x_train.shape[2], x_train.shape[3], 3)))
+    model.add(layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
                          data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
-    model.add(MaxPooling3D(pool_size=(1,2,2), padding='same', data_format='channels_last'))
-    model.add(TimeDistributed(Dropout(0.2)))
-    model.add(ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
+    model.add(layers.MaxPooling3D(pool_size=(1,2,2), padding='same', data_format='channels_last'))
+    model.add(layers.TimeDistributed(layers.Dropout(0.2)))
+    model.add(layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
                          data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
-    model.add(BatchNormalization(momentum=0.8))
-    model.add(MaxPooling3D(pool_size=(1,2,2), padding='same', data_format='channels_last'))
-    model.add(TimeDistributed(Dropout(0.2)))
-    model.add(ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
+    model.add(layers.BatchNormalization(momentum=0.8))
+    model.add(layers.MaxPooling3D(pool_size=(1,2,2), padding='same', data_format='channels_last'))
+    model.add(layers.TimeDistributed(layers.Dropout(0.2)))
+    model.add(layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
                         data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
-    model.add(BatchNormalization(momentum=0.8))
-    model.add(MaxPooling3D(pool_size=(1,2,2), padding='same', data_format='channels_last'))
-    model.add(TimeDistributed(Dropout(0.3)))
-    model.add(ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
+    model.add(layers.BatchNormalization(momentum=0.8))
+    model.add(layers.MaxPooling3D(pool_size=(1,2,2), padding='same', data_format='channels_last'))
+    model.add(layers.TimeDistributed(layers.Dropout(0.3)))
+    model.add(layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
                         data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
-    model.add(BatchNormalization(momentum=0.8))
-    model.add(MaxPooling3D(pool_size=(1,2,2), padding='same', data_format='channels_last'))
-    model.add(TimeDistributed(Dropout(0.3)))
-    model.add(Flatten())
-    model.add(Dense(4096,activation="relu"))
-    model.add(Dense(1, activation='softmax'))
+    model.add(layers.BatchNormalization(momentum=0.8))
+    model.add(layers.MaxPooling3D(pool_size=(1,2,2), padding='same', data_format='channels_last'))
+    model.add(layers.TimeDistributed(layers.Dropout(0.3)))
+    model.add(layers.Flatten())
+    model.add(layers.Dense(4096,activation="relu"))
+    model.add(layers.Dense(1, activation='softmax'))
     model.summary()
 
     #compile model
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics='accuracy')
     #Model training
-    early_stop= EarlyStopping(monitor='val_loss', patience=5, mode='min', restore_best_weights=True)
+    early_stop= callbacks.EarlyStopping(monitor='val_loss', patience=5, mode='min',
+                                restore_best_weights=True)
 
     #print(x_train.shape, x_test.shape, np.array(y_train).shape, np.array(y_test).shape)
     #y_train = to_categorical([y_train])
@@ -123,8 +123,8 @@ if __name__ == '__main__':
 
     # implement tensorflow input data pipeline
     print('\n Implementing tensorflow input data pipeline...\n')
-    train_dataset = tf.data.Dataset.from_tensor_slices((x_train, to_categorical(y_train)))
-    test_dataset = tf.data.Dataset.from_tensor_slices((x_test, to_categorical(y_test)))
+    train_dataset = tf.data.Dataset.from_tensor_slices((x_train, utils.to_categorical(y_train)))
+    test_dataset = tf.data.Dataset.from_tensor_slices((x_test, utils.to_categorical(y_test)))
 
     #Train the model
     if args.mode == 'train':

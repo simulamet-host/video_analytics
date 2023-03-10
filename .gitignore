@@ -142,3 +142,6 @@ e2evideo/results/all_images.npy
 tests/all_images.npy
 tests/images.npy
 e2evideo/results/all_images.pkl
+e2evideo/pylint
+.gitignore
+e2evideo/.pylintrc
