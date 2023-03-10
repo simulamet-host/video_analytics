@@ -59,7 +59,7 @@ def get_images(args_opt):
         frames_in_videos[index_][0:len(video_)] = video_
     # save frames_in_videos to a file
     #np.save(args_opt.output, frames_in_videos)
-    # save the array frames_in_videos as a pikle file 
+    # save the array frames_in_videos as a pikle file
     pickle.dump(frames_in_videos, open(args_opt.output, 'wb'))
     return frames_in_videos
 
