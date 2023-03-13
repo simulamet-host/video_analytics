@@ -18,6 +18,13 @@ from keras import models, layers, utils, callbacks
 
 from plot_results import plot_ucf101, plot_accuracy
 
+# check if GPU is available 
+if tf.test.is_gpu_available():
+    device_name = '/GPU:0'
+else:
+    device_name = '/CPU:0'
+print('Using device: ', device_name)
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 def load_label(datasets):
