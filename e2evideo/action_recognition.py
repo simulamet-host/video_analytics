@@ -112,7 +112,7 @@ if __name__ == '__main__':
 
     # load images from file in the same folder
     print('\n Loading images...\n')
-    images_file = np.load('./results/all_images.npz', engine='pyarrow')
+    images_file = np.load('./results/all_images.npz')
     images = images_file['arr_0']
     print(images.f.arr_0)
     print('\n Loading labels...\n')
