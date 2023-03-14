@@ -18,14 +18,7 @@ from keras import models, layers, utils, callbacks
 
 from plot_results import plot_ucf101, plot_accuracy
 
-# check if GPU is available 
-if tf.test.is_gpu_available():
-    device_name = '/GPU:0'
-else:
-    device_name = '/CPU:0'
-print('Using device: ', device_name)
-
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+#os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 def load_label(datasets):
     """
@@ -95,7 +88,7 @@ def object_detection_model(train_dataset, test_dataset):
 
 if __name__ == '__main__':
     print('Video Classification using ConvLSTM')
-    print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+    #print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 
     # calculate and print the time needed to run the code below using time
     start_time = time.time()
@@ -121,7 +114,6 @@ if __name__ == '__main__':
     print('\n Loading images...\n')
     images_file = np.load('./results/all_images.npz')
     images = images_file['arr_0']
-    print(images.f.arr_0)
     print('\n Loading labels...\n')
     labels_list = load_label(path)
 
