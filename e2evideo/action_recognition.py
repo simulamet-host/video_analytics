@@ -114,6 +114,7 @@ if __name__ == '__main__':
     print('\n Loading images...\n')
     images_file = np.load('./results/all_images.npz')
     images = images_file['arr_0']
+    print(images.shape)
     print('\n Loading labels...\n')
     labels_list = load_label(path)
 
