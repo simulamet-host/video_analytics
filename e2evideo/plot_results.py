@@ -10,7 +10,7 @@ import torch
 from sklearn.metrics import confusion_matrix
 from tqdm import tqdm
 import cv2
-import utils
+from e2evideo import utils
 
 device = utils.get_device()
 

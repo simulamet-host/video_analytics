@@ -14,8 +14,8 @@ from sklearn.metrics import accuracy_score
 
 import tensorflow as tf
 from tensorflow import keras
-from tensorflow.keras.utils import Sequence
 from keras import models, layers, utils, callbacks
+from tensorflow.keras.utils import Sequence
 
 from e2evideo import plot_results
 
