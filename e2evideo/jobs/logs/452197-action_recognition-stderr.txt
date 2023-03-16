@@ -1,139 +1,0 @@
-2023-03-14 12:03:23.796209: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2023-03-14 12:03:25.074295: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /cm/shared/apps/hwloc/gcc/2.7.1/lib:/cm/shared/apps/numactl/gcc/2.0.14/lib:/cm/shared/apps/slurm/20.02.7/lib64/slurm:/cm/shared/apps/slurm/20.02.7/lib64
-2023-03-14 12:03:25.074488: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /cm/shared/apps/hwloc/gcc/2.7.1/lib:/cm/shared/apps/numactl/gcc/2.0.14/lib:/cm/shared/apps/slurm/20.02.7/lib64/slurm:/cm/shared/apps/slurm/20.02.7/lib64
-2023-03-14 12:03:25.074503: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
-2023-03-14 12:03:28.169167: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcufft.so.10'; dlerror: libcufft.so.10: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/faiga/miniconda3/envs/video/lib/python3.10/site-packages/cv2/../../lib64:/cm/shared/apps/hwloc/gcc/2.7.1/lib:/cm/shared/apps/numactl/gcc/2.0.14/lib:/cm/shared/apps/slurm/20.02.7/lib64/slurm:/cm/shared/apps/slurm/20.02.7/lib64
-2023-03-14 12:03:28.247021: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcusparse.so.11'; dlerror: libcusparse.so.11: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/faiga/miniconda3/envs/video/lib/python3.10/site-packages/cv2/../../lib64:/cm/shared/apps/hwloc/gcc/2.7.1/lib:/cm/shared/apps/numactl/gcc/2.0.14/lib:/cm/shared/apps/slurm/20.02.7/lib64/slurm:/cm/shared/apps/slurm/20.02.7/lib64
-2023-03-14 12:03:28.247106: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1934] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
-Skipping registering GPU devices...
-  0%|          | 0/145 [00:00<?, ?it/s]100%|██████████| 145/145 [00:00<00:00, 1974591.17it/s]
-  0%|          | 0/114 [00:00<?, ?it/s]100%|██████████| 114/114 [00:00<00:00, 2641716.33it/s]
-  0%|          | 0/145 [00:00<?, ?it/s]100%|██████████| 145/145 [00:00<00:00, 3731129.33it/s]
-  0%|          | 0/132 [00:00<?, ?it/s]100%|██████████| 132/132 [00:00<00:00, 2782151.40it/s]
-  0%|          | 0/108 [00:00<?, ?it/s]100%|██████████| 108/108 [00:00<00:00, 2728824.29it/s]
-  0%|          | 0/155 [00:00<?, ?it/s]100%|██████████| 155/155 [00:00<00:00, 3693847.27it/s]
-  0%|          | 0/150 [00:00<?, ?it/s]100%|██████████| 150/150 [00:00<00:00, 3813003.64it/s]
-  0%|          | 0/134 [00:00<?, ?it/s]100%|██████████| 134/134 [00:00<00:00, 3139870.03it/s]
-  0%|          | 0/131 [00:00<?, ?it/s]100%|██████████| 131/131 [00:00<00:00, 3737781.12it/s]
-  0%|          | 0/160 [00:00<?, ?it/s]100%|██████████| 160/160 [00:00<00:00, 3994575.24it/s]
-  0%|          | 0/134 [00:00<?, ?it/s]100%|██████████| 134/134 [00:00<00:00, 3306098.45it/s]
-  0%|          | 0/150 [00:00<?, ?it/s]100%|██████████| 150/150 [00:00<00:00, 3981934.18it/s]
-  0%|          | 0/131 [00:00<?, ?it/s]100%|██████████| 131/131 [00:00<00:00, 3763382.36it/s]
-  0%|          | 0/109 [00:00<?, ?it/s]100%|██████████| 109/109 [00:00<00:00, 3089048.22it/s]
-  0%|          | 0/112 [00:00<?, ?it/s]100%|██████████| 112/112 [00:00<00:00, 3558803.39it/s]
-  0%|          | 0/155 [00:00<?, ?it/s]100%|██████████| 155/155 [00:00<00:00, 3964128.78it/s]
-  0%|          | 0/163 [00:00<?, ?it/s]100%|██████████| 163/163 [00:00<00:00, 3506007.96it/s]
-  0%|          | 0/134 [00:00<?, ?it/s]100%|██████████| 134/134 [00:00<00:00, 3746911.57it/s]
-  0%|          | 0/101 [00:00<?, ?it/s]100%|██████████| 101/101 [00:00<00:00, 3283912.43it/s]
-  0%|          | 0/131 [00:00<?, ?it/s]100%|██████████| 131/131 [00:00<00:00, 3213180.26it/s]
-  0%|          | 0/112 [00:00<?, ?it/s]100%|██████████| 112/112 [00:00<00:00, 3558803.39it/s]
-  0%|          | 0/138 [00:00<?, ?it/s]100%|██████████| 138/138 [00:00<00:00, 3758532.16it/s]
-  0%|          | 0/139 [00:00<?, ?it/s]100%|██████████| 139/139 [00:00<00:00, 3409405.01it/s]
-  0%|          | 0/167 [00:00<?, ?it/s]100%|██████████| 167/167 [00:00<00:00, 4048836.81it/s]
-  0%|          | 0/110 [00:00<?, ?it/s]100%|██████████| 110/110 [00:00<00:00, 3495253.33it/s]
-  0%|          | 0/150 [00:00<?, ?it/s]100%|██████████| 150/150 [00:00<00:00, 3981934.18it/s]
-  0%|          | 0/161 [00:00<?, ?it/s]100%|██████████| 161/161 [00:00<00:00, 4019541.33it/s]
-  0%|          | 0/111 [00:00<?, ?it/s]100%|██████████| 111/111 [00:00<00:00, 3553952.24it/s]
-  0%|          | 0/126 [00:00<?, ?it/s]100%|██████████| 126/126 [00:00<00:00, 3644705.54it/s]
-  0%|          | 0/125 [00:00<?, ?it/s]100%|██████████| 125/125 [00:00<00:00, 3718354.61it/s]
-  0%|          | 0/126 [00:00<?, ?it/s]100%|██████████| 126/126 [00:00<00:00, 3670016.00it/s]
-  0%|          | 0/137 [00:00<?, ?it/s]100%|██████████| 137/137 [00:00<00:00, 3856507.70it/s]
-  0%|          | 0/139 [00:00<?, ?it/s]100%|██████████| 139/139 [00:00<00:00, 3785767.90it/s]
-  0%|          | 0/130 [00:00<?, ?it/s]100%|██████████| 130/130 [00:00<00:00, 3760410.48it/s]
-  0%|          | 0/140 [00:00<?, ?it/s]100%|██████████| 140/140 [00:00<00:00, 3433933.10it/s]
-  0%|          | 0/150 [00:00<?, ?it/s]100%|██████████| 150/150 [00:00<00:00, 3883614.81it/s]
-  0%|          | 0/128 [00:00<?, ?it/s]100%|██████████| 128/128 [00:00<00:00, 3754342.04it/s]
-  0%|          | 0/111 [00:00<?, ?it/s]100%|██████████| 111/111 [00:00<00:00, 3527028.36it/s]
-  0%|          | 0/147 [00:00<?, ?it/s]100%|██████████| 147/147 [00:00<00:00, 3853516.80it/s]
-  0%|          | 0/123 [00:00<?, ?it/s]100%|██████████| 123/123 [00:00<00:00, 3684995.66it/s]
-  0%|          | 0/124 [00:00<?, ?it/s]100%|██████████| 124/124 [00:00<00:00, 3688607.77it/s]
-  0%|          | 0/164 [00:00<?, ?it/s]100%|██████████| 164/164 [00:00<00:00, 4118957.22it/s]
-  0%|          | 0/125 [00:00<?, ?it/s]100%|██████████| 125/125 [00:00<00:00, 3718354.61it/s]
-  0%|          | 0/158 [00:00<?, ?it/s]100%|██████████| 158/158 [00:00<00:00, 3944643.05it/s]
-  0%|          | 0/117 [00:00<?, ?it/s]100%|██████████| 117/117 [00:00<00:00, 3556040.35it/s]
-  0%|          | 0/121 [00:00<?, ?it/s]100%|██████████| 121/121 [00:00<00:00, 3524380.44it/s]
-  0%|          | 0/123 [00:00<?, ?it/s]100%|██████████| 123/123 [00:00<00:00, 3711506.42it/s]
-  0%|          | 0/144 [00:00<?, ?it/s]100%|██████████| 144/144 [00:00<00:00, 3847004.94it/s]
-  0%|          | 0/141 [00:00<?, ?it/s]100%|██████████| 141/141 [00:00<00:00, 3916535.52it/s]
-  0%|          | 0/123 [00:00<?, ?it/s]100%|██████████| 123/123 [00:00<00:00, 3607688.06it/s]
-  0%|          | 0/131 [00:00<?, ?it/s]100%|██████████| 131/131 [00:00<00:00, 3737781.12it/s]
-  0%|          | 0/127 [00:00<?, ?it/s]100%|██████████| 127/127 [00:00<00:00, 3777848.28it/s]
-  0%|          | 0/125 [00:00<?, ?it/s]100%|██████████| 125/125 [00:00<00:00, 3666349.65it/s]
-  0%|          | 0/136 [00:00<?, ?it/s]100%|██████████| 136/136 [00:00<00:00, 3828358.01it/s]
-  0%|          | 0/110 [00:00<?, ?it/s]100%|██████████| 110/110 [00:00<00:00, 3392451.76it/s]
-  0%|          | 0/132 [00:00<?, ?it/s]100%|██████████| 132/132 [00:00<00:00, 3740865.73it/s]
-  0%|          | 0/114 [00:00<?, ?it/s]100%|██████████| 114/114 [00:00<00:00, 3595117.71it/s]
-  0%|          | 0/113 [00:00<?, ?it/s]100%|██████████| 113/113 [00:00<00:00, 3510787.79it/s]
-  0%|          | 0/164 [00:00<?, ?it/s]100%|██████████| 164/164 [00:00<00:00, 4118957.22it/s]
-  0%|          | 0/151 [00:00<?, ?it/s]100%|██████████| 151/151 [00:00<00:00, 3983269.84it/s]
-  0%|          | 0/164 [00:00<?, ?it/s]100%|██████████| 164/164 [00:00<00:00, 4070212.17it/s]
-  0%|          | 0/155 [00:00<?, ?it/s]100%|██████████| 155/155 [00:00<00:00, 4037994.53it/s]
-  0%|          | 0/160 [00:00<?, ?it/s]100%|██████████| 160/160 [00:00<00:00, 4042702.65it/s]
-  0%|          | 0/105 [00:00<?, ?it/s]100%|██████████| 105/105 [00:00<00:00, 3440640.00it/s]
-  0%|          | 0/157 [00:00<?, ?it/s]100%|██████████| 157/157 [00:00<00:00, 3943148.07it/s]
-  0%|          | 0/111 [00:00<?, ?it/s]100%|██████████| 111/111 [00:00<00:00, 3527028.36it/s]
-  0%|          | 0/100 [00:00<?, ?it/s]100%|██████████| 100/100 [00:00<00:00, 3410003.25it/s]
-  0%|          | 0/149 [00:00<?, ?it/s]100%|██████████| 149/149 [00:00<00:00, 3955387.95it/s]
-  0%|          | 0/123 [00:00<?, ?it/s]100%|██████████| 123/123 [00:00<00:00, 3711506.42it/s]
-  0%|          | 0/100 [00:00<?, ?it/s]100%|██████████| 100/100 [00:00<00:00, 3302601.57it/s]
-  0%|          | 0/160 [00:00<?, ?it/s]100%|██████████| 160/160 [00:00<00:00, 3901678.14it/s]
-  0%|          | 0/102 [00:00<?, ?it/s]100%|██████████| 102/102 [00:00<00:00, 3342336.00it/s]
-  0%|          | 0/111 [00:00<?, ?it/s]100%|██████████| 111/111 [00:00<00:00, 3527028.36it/s]
-  0%|          | 0/144 [00:00<?, ?it/s]100%|██████████| 144/144 [00:00<00:00, 3847004.94it/s]
-  0%|          | 0/119 [00:00<?, ?it/s]100%|██████████| 119/119 [00:00<00:00, 3565158.40it/s]
-  0%|          | 0/137 [00:00<?, ?it/s]100%|██████████| 137/137 [00:00<00:00, 3830797.65it/s]
-  0%|          | 0/133 [00:00<?, ?it/s]100%|██████████| 133/133 [00:00<00:00, 3769205.62it/s]
-  0%|          | 0/161 [00:00<?, ?it/s]100%|██████████| 161/161 [00:00<00:00, 3995757.07it/s]
-  0%|          | 0/144 [00:00<?, ?it/s]100%|██████████| 144/144 [00:00<00:00, 3774873.60it/s]
-  0%|          | 0/120 [00:00<?, ?it/s]100%|██████████| 120/120 [00:00<00:00, 3620981.87it/s]
-  0%|          | 0/135 [00:00<?, ?it/s]100%|██████████| 135/135 [00:00<00:00, 3800208.32it/s]
-  0%|          | 0/100 [00:00<?, ?it/s]100%|██████████| 100/100 [00:00<00:00, 3410003.25it/s]
-  0%|          | 0/110 [00:00<?, ?it/s]100%|██████████| 110/110 [00:00<00:00, 3468973.23it/s]
-  0%|          | 0/147 [00:00<?, ?it/s]100%|██████████| 147/147 [00:00<00:00, 3902295.49it/s]
-  0%|          | 0/137 [00:00<?, ?it/s]100%|██████████| 137/137 [00:00<00:00, 3780392.42it/s]
-  0%|          | 0/112 [00:00<?, ?it/s]100%|██████████| 112/112 [00:00<00:00, 3479718.87it/s]
-  0%|          | 0/116 [00:00<?, ?it/s]100%|██████████| 116/116 [00:00<00:00, 3603994.55it/s]
-  0%|          | 0/126 [00:00<?, ?it/s]100%|██████████| 126/126 [00:00<00:00, 3595117.71it/s]
-  0%|          | 0/131 [00:00<?, ?it/s]100%|██████████| 131/131 [00:00<00:00, 3687609.56it/s]
-  0%|          | 0/140 [00:00<?, ?it/s]100%|██████████| 140/140 [00:00<00:00, 3740143.69it/s]
-  0%|          | 0/100 [00:00<?, ?it/s]100%|██████████| 100/100 [00:00<00:00, 3276800.00it/s]
-  0%|          | 0/166 [00:00<?, ?it/s]100%|██████████| 166/166 [00:00<00:00, 4144371.81it/s]
-  0%|          | 0/130 [00:00<?, ?it/s]100%|██████████| 130/130 [00:00<00:00, 3786524.44it/s]
-  0%|          | 0/119 [00:00<?, ?it/s]100%|██████████| 119/119 [00:00<00:00, 3670016.00it/s]
-  0%|          | 0/136 [00:00<?, ?it/s]100%|██████████| 136/136 [00:00<00:00, 3854225.30it/s]
-  0%|          | 0/104 [00:00<?, ?it/s]100%|██████████| 104/104 [00:00<00:00, 3355443.20it/s]
-  0%|          | 0/116 [00:00<?, ?it/s]100%|██████████| 116/116 [00:00<00:00, 3630890.03it/s]
-  0%|          | 0/123 [00:00<?, ?it/s]100%|██████████| 123/123 [00:00<00:00, 3658860.94it/s]
-  0%|          | 0/130 [00:00<?, ?it/s]100%|██████████| 130/130 [00:00<00:00, 3760410.48it/s]
-  0%|          | 0/152 [00:00<?, ?it/s]100%|██████████| 152/152 [00:00<00:00, 3984588.80it/s]
-  0%|          | 0/128 [00:00<?, ?it/s]100%|██████████| 128/128 [00:00<00:00, 3728270.22it/s]
-2023-03-14 12:06:42.002731: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-Traceback (most recent call last):
-  File "/global/D1/homes/faiga/video_analytics/e2evideo/action_recognition.py", line 133, in <module>
-    history = object_detection_model(train_dataset, test_dataset)
-  File "/global/D1/homes/faiga/video_analytics/e2evideo/action_recognition.py", line 82, in object_detection_model
-    history = model.fit(train_dataset , batch_size=32, epochs=5,
-  File "/home/faiga/miniconda3/envs/video/lib/python3.10/site-packages/keras/utils/traceback_utils.py", line 70, in error_handler
-    raise e.with_traceback(filtered_tb) from None
-  File "/tmp/__autograph_generated_filepjpun36l.py", line 15, in tf__train_function
-    retval_ = ag__.converted_call(ag__.ld(step_function), (ag__.ld(self), ag__.ld(iterator)), None, fscope)
-ValueError: in user code:
-
-    File "/home/faiga/miniconda3/envs/video/lib/python3.10/site-packages/keras/engine/training.py", line 1249, in train_function  *
-        return step_function(self, iterator)
-    File "/home/faiga/miniconda3/envs/video/lib/python3.10/site-packages/keras/engine/training.py", line 1233, in step_function  **
-        outputs = model.distribute_strategy.run(run_step, args=(data,))
-    File "/home/faiga/miniconda3/envs/video/lib/python3.10/site-packages/keras/engine/training.py", line 1222, in run_step  **
-        outputs = model.train_step(data)
-    File "/home/faiga/miniconda3/envs/video/lib/python3.10/site-packages/keras/engine/training.py", line 1023, in train_step
-        y_pred = self(x, training=True)
-    File "/home/faiga/miniconda3/envs/video/lib/python3.10/site-packages/keras/utils/traceback_utils.py", line 70, in error_handler
-        raise e.with_traceback(filtered_tb) from None
-    File "/home/faiga/miniconda3/envs/video/lib/python3.10/site-packages/keras/engine/input_spec.py", line 295, in assert_input_compatibility
-        raise ValueError(
-
-    ValueError: Input 0 of layer "sequential" is incompatible with the layer: expected shape=(None, 72, 60, 60, 3), found shape=(72, 60, 60, 3)
-
-srun: error: g002: task 0: Exited with exit code 1

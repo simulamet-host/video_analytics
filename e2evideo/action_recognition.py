@@ -14,11 +14,26 @@ from sklearn.metrics import accuracy_score
 
 import tensorflow as tf
 from tensorflow import keras
+from tensorflow.keras.utils import Sequence
 from keras import models, layers, utils, callbacks
 
 from plot_results import plot_ucf101, plot_accuracy
 
 #os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+class DataGenerator(Sequence):
+    def __init__(self, x_set, y_set, batch_size):
+        self.x, self.y = x_set, y_set
+        self.batch_size = batch_size
+
+    def __len__(self):
+        return int(np.ceil(len(self.x) / float(self.batch_size)))
+    
+    def __getitem__(self, idx):
+        batch_x = self.x[idx * self.batch_size:(idx + 1) * self.batch_size]
+        batch_y = self.y[idx * self.batch_size:(idx + 1) * self.batch_size]
+        return np.array(batch_x), np.array(batch_y)
+
 
 def load_label(datasets):
     """
@@ -80,7 +95,7 @@ def object_detection_model(train_dataset, test_dataset):
     #print(y_train.shape)
 
     history = model.fit(train_dataset , batch_size=32, epochs=5,
-                        validation_data=(test_dataset), callbacks=[early_stop])
+                        validation_data=test_dataset, callbacks=[early_stop])
 
     # save the model
     model.save('./results/models/convlstm_model.h5')
@@ -112,9 +127,9 @@ if __name__ == '__main__':
 
     # load images from file in the same folder
     print('\n Loading images...\n')
-    images_file = np.load('./results/all_images.npz')
-    images = images_file['arr_0']
-    print(images.shape)
+    with np.load('./results/all_images.npz') as images_file:
+        images = images_file['arr_0']
+
     print('\n Loading labels...\n')
     labels_list = load_label(path)
 
@@ -123,17 +138,21 @@ if __name__ == '__main__':
     x_train, x_test, y_train, y_test=train_test_split(images, labels_list, test_size=0.06,
                                                       random_state=10)
 
+    train_gen = DataGenerator(x_train, utils.to_categorical(y_train), batch_size=32)
+    test_gen = DataGenerator(x_test, utils.to_categorical(y_test), batch_size=32)
+
     # implement tensorflow input data pipeline
-    print('\n Implementing tensorflow input data pipeline...\n')
-    train_dataset = tf.data.Dataset.from_tensor_slices((x_train, utils.to_categorical(y_train)))
-    test_dataset = tf.data.Dataset.from_tensor_slices((x_test, utils.to_categorical(y_test)))
+    #print('\n Implementing tensorflow input data pipeline...\n')
+    #train_dataset = tf.data.Dataset.from_tensor_slices((x_train, ))
+    #test_dataset = tf.data.Dataset.from_tensor_slices((x_test, ))
 
     #Train the model
     if args.mode == 'train':
         print('\n Training the model...\n')
-        history = object_detection_model(train_dataset, test_dataset)
+        history = object_detection_model(train_gen, test_gen)
         print('\n Plotting the accuracy and loss...\n')
         plot_accuracy(history)
+    #Test the model
     else:
         # load model from file
         print('\n Loading the model...\n')
