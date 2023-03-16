@@ -17,7 +17,7 @@ from tensorflow import keras
 from tensorflow.keras.utils import Sequence
 from keras import models, layers, utils, callbacks
 
-from plot_results import plot_ucf101, plot_accuracy
+import e2evideo import plot_results
 
 #os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -94,7 +94,7 @@ def object_detection_model(train_dataset, test_dataset):
     #print(y_train)
     #print(y_train.shape)
 
-    history = model.fit(train_dataset , batch_size=32, epochs=5,
+    history = model.fit(train_dataset,  epochs=5,
                         validation_data=test_dataset, callbacks=[early_stop])
 
     # save the model
@@ -123,7 +123,7 @@ if __name__ == '__main__':
         path.append('../data/images_ucf101/'+label+"/")
 
     print('\n Plotting the data...\n')
-    plot_ucf101(label_data)
+    plot_results.plot_ucf101(label_data)
 
     # load images from file in the same folder
     print('\n Loading images...\n')
@@ -151,7 +151,7 @@ if __name__ == '__main__':
         print('\n Training the model...\n')
         history = object_detection_model(train_gen, test_gen)
         print('\n Plotting the accuracy and loss...\n')
-        plot_accuracy(history)
+        plot_results.plot_accuracy(history)
     #Test the model
     else:
         # load model from file
