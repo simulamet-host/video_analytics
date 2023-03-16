@@ -4,49 +4,12 @@ to perform object detection tasks on specific datasets.
 This initial version is tailored specifically for the object detection dataset.
 """
 import argparse
-import os
 import time
 import numpy as np
-import pandas as pd
-from tqdm import tqdm
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-
 import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras.utils import Sequence
-from keras import models, layers, utils, callbacks
-
-from e2evideo import plot_results
-
-#os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
-class DataGenerator(Sequence):
-    def __init__(self, x_set, y_set, batch_size):
-        self.x, self.y = x_set, y_set
-        self.batch_size = batch_size
-
-    def __len__(self):
-        return int(np.ceil(len(self.x) / float(self.batch_size)))
-    
-    def __getitem__(self, idx):
-        batch_x = self.x[idx * self.batch_size:(idx + 1) * self.batch_size]
-        batch_y = self.y[idx * self.batch_size:(idx + 1) * self.batch_size]
-        return np.array(batch_x), np.array(batch_y)
-
-
-def load_label(datasets):
-    """
-    This function is used to load the labels of the dataset.
-    """
-    label_index=0
-    labels=[]
-    #Iterate through each foler corresponding to category
-    for folder in datasets:
-        for _ in tqdm(os.listdir(folder)):
-            labels.append(label_index)
-        label_index+=1
-    return np.array(labels, dtype='int8')
+from keras import models, layers, callbacks
+from e2evideo import plot_results, load_ucf101
 
 def object_detection_model(train_dataset, test_dataset):
     """
@@ -54,56 +17,54 @@ def object_detection_model(train_dataset, test_dataset):
     """
     print("Object Detection")
     # Define the model
-    model = models.Sequential()
-    model.add(layers.BatchNormalization(momentum=0.8, input_shape=(x_train.shape[1],
+    x_train, _ = next(train_dataset)
+
+    convlstm_model = models.Sequential()
+    convlstm_model.add(layers.BatchNormalization(momentum=0.8, input_shape=(x_train.shape[1],
                 x_train.shape[2], x_train.shape[3], 3)))
-    model.add(layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
+    convlstm_model.add(layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
                          data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
-    model.add(layers.MaxPooling3D(pool_size=(1,2,2), padding='same', data_format='channels_last'))
-    model.add(layers.TimeDistributed(layers.Dropout(0.2)))
-    model.add(layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
+    convlstm_model.add(layers.MaxPooling3D(pool_size=(1,2,2), padding='same',
+                                           data_format='channels_last'))
+    convlstm_model.add(layers.TimeDistributed(layers.Dropout(0.2)))
+    convlstm_model.add(layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
                          data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
-    model.add(layers.BatchNormalization(momentum=0.8))
-    model.add(layers.MaxPooling3D(pool_size=(1,2,2), padding='same', data_format='channels_last'))
-    model.add(layers.TimeDistributed(layers.Dropout(0.2)))
-    model.add(layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
+    convlstm_model.add(layers.BatchNormalization(momentum=0.8))
+    convlstm_model.add(layers.MaxPooling3D(pool_size=(1,2,2), padding='same',
+                                           data_format='channels_last'))
+    convlstm_model.add(layers.TimeDistributed(layers.Dropout(0.2)))
+    convlstm_model.add(layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
                         data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
-    model.add(layers.BatchNormalization(momentum=0.8))
-    model.add(layers.MaxPooling3D(pool_size=(1,2,2), padding='same', data_format='channels_last'))
-    model.add(layers.TimeDistributed(layers.Dropout(0.3)))
-    model.add(layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
+    convlstm_model.add(layers.BatchNormalization(momentum=0.8))
+    convlstm_model.add(layers.MaxPooling3D(pool_size=(1,2,2), padding='same',
+                                           data_format='channels_last'))
+    convlstm_model.add(layers.TimeDistributed(layers.Dropout(0.3)))
+    convlstm_model.add(layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
                         data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
-    model.add(layers.BatchNormalization(momentum=0.8))
-    model.add(layers.MaxPooling3D(pool_size=(1,2,2), padding='same', data_format='channels_last'))
-    model.add(layers.TimeDistributed(layers.Dropout(0.3)))
-    model.add(layers.Flatten())
-    model.add(layers.Dense(4096,activation="relu"))
-    model.add(layers.Dense(101, activation='softmax'))
-    model.summary()
+    convlstm_model.add(layers.BatchNormalization(momentum=0.8))
+    convlstm_model.add(layers.MaxPooling3D(pool_size=(1,2,2), padding='same',
+                                           data_format='channels_last'))
+    convlstm_model.add(layers.TimeDistributed(layers.Dropout(0.3)))
+    convlstm_model.add(layers.Flatten())
+    convlstm_model.add(layers.Dense(4096,activation="relu"))
+    convlstm_model.add(layers.Dense(101, activation='softmax'))
+    convlstm_model.summary()
 
     #compile model
-    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics='accuracy')
+    convlstm_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics='accuracy')
     #Model training
     early_stop= callbacks.EarlyStopping(monitor='val_loss', patience=5, mode='min',
                                 restore_best_weights=True)
 
-    #print(x_train.shape, x_test.shape, np.array(y_train).shape, np.array(y_test).shape)
-    #y_train = to_categorical([y_train])
-    #y_train = y_train.reshape(y_train.shape[1], y_train.shape[0])
-    #y_train = np.array(tf.stack(y_train))
-    #print(y_train)
-    #print(y_train.shape)
-
-    history = model.fit(train_dataset,  epochs=5,
+    history_ = convlstm_model.fit(train_dataset,  epochs=150,
                         validation_data=test_dataset, callbacks=[early_stop])
 
     # save the model
-    model.save('./results/models/convlstm_model.h5')
-    return  history
+    convlstm_model.save('./results/models/convlstm_model.h5')
+    return  history_
 
 if __name__ == '__main__':
     print('Video Classification using ConvLSTM')
-    #print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 
     # calculate and print the time needed to run the code below using time
     start_time = time.time()
@@ -114,46 +75,17 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     print('\n Loading data...\n')
-    label_data = pd.read_csv("../data/UCF-101/ucfTrainTestlist/classInd.txt", sep=' ', header=None, engine="pyarrow")
-    label_data.columns=['index', 'labels']
-    label_data = label_data.drop(['index'], axis=1)
-    label_data.head()
-    path=[]
-    for label in label_data.labels.values:
-        path.append('../data/images_ucf101/'+label+"/")
-
-    print('\n Plotting the data...\n')
-    plot_results.plot_ucf101(label_data)
-
-    # load images from file in the same folder
-    print('\n Loading images...\n')
-    with np.load('./results/all_images.npz') as images_file:
-        images = images_file['arr_0']
-
-    print('\n Loading labels...\n')
-    labels_list = load_label(path)
-
-    #Train Test Split
-    print('\n Splitting the data into training and test...\n')
-    x_train, x_test, y_train, y_test=train_test_split(images, labels_list, test_size=0.06,
-                                                      random_state=10)
-
-    train_gen = DataGenerator(x_train, utils.to_categorical(y_train), batch_size=32)
-    test_gen = DataGenerator(x_test, utils.to_categorical(y_test), batch_size=32)
-
-    # implement tensorflow input data pipeline
-    #print('\n Implementing tensorflow input data pipeline...\n')
-    #train_dataset = tf.data.Dataset.from_tensor_slices((x_train, ))
-    #test_dataset = tf.data.Dataset.from_tensor_slices((x_test, ))
+    train_gen, test_gen, label_data = load_ucf101.load_ucf101()
 
     #Train the model
     if args.mode == 'train':
         print('\n Training the model...\n')
-        history = object_detection_model(train_gen, test_gen)
+        HISTORY = object_detection_model(train_gen, test_gen)
         print('\n Plotting the accuracy and loss...\n')
-        plot_results.plot_accuracy(history)
+        plot_results.plot_accuracy(HISTORY)
     #Test the model
     else:
+        x_test, y_test = next(test_gen)
         # load model from file
         print('\n Loading the model...\n')
         model = tf.keras.models.load_model('./results/models/convlstm_model.h5')
@@ -167,5 +99,3 @@ if __name__ == '__main__':
 
     end_time = time.time()
     print("Time taken to run the code: ", end_time - start_time)
-
-    #plot_confusion_matrix(y_test, predicted_classes)

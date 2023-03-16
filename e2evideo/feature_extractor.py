@@ -3,14 +3,14 @@ Module for feature extraction from images.
 Some code blocks are adapted from https://blog.paperspace.com/convolutional-autoencoder/
 """
 import argparse
+import pandas as pd
 import torch
 from torch import nn
 from torch.utils.data import Dataset
 import torchvision.datasets as Datasets
 import torchvision.transforms as Transforms
 from sklearn.model_selection import train_test_split
-from e2evideo import image_preprocessing
-from e2evideo import conv_autoencoder
+from e2evideo import image_preprocessing, conv_autoencoder, load_ucf101
 
 #  defining dataset class
 class CustomDataset(Dataset):
@@ -57,6 +57,13 @@ def main(args_):
         print('images size: ' , _images.size)
         training_data, test_data = train_test_split( _images, test_size=0.2, random_state=42)
         visual_data, test_data = train_test_split(test_data, test_size=0.98, random_state=42)
+    
+    if args_.dataset_name == "action_recognition":
+        train_gen, test_gen, _ = load_ucf101.load_ucf101()
+        training_data = train_gen
+        test_data = test_gen
+        visual_data = test_data
+
     #  training model
     model = conv_autoencoder.ConvolutionalAutoencoder(conv_autoencoder.Autoencoder(
             conv_autoencoder.Encoder(), conv_autoencoder.Decoder()))
