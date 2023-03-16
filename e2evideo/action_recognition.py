@@ -17,7 +17,7 @@ from tensorflow import keras
 from tensorflow.keras.utils import Sequence
 from keras import models, layers, utils, callbacks
 
-import e2evideo import plot_results
+from e2evideo import plot_results
 
 #os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -78,7 +78,7 @@ def object_detection_model(train_dataset, test_dataset):
     model.add(layers.TimeDistributed(layers.Dropout(0.3)))
     model.add(layers.Flatten())
     model.add(layers.Dense(4096,activation="relu"))
-    model.add(layers.Dense(1, activation='softmax'))
+    model.add(layers.Dense(101, activation='softmax'))
     model.summary()
 
     #compile model
