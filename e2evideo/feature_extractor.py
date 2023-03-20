@@ -59,7 +59,7 @@ def main(args_):
         visual_data, test_data = train_test_split(test_data, test_size=0.98, random_state=42)
     
     if args_.dataset_name == "action_recognition":
-        train_gen, test_gen, _ = load_ucf101.load_ucf101()
+        train_gen, test_gen, _ = load_ucf101.load_ucf101(args_.data_folder, args_.images_array, args_.no_classes)
         training_data = train_gen
         test_data = test_gen
         visual_data = test_data
@@ -67,7 +67,7 @@ def main(args_):
     #  training model
     model = conv_autoencoder.ConvolutionalAutoencoder(conv_autoencoder.Autoencoder(
             conv_autoencoder.Encoder(), conv_autoencoder.Decoder()))
-    training_args = {'loss_function': nn.BCELoss(), 'epochs': 10 , 'batch_size': 16,
+    training_args = {'loss_function': nn.BCELoss(), 'epochs': 10 , 'batch_size': 10,
                 'training_set': training_data, 'test_set': test_data, 'visual_set': visual_data}
     log_dict = model.train(training_args)
     print(log_dict)
@@ -76,6 +76,9 @@ def main(args_):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset_name', default='handwashing')
+    parser.add_argument('--dataset_name', default='action_recognition')
+    parser.add_argument('--images_array', type=str, default='./results/ucf10.npz')
+    parser.add_argument('--data_folder', type=str, default='../data/images_ucf10/')
+    parser.add_argument('--no_classes', type=int, default=10)
     args_input = parser.parse_args()
     main(args_input)

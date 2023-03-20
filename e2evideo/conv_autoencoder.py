@@ -10,14 +10,14 @@ from e2evideo import plot_results
 from e2evideo import our_utils
 
 device = our_utils.get_device()
-CCH = 1
+CCH = 3
 # The parameter 'latent dim' refers to the size of the bottleneck = 1000
 #  defining encoder
 class Encoder(nn.Module):
     """
     Encoder class.
     """
-    def __init__(self, in_channels=CCH, out_channels=64, latent_dim=1000, act_fn=nn.ReLU()):
+    def __init__(self, in_channels=CCH, out_channels=64, latent_dim=1000, act_fn=nn.ReLU(), img_width=224, img_height=224):
         super().__init__()
 
         self.net = nn.Sequential(
@@ -77,7 +77,7 @@ class Encoder(nn.Module):
         """
         Forward function in the encoder.
         """
-        in_ = in_.view(-1, CCH, 224, 224)
+        in_ = in_.view(-1, CCH, img_width, img_height)
         output = self.net(in_)
         return output
 
@@ -183,6 +183,7 @@ class ConvolutionalAutoencoder():
         #  TRAINING
         print('training...')
         for images in tqdm(loaders['train_loader']):
+            print(images)
             #  zeroing gradients
             self.optimizer.zero_grad()
             #  sending images to device
@@ -190,7 +191,7 @@ class ConvolutionalAutoencoder():
             #  reconstructing images
             output = self.network(images)
             #  computing loss
-            loss = training_args['loss_function'](output, images.view(-1, CCH, 224, 224))
+            loss = training_args['loss_function'](output, images.view(-1, CCH, img_width, img_height))
             #  calculating gradients
             loss.backward()
             #  optimizing weights
@@ -207,7 +208,7 @@ class ConvolutionalAutoencoder():
                 output = self.network(test_images)
                 #  computing test loss
                 test_loss = training_args['loss_function'](output, test_images.view(-1,
-                                            CCH, 224, 224))
+                                            CCH, img_width, img_height))
             # LOGGING
             log_dict['test_loss_per_batch'].append(test_loss.item())
         print(f'training_loss: {round(loss.item(), 4)} test_loss: {round(test_loss.item(), 4)}')
