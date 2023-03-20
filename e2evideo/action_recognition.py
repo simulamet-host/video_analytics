@@ -55,25 +55,20 @@ def object_detection_model(train_dataset, test_dataset):
     #Model training
     early_stop= callbacks.EarlyStopping(monitor='val_loss', patience=5, mode='min',
                                 restore_best_weights=True)
-
     history_ = convlstm_model.fit(train_dataset,  epochs=150,
                         validation_data=test_dataset, callbacks=[early_stop])
-
     # save the model
     convlstm_model.save('./results/models/convlstm_model.h5')
     return  history_
 
 if __name__ == '__main__':
     print('Video Classification using ConvLSTM')
-
     # calculate and print the time needed to run the code below using time
     start_time = time.time()
-
     parser = argparse.ArgumentParser()
     parser.add_argument('--mode', type=str, default='train', choices= ['train', 'test'],
                         help='train or test')
     args = parser.parse_args()
-
     print('\n Loading data...\n')
     train_gen, test_gen, label_data = load_ucf101.load_ucf101()
 
