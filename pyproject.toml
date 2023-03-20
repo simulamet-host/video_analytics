@@ -19,6 +19,5 @@ dependencies = [
 "torchvision",
 "scikit-learn",
 "opencv-python",
-"scikit-image",
-"tensorflow>=2.9.3"
-]
+"pyarrow",
+"scikit-image"]

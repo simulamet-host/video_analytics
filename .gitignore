@@ -147,3 +147,4 @@ e2evideo/pylint
 e2evideo/.pylintrc
 e2evideo/results/all_images.npz
 e2evideo/jobs/logs/
+e2evideo/results/models/convlstm_model.h5

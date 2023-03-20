@@ -10,9 +10,9 @@ import torch
 from sklearn.metrics import confusion_matrix
 from tqdm import tqdm
 import cv2
-import utils
+from e2evideo import our_utils
 
-device = utils.get_device()
+device = our_utils.get_device()
 
 def plot_cae_training(data, network, color_channels):
     """
