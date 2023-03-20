@@ -92,18 +92,20 @@ if __name__ == '__main__':
     else:
         # load the test generator from the npy file
         print('\n Loading test_gen from a file...\n')
-        test_gen = np.load('./results/test_gen.npy')
-        x_test, y_test = next(test_gen)
+        test_gen = np.load('./results/test_gen.npy', allow_pickle=True)
+        x_test, y_test = np.concatenate(test_gen[:, 0]) , np.concatenate(test_gen[:, 1])
+        rounded_labels=np.argmax(y_test, axis=1)
         # load model from file
         print('\n Loading the model...\n')
         model = tf.keras.models.load_model('./results/models/convlstm_model.h5')
         # evaluate the model
         print('\n Evaluating the model...\n')
+        # convert x_test to a tensor
         y_pred = model.predict(x_test)
         predicted_classes=[]
         for i in range(len(y_test)):
             predicted_classes.append(np.argmax(y_pred[i]))
-        print(accuracy_score(y_test, predicted_classes))
+        print(accuracy_score( rounded_labels, predicted_classes))
 
     end_time = time.time()
     print("Time taken to run the code: ", end_time - start_time)
