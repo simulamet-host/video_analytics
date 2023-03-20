@@ -69,17 +69,24 @@ if __name__ == '__main__':
     parser.add_argument('--mode', type=str, default='train', choices= ['train', 'test'],
                         help='train or test')
     args = parser.parse_args()
-    print('\n Loading data...\n')
-    train_gen, test_gen, label_data = load_ucf101.load_ucf101()
-
+    
     #Train the model
     if args.mode == 'train':
+        print('\n Loading data...\n')
+        train_gen, test_gen, label_data = load_ucf101.load_ucf101()
+        # save test_gen to a file
+        print('\n Saving test_gen to a file...\n')
+        np.save('./results/test_gen.npy', test_gen)
         print('\n Training the model...\n')
         HISTORY = object_detection_model(train_gen, test_gen)
         print('\n Plotting the accuracy and loss...\n')
         plot_results.plot_accuracy(HISTORY)
+
     #Test the model
     else:
+        # load the test generator from the npy file
+        print('\n Loading test_gen from a file...\n')
+        test_gen = np.load('./results/test_gen.npy')
         x_test, y_test = next(test_gen)
         # load model from file
         print('\n Loading the model...\n')

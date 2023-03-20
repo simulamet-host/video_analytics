@@ -3,7 +3,8 @@ import pandas as pd
 import numpy as np
 from tqdm import tqdm
 from sklearn.model_selection import train_test_split
-from e2evideo import utils, plot_results
+from keras import utils
+from e2evideo import our_utils, plot_results
 
 def load_label(datasets):
     """
@@ -42,8 +43,8 @@ def load_ucf101():
     x_train, x_test, y_train, y_test=train_test_split(images, labels_list, test_size=0.06,
                                                     random_state=10)
 
-    train_gen = utils.DataGenerator(x_train, utils.to_categorical(y_train), batch_size=32)
-    test_gen = utils.DataGenerator(x_test, utils.to_categorical(y_test), batch_size=32)
+    train_gen = our_utils.DataGenerator(x_train, utils.to_categorical(y_train), batch_size=32)
+    test_gen = our_utils.DataGenerator(x_test, utils.to_categorical(y_test), batch_size=32)
 
 
     return train_gen, test_gen, label_data
