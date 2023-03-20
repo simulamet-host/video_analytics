@@ -106,6 +106,8 @@ if __name__ == '__main__':
         for i in range(len(y_test)):
             predicted_classes.append(np.argmax(y_pred[i]))
         print(accuracy_score( rounded_labels, predicted_classes))
+        plot_results.plot_confusion_matrix(rounded_labels, predicted_classes)
+
 
     end_time = time.time()
     print("Time taken to run the code: ", end_time - start_time)

@@ -6,6 +6,7 @@ import os
 import itertools
 import random
 import matplotlib.pyplot as plt
+import seaborn as sns
 import torch
 from sklearn.metrics import confusion_matrix
 from tqdm import tqdm
@@ -111,13 +112,11 @@ def plot_confusion_matrix(y_test, predicted_classes):
     This function is used to plot the confusion matrix of the model.
     """
     #Confusion Matrix
-    plt.figure(figsize=(25,25))
+    plt.figure(figsize=(10,10))
     plt.title("Confusion matrix")
     cm_=confusion_matrix(y_test, predicted_classes)
-    plt.imshow(cm_)
-    for i, j in itertools.product(range(cm_.shape[0]), range(cm_.shape[1])):
-        plt.text(j, i, cm_[i, j], horizontalalignment="center")
-    plt.savefig('./results/confusion_matrix.png')
+    sns.heatmap(cm_, annot=True, fmt="d", cmap='coolwarm')
+    plt.savefig('./results/confusion_matrix.png', bbox_inches='tight')
     plt.show()
 
 if __name__ == '__main__':
