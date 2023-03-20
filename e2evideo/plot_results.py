@@ -119,6 +119,29 @@ def plot_confusion_matrix(y_test, predicted_classes):
     plt.savefig('./results/confusion_matrix.png', bbox_inches='tight')
     plt.show()
 
+
+def plot_predictions(test_images, predicted_classes):
+    # Create a Matplotlib figure
+    plt.figure(figsize = (30, 30))
+
+    # Generate a random sample of images each time the cell runs
+    random_range = random.sample(range(len(test_images)), 8)
+
+    # Iterating through all the random samples
+    for counter, random_index in enumerate(random_range, 1):
+        # Getting Class Name using Random Index
+        selected_class_name = predicted_classes[random_index]
+        # Randomly selecting a video file
+        selected_video = random.choice(test_images)
+        print(selected_video.shape)
+        plt.subplot(5, 4, counter)
+        plt.imshow(selected_video[0,:,:,:])
+        # Adding The Class Name Text on top of the Video Frame.        
+        plt.axis('off')
+        # save image to a file
+        plt.savefig('./results/predictions.jpg')
+        plt.show()
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_frame')
