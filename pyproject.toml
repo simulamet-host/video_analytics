@@ -20,4 +20,5 @@ dependencies = [
 "scikit-learn",
 "opencv-python",
 "pyarrow",
-"scikit-image"]
+"scikit-image",
+"tensorflow"]
