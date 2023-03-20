@@ -17,7 +17,8 @@ def object_detection_model(train_dataset, test_dataset, no_classes = 101):
     """
     print("Object Detection")
     # Define the model
-    x_train, _ = next(train_dataset)
+
+    x_train, _ = train_dataset.__getitem__(0)
 
     convlstm_model = models.Sequential()
     convlstm_model.add(layers.BatchNormalization(momentum=0.8, input_shape=(x_train.shape[1],
