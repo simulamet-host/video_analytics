@@ -18,7 +18,7 @@ def object_detection_model(train_dataset, test_dataset, no_classes = 101):
     print("Object Detection")
     # Define the model
 
-    x_train, _ = train_dataset.__getitem__(0)
+    x_train, _ = train_dataset[0]
 
     convlstm_model = models.Sequential()
     convlstm_model.add(layers.BatchNormalization(momentum=0.8, input_shape=(x_train.shape[1],
@@ -73,13 +73,13 @@ if __name__ == '__main__':
     parser.add_argument('--images_array', type=str, default='./results/ucf10.npz')
     parser.add_argument('--data_folder', type=str, default='../data/images_ucf10/')
     parser.add_argument('--no_classes', type=int, default=10)
-
     args = parser.parse_args()
-    
     #Train the model
     if args.mode == 'train':
         print('\n Loading data...\n')
-        train_gen, test_gen, label_data = load_ucf101.load_ucf101(image_folder=args.data_folder, image_array=args.images_array, no_classes= args.no_classes)
+        train_gen, test_gen, label_data = load_ucf101.load_ucf101(image_folder=args.data_folder,
+                                                                  image_array=args.images_array,
+                                                                  no_classes= args.no_classes)
         # save test_gen to a file
         print('\n Saving test_gen to a file...\n')
         np.save('./results/test_gen.npy', test_gen)
