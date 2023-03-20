@@ -148,3 +148,5 @@ e2evideo/.pylintrc
 e2evideo/results/all_images.npz
 e2evideo/jobs/logs/
 e2evideo/results/models/convlstm_model.h5
+e2evideo/results/ucf10.npz
+e2evideo/results/test_gen.npy

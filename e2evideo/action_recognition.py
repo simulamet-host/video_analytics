@@ -11,7 +11,7 @@ import tensorflow as tf
 from keras import models, layers, callbacks
 from e2evideo import plot_results, load_ucf101
 
-def object_detection_model(train_dataset, test_dataset):
+def object_detection_model(train_dataset, test_dataset, no_classes = 101):
     """
     This function is used to perform object detection on the dataset.
     """
@@ -47,7 +47,7 @@ def object_detection_model(train_dataset, test_dataset):
     convlstm_model.add(layers.TimeDistributed(layers.Dropout(0.3)))
     convlstm_model.add(layers.Flatten())
     convlstm_model.add(layers.Dense(4096,activation="relu"))
-    convlstm_model.add(layers.Dense(101, activation='softmax'))
+    convlstm_model.add(layers.Dense(no_classes, activation='softmax'))
     convlstm_model.summary()
 
     #compile model
@@ -66,19 +66,24 @@ if __name__ == '__main__':
     # calculate and print the time needed to run the code below using time
     start_time = time.time()
     parser = argparse.ArgumentParser()
+
     parser.add_argument('--mode', type=str, default='train', choices= ['train', 'test'],
                         help='train or test')
+    parser.add_argument('--images_array', type=str, default='./results/ucf10.npz')
+    parser.add_argument('--data_folder', type=str, default='../data/images_ucf10/')
+    parser.add_argument('--no_classes', type=int, default=10)
+
     args = parser.parse_args()
     
     #Train the model
     if args.mode == 'train':
         print('\n Loading data...\n')
-        train_gen, test_gen, label_data = load_ucf101.load_ucf101()
+        train_gen, test_gen, label_data = load_ucf101.load_ucf101(image_folder=args.data_folder, image_array=args.images_array, no_classes= args.no_classes)
         # save test_gen to a file
         print('\n Saving test_gen to a file...\n')
         np.save('./results/test_gen.npy', test_gen)
         print('\n Training the model...\n')
-        HISTORY = object_detection_model(train_gen, test_gen)
+        HISTORY = object_detection_model(train_gen, test_gen, args.no_classes)
         print('\n Plotting the accuracy and loss...\n')
         plot_results.plot_accuracy(HISTORY)
 

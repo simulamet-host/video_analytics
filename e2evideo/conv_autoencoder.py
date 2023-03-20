@@ -7,9 +7,9 @@ from torch import nn
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 from e2evideo import plot_results
-from e2evideo import utils
+from e2evideo import our_utils
 
-device = utils.get_device()
+device = our_utils.get_device()
 CCH = 1
 # The parameter 'latent dim' refers to the size of the bottleneck = 1000
 #  defining encoder
