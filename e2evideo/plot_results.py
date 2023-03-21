@@ -128,6 +128,12 @@ def plot_predictions(test_images, predicted_classes, actual_classes):
     lables = [predicted_classes[i:i+32] for i in range(0, len(predicted_classes), 32) ]
     actual_classes = [actual_classes[i:i+32] for i in range(0, len(actual_classes), 32) ]
     print('\n \n')
+    print('Predicted Classes')
+    print(lables)
+    print('\n \n')
+    print('Actual Classes')
+    print(actual_classes)
+    print('\n \n')
 
     label_data = pd.read_csv("../data/UCF-101/ucfTrainTestlist/classInd.txt", sep=' ', header=None, engine="pyarrow")
     label_data.columns=['index', 'labels']
