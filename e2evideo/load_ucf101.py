@@ -6,8 +6,6 @@ from sklearn.model_selection import train_test_split
 from keras import utils
 from e2evideo import our_utils, plot_results
 
-
-
 def load_label(datasets):
     """
     This function is used to load the labels of the dataset.

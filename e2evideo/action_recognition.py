@@ -93,7 +93,9 @@ if __name__ == '__main__':
         # load the test generator from the npy file
         print('\n Loading test_gen from a file...\n')
         test_gen = np.load('./results/test_gen.npy', allow_pickle=True)
-        x_test, y_test = np.concatenate(test_gen[:, 0]) , np.concatenate(test_gen[:, 1])
+        x_test_ , y_test_ = test_gen[:, 0], test_gen[:, 1]
+        x_test, y_test = np.concatenate(x_test_) , np.concatenate(y_test_)
+
         rounded_labels=np.argmax(y_test, axis=1)
         # load model from file
         print('\n Loading the model...\n')
@@ -107,7 +109,7 @@ if __name__ == '__main__':
             predicted_classes.append(np.argmax(y_pred[i]))
         print(accuracy_score( rounded_labels, predicted_classes))
         plot_results.plot_confusion_matrix(rounded_labels, predicted_classes)
-        plot_results.plot_predictions(x_test, rounded_labels)
+        plot_results.plot_predictions(x_test_, np.asarray(predicted_classes), rounded_labels)
 
     end_time = time.time()
     print("Time taken to run the code: ", end_time - start_time)

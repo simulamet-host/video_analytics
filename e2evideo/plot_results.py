@@ -12,6 +12,7 @@ from sklearn.metrics import confusion_matrix
 from tqdm import tqdm
 import cv2
 from e2evideo import our_utils
+import pandas as pd
 
 device = our_utils.get_device()
 
@@ -120,27 +121,32 @@ def plot_confusion_matrix(y_test, predicted_classes):
     plt.show()
 
 
-def plot_predictions(test_images, predicted_classes):
+def plot_predictions(test_images, predicted_classes, actual_classes):
     # Create a Matplotlib figure
-    plt.figure(figsize = (30, 30))
+    plt.figure(figsize = (7, 7))
+    counter = 1
+    lables = [predicted_classes[i:i+32] for i in range(0, len(predicted_classes), 32) ]
+    actual_classes = [actual_classes[i:i+32] for i in range(0, len(actual_classes), 32) ]
+    print('\n \n')
 
-    # Generate a random sample of images each time the cell runs
-    random_range = random.sample(range(len(test_images)), 8)
+    label_data = pd.read_csv("../data/UCF-101/ucfTrainTestlist/classInd.txt", sep=' ', header=None, engine="pyarrow")
+    label_data.columns=['index', 'labels']
 
-    # Iterating through all the random samples
-    for counter, random_index in enumerate(random_range, 1):
-        # Getting Class Name using Random Index
-        selected_class_name = predicted_classes[random_index]
-        # Randomly selecting a video file
-        selected_video = random.choice(test_images)
-        print(selected_video.shape)
-        plt.subplot(5, 4, counter)
-        plt.imshow(selected_video[0,:,:,:])
-        # Adding The Class Name Text on top of the Video Frame.        
+    for index, video in enumerate(test_images):
+        frame = video[0,0,:,:,:]
+        plt.subplot(1, 3, counter)
+        frame_resize = cv2.resize(frame, (224, 224))
+        plt.imshow(frame_resize)
+        plt.text(10, 30, label_data.labels.values[lables[index][0]], style='italic',
+        bbox={'facecolor': 'purple', 'alpha': 0.7, 'pad': 10})
+        plt.text(10, 500, label_data.labels.values[actual_classes[index][0]], style='italic',
+        bbox={'facecolor': 'green', 'alpha': 0.7, 'pad': 10})
+        counter += 1
         plt.axis('off')
-        # save image to a file
-        plt.savefig('./results/predictions.jpg')
-        plt.show()
+    plt.savefig('./results/predictions.jpg', bbox_inches='tight')
+    plt.show()
+    print('\n \n')
+    print('Done')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
