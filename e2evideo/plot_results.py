@@ -3,7 +3,6 @@ This moduel contains all the plots produced from the package.
 """
 import argparse
 import os
-import itertools
 import random
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -11,8 +10,9 @@ import torch
 from sklearn.metrics import confusion_matrix
 from tqdm import tqdm
 import cv2
-from e2evideo import our_utils
 import pandas as pd
+from e2evideo import our_utils
+
 
 device = our_utils.get_device()
 
@@ -71,6 +71,7 @@ def plot_ucf101(label_data):
 
         # Reading the Video File Using the Video Capture
         video_file = f'../data/UCF-101/{selected_class_name}/{selected_video_file_name}'
+        # pylint: disable=no-member
         video_reader = cv2.VideoCapture(video_file)
         # Reading The First Frame of the Video File
         _, bgr_frame = video_reader.read()
@@ -118,10 +119,12 @@ def plot_confusion_matrix(y_test, predicted_classes):
     cm_=confusion_matrix(y_test, predicted_classes)
     sns.heatmap(cm_, annot=True, fmt="d", cmap='coolwarm')
     plt.savefig('./results/confusion_matrix.png', bbox_inches='tight')
-    plt.show()
 
 
 def plot_predictions(test_images, predicted_classes, actual_classes):
+    """
+    This function is used to plot the predictions of the model.
+    """
     # Create a Matplotlib figure
     plt.figure(figsize = (7, 7))
     counter = 1
@@ -135,13 +138,14 @@ def plot_predictions(test_images, predicted_classes, actual_classes):
     print(actual_classes)
     print('\n \n')
 
-    label_data = pd.read_csv("../data/UCF-101/ucfTrainTestlist/classInd.txt", sep=' ', header=None, engine="pyarrow")
+    label_data = pd.read_csv("../data/UCF-101/ucfTrainTestlist/classInd.txt", sep=' ', header=None,
+                             engine="pyarrow")
     label_data.columns=['index', 'labels']
 
     for index, video in enumerate(test_images):
         frame = video[0,0,:,:,:]
         plt.subplot(1, 3, counter)
-        frame_resize = cv2.resize(frame, (224, 224))
+        frame_resize = cv2.resize(frame, (224, 224)) #pylint: disable=no-member
         plt.imshow(frame_resize)
         plt.text(10, 30, label_data.labels.values[lables[index][0]], style='italic',
         bbox={'facecolor': 'purple', 'alpha': 0.7, 'pad': 10})
@@ -150,7 +154,6 @@ def plot_predictions(test_images, predicted_classes, actual_classes):
         counter += 1
         plt.axis('off')
     plt.savefig('./results/predictions.jpg', bbox_inches='tight')
-    plt.show()
     print('\n \n')
     print('Done')
 

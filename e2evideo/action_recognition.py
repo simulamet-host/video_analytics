@@ -73,6 +73,7 @@ if __name__ == '__main__':
     parser.add_argument('--images_array', type=str, default='./results/ucf10.npz')
     parser.add_argument('--data_folder', type=str, default='../data/images_ucf10/')
     parser.add_argument('--no_classes', type=int, default=10)
+    parser.add_argument('--training_epochs', type=int, default=150)
     args = parser.parse_args()
     #Train the model
     if args.mode == 'train':

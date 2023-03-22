@@ -58,7 +58,7 @@ def load_ucf101(image_folder, image_array, no_classes = 101, is_load_label = Tru
                                                     random_state=10, shuffle=False)
 
     train_gen = our_utils.DataGenerator(x_train, utils.to_categorical(y_train), batch_size=32)
-    test_gen = our_utils.DataGenerator(x_test, utils.to_categorical(y_test), batch_size=32)
+    test_gen = our_utils.DataGenerator(x_test, y_test, batch_size=32)
 
 
     return train_gen, test_gen, label_data
