@@ -51,7 +51,7 @@ def object_detection_model(train_dataset, test_dataset, no_classes = 101):
     convlstm_model.summary()
 
     #compile model
-    convlstm_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics='accuracy')
+    convlstm_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
     #Model training
     early_stop= tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, mode='min',
                                 restore_best_weights=True)
