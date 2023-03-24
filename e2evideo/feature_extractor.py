@@ -60,16 +60,16 @@ def main(args_):
         visual_data, test_data = train_test_split(test_data, test_size=0.98, random_state=42)
     
     if args_.dataset_name == "action_recognition":
-        train_gen, test_gen, _ = load_ucf101.load_ucf101(args_.data_folder, args_.images_array, args_.no_classes)
-        training_data = np.concatenate(train_gen[:, 0])
-        test_data = np.concatenate(test_gen[:, 0])
-        visual_data = test_data
+        x_train, x_test, y_train, y_test, label_data = load_ucf101.load_ucf101(args_.data_folder, args_.images_array, args_.no_classes)
+        #training_data = np.concatenate(train_gen[:, 0])
+        #test_data = np.concatenate(test_gen[:, 0])
+        #visual_data = test_data
 
     #  training model
     model = conv_autoencoder.ConvolutionalAutoencoder(conv_autoencoder.Autoencoder(
             conv_autoencoder.Encoder(), conv_autoencoder.Decoder()))
-    training_args = {'loss_function': nn.BCELoss(), 'epochs': 10 , 'batch_size': 10,
-                'training_set': training_data, 'test_set': test_data, 'visual_set': visual_data}
+    training_args = {'loss_function': nn.BCELoss(), 'epochs': 1 , 'batch_size': 10,
+                'training_set': x_train, 'test_set': x_test, 'visual_set': x_test}
     log_dict = model.train(training_args)
     print(log_dict)
     # save the model

@@ -8,7 +8,8 @@ import time
 import numpy as np
 from sklearn.metrics import accuracy_score
 import tensorflow as tf
-from e2evideo import plot_results, load_ucf101
+from keras import utils
+from e2evideo import plot_results, load_ucf101, our_utils
 
 def object_detection_model(train_dataset, test_dataset, no_classes = 101):
     """
@@ -77,9 +78,13 @@ if __name__ == '__main__':
     #Train the model
     if args.mode == 'train':
         print('\n Loading data...\n')
-        train_gen, test_gen, label_data = load_ucf101.load_ucf101(image_folder=args.data_folder,
+        x_train, x_test, y_train, y_test, label_data, label_data = load_ucf101.load_ucf101(image_folder=args.data_folder,
                                                                   image_array=args.images_array,
                                                                   no_classes= args.no_classes)
+        
+        train_gen = our_utils.DataGenerator(x_train, utils.to_categorical(y_train), batch_size=32)
+        test_gen = our_utils.DataGenerator(x_test, utils.to_categorical(y_test), batch_size=32)
+
         # save test_gen to a file
         print('\n Saving test_gen to a file...\n')
         np.save('./results/test_gen.npy', test_gen)
