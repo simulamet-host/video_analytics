@@ -3,6 +3,7 @@ Module for feature extraction from images.
 Some code blocks are adapted from https://blog.paperspace.com/convolutional-autoencoder/
 """
 import argparse
+import numpy as np
 import pandas as pd
 import torch
 from torch import nn
@@ -60,8 +61,8 @@ def main(args_):
     
     if args_.dataset_name == "action_recognition":
         train_gen, test_gen, _ = load_ucf101.load_ucf101(args_.data_folder, args_.images_array, args_.no_classes)
-        training_data = train_gen
-        test_data = test_gen
+        training_data = np.concatenate(train_gen[:, 0])
+        test_data = np.concatenate(test_gen[:, 0])
         visual_data = test_data
 
     #  training model
