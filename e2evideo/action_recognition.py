@@ -8,7 +8,6 @@ import time
 import numpy as np
 from sklearn.metrics import accuracy_score
 import tensorflow as tf
-from keras import models, layers, callbacks
 from e2evideo import plot_results, load_ucf101
 
 def object_detection_model(train_dataset, test_dataset, no_classes = 101):
@@ -20,41 +19,41 @@ def object_detection_model(train_dataset, test_dataset, no_classes = 101):
 
     x_train, _ = train_dataset[0]
 
-    convlstm_model = models.Sequential()
-    convlstm_model.add(layers.BatchNormalization(momentum=0.8, input_shape=(x_train.shape[1],
+    convlstm_model = tf.keras.models.Sequential()
+    convlstm_model.add(tf.keras.layers.BatchNormalization(momentum=0.8, input_shape=(x_train.shape[1],
                 x_train.shape[2], x_train.shape[3], 3)))
-    convlstm_model.add(layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
+    convlstm_model.add(tf.keras.layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
                          data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
-    convlstm_model.add(layers.MaxPooling3D(pool_size=(1,2,2), padding='same',
+    convlstm_model.add(tf.keras.layers.MaxPooling3D(pool_size=(1,2,2), padding='same',
                                            data_format='channels_last'))
-    convlstm_model.add(layers.TimeDistributed(layers.Dropout(0.2)))
-    convlstm_model.add(layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
+    convlstm_model.add(tf.keras.layers.TimeDistributed(tf.keras.layers.Dropout(0.2)))
+    convlstm_model.add(tf.keras.layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
                          data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
-    convlstm_model.add(layers.BatchNormalization(momentum=0.8))
-    convlstm_model.add(layers.MaxPooling3D(pool_size=(1,2,2), padding='same',
+    convlstm_model.add(tf.keras.layers.BatchNormalization(momentum=0.8))
+    convlstm_model.add(tf.keras.layers.MaxPooling3D(pool_size=(1,2,2), padding='same',
                                            data_format='channels_last'))
-    convlstm_model.add(layers.TimeDistributed(layers.Dropout(0.2)))
-    convlstm_model.add(layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
+    convlstm_model.add(tf.keras.layers.TimeDistributed(tf.keras.layers.Dropout(0.2)))
+    convlstm_model.add(tf.keras.layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
                         data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
-    convlstm_model.add(layers.BatchNormalization(momentum=0.8))
-    convlstm_model.add(layers.MaxPooling3D(pool_size=(1,2,2), padding='same',
+    convlstm_model.add(tf.keras.layers.BatchNormalization(momentum=0.8))
+    convlstm_model.add(tf.keras.layers.MaxPooling3D(pool_size=(1,2,2), padding='same',
                                            data_format='channels_last'))
-    convlstm_model.add(layers.TimeDistributed(layers.Dropout(0.3)))
-    convlstm_model.add(layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
+    convlstm_model.add(tf.keras.layers.TimeDistributed(tf.keras.layers.Dropout(0.3)))
+    convlstm_model.add(tf.keras.layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
                         data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
-    convlstm_model.add(layers.BatchNormalization(momentum=0.8))
-    convlstm_model.add(layers.MaxPooling3D(pool_size=(1,2,2), padding='same',
+    convlstm_model.add(tf.keras.layers.BatchNormalization(momentum=0.8))
+    convlstm_model.add(tf.keras.layers.MaxPooling3D(pool_size=(1,2,2), padding='same',
                                            data_format='channels_last'))
-    convlstm_model.add(layers.TimeDistributed(layers.Dropout(0.3)))
-    convlstm_model.add(layers.Flatten())
-    convlstm_model.add(layers.Dense(4096,activation="relu"))
-    convlstm_model.add(layers.Dense(no_classes, activation='softmax'))
+    convlstm_model.add(tf.keras.layers.TimeDistributed(tf.keras.layers.Dropout(0.3)))
+    convlstm_model.add(tf.keras.layers.Flatten())
+    convlstm_model.add(tf.keras.layers.Dense(4096,activation="relu"))
+    convlstm_model.add(tf.keras.layers.Dense(no_classes, activation='softmax'))
     convlstm_model.summary()
 
     #compile model
     convlstm_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics='accuracy')
     #Model training
-    early_stop= callbacks.EarlyStopping(monitor='val_loss', patience=5, mode='min',
+    early_stop= tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, mode='min',
                                 restore_best_weights=True)
     history_ = convlstm_model.fit(train_dataset,  epochs=150,
                         validation_data=test_dataset, callbacks=[early_stop])

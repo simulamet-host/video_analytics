@@ -6,7 +6,7 @@ This file contains the utility functions for the project. It contains the follow
 import numpy as np
 from torch.cuda import is_available
 from torch import device # pylint: disable= E0611
-from tensorflow.keras.utils import Sequence
+import tensorflow as tf
 
 def get_device():
     """
@@ -23,7 +23,7 @@ def get_device():
         print('Running on the CPU')
     return which_device
 
-class DataGenerator(Sequence):
+class DataGenerator(tf.keras.utils.Sequence):
     def __init__(self, x_set, y_set, batch_size):
         self.x, self.y = x_set, y_set
         self.batch_size = batch_size
