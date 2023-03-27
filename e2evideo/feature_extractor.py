@@ -3,6 +3,7 @@ Module for feature extraction from images.
 Some code blocks are adapted from https://blog.paperspace.com/convolutional-autoencoder/
 """
 import argparse
+import time
 import numpy as np
 import pandas as pd
 import torch
@@ -80,6 +81,8 @@ def main(args_):
     torch.save(model, '../results/encoder_model.pkl')
 
 if __name__ == '__main__':
+    # print the date and time of now 
+    print('Date and time: ', time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset_name', default='action_recognition')
     parser.add_argument('--images_array', type=str, default='./results/ucf10.npz')

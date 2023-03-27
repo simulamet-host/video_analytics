@@ -13,6 +13,7 @@ device = our_utils.get_device()
 CCH = 3
 img_width = 60
 img_height = 60
+test_keyword = 'Hi there!'
 
 # The parameter 'latent dim' refers to the size of the bottleneck = 1000
 #  defining encoder
@@ -147,6 +148,7 @@ class ConvolutionalAutoencoder():
     """
     Convolutional Autoencoder class.
     """
+    print(test_keyword)
     def __init__(self, autoencoder):
         self.network = autoencoder
         self.optimizer = torch.optim.Adam(self.network.parameters(), lr=1e-3)
