@@ -12,5 +12,13 @@
 
 echo "This is Faiga's process running on $(hostname)"
 cd ..
+<<<<<<< HEAD
 srun python action_recognition.py
+=======
+srun python action_recognition.py \
+--images_array './results/all_images.npz' \
+--data_folder './data/images_ucf101/' \
+--no_classes 101 \
+
+>>>>>>> inital commit
 echo 'Done!'
