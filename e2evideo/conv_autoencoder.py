@@ -148,8 +148,9 @@ class ConvolutionalAutoencoder():
     """
     Convolutional Autoencoder class.
     """
-    print(test_keyword)
+    print('\n', test_keyword, '\n')
     def __init__(self, autoencoder):
+        autoencoder = autoencoder.double()
         self.network = autoencoder
         self.optimizer = torch.optim.Adam(self.network.parameters(), lr=1e-3)
     def train(self, training_args):
