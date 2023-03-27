@@ -11,7 +11,9 @@ from torch.utils.data import Dataset
 import torchvision.datasets as Datasets
 import torchvision.transforms as Transforms
 from sklearn.model_selection import train_test_split
-from e2evideo import image_preprocessing, conv_autoencoder, load_ucf101
+from e2evideo import image_preprocessing, conv_autoencoder, load_ucf101, our_utils
+
+device = our_utils.get_device()
 
 #  defining dataset class
 class CustomDataset(Dataset):
@@ -61,6 +63,8 @@ def main(args_):
     
     if args_.dataset_name == "action_recognition":
         x_train, x_test, y_train, y_test, label_data = load_ucf101.load_ucf101(args_.data_folder, args_.images_array, args_.no_classes)
+        x_train, x_test = torch.tensor(x_train).to(device), torch.tensor(x_test).to(device)
+
         #training_data = np.concatenate(train_gen[:, 0])
         #test_data = np.concatenate(test_gen[:, 0])
         #visual_data = test_data
@@ -71,7 +75,7 @@ def main(args_):
     training_args = {'loss_function': nn.BCELoss(), 'epochs': 10 , 'batch_size': 10,
                 'training_set': x_train, 'test_set': x_test, 'visual_set': x_test}
     log_dict = model.train(training_args)
-    print(log_dict)
+    #print(log_dict)
     # save the model
     torch.save(model, '../results/encoder_model.pkl')
 

@@ -11,15 +11,17 @@ from e2evideo import our_utils
 
 device = our_utils.get_device()
 CCH = 3
+img_width = 60
+img_height = 60
+
 # The parameter 'latent dim' refers to the size of the bottleneck = 1000
 #  defining encoder
 class Encoder(nn.Module):
     """
     Encoder class.
     """
-    def __init__(self, in_channels=CCH, out_channels=64, latent_dim=1000, act_fn=nn.ReLU(), img_width=224, img_height=224):
+    def __init__(self, in_channels=CCH, out_channels=64, latent_dim=1000, act_fn=nn.ReLU()):
         super().__init__()
-
         self.net = nn.Sequential(
             # Conv-1
             nn.Conv2d(in_channels, out_channels, 3, padding=1), # (224, 244, 64)
@@ -183,7 +185,7 @@ class ConvolutionalAutoencoder():
         #  TRAINING
         print('training...')
         for images in tqdm(loaders['train_loader']):
-            print(images)
+            #print(images)
             #  zeroing gradients
             self.optimizer.zero_grad()
             #  sending images to device
