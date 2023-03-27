@@ -78,7 +78,7 @@ if __name__ == '__main__':
     #Train the model
     if args.mode == 'train':
         print('\n Loading data...\n')
-        x_train, x_test, y_train, y_test, label_data, label_data = load_ucf101.load_ucf101(image_folder=args.data_folder,
+        x_train, x_test, y_train, y_test, label_data = load_ucf101.load_ucf101(image_folder=args.data_folder,
                                                                   image_array=args.images_array,
                                                                   no_classes= args.no_classes)
         

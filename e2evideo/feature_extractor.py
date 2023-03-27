@@ -68,7 +68,7 @@ def main(args_):
     #  training model
     model = conv_autoencoder.ConvolutionalAutoencoder(conv_autoencoder.Autoencoder(
             conv_autoencoder.Encoder(), conv_autoencoder.Decoder()))
-    training_args = {'loss_function': nn.BCELoss(), 'epochs': 1 , 'batch_size': 10,
+    training_args = {'loss_function': nn.BCELoss(), 'epochs': 10 , 'batch_size': 10,
                 'training_set': x_train, 'test_set': x_test, 'visual_set': x_test}
     log_dict = model.train(training_args)
     print(log_dict)
