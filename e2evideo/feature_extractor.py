@@ -55,14 +55,14 @@ def main(args_):
         test_data = CustomDataset(test_images, transforms=Transforms.Compose([Transforms.ToTensor(),
                                         Transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
         visual_data = test_data
-    if args_.dataset_name == "handwashing":
+    elif args_.dataset_name == "handwashing":
         _dir = "./images/"
         _images = image_preprocessing.get_images(_dir, '*.jpg', True, (224, 224), True)
         print('images size: ' , _images.size)
         training_data, test_data = train_test_split( _images, test_size=0.2, random_state=42)
         visual_data, test_data = train_test_split(test_data, test_size=0.98, random_state=42)
     
-    if args_.dataset_name == "action_recognition":
+    elif args_.dataset_name == "action_recognition":
         x_train, x_test, y_train, y_test, label_data = load_ucf101.load_ucf101(args_.data_folder, args_.images_array, args_.no_classes)
         x_train, x_test = torch.tensor(x_train).to(device), torch.tensor(x_test).to(device)
 
@@ -73,7 +73,7 @@ def main(args_):
     #  training model
     model = conv_autoencoder.ConvolutionalAutoencoder(conv_autoencoder.Autoencoder(
             conv_autoencoder.Encoder(), conv_autoencoder.Decoder()))
-    training_args = {'loss_function': nn.BCELoss(), 'epochs': 10 , 'batch_size': 10,
+    training_args = {'loss_function': nn.BCELoss(), 'epochs': 10 , 'batch_size': 2,
                 'training_set': x_train, 'test_set': x_test, 'visual_set': x_test}
     log_dict = model.train(training_args)
     #print(log_dict)
