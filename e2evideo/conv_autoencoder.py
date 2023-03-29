@@ -169,9 +169,6 @@ class ConvolutionalAutoencoder():
             #  reconstructing images
             output = self.network(images)
             #  computing loss
-            print('/n/n')
-            print(output.shape)
-            print(images.shape)
             loss = training_args['loss_function'](output, images.view(-1, CCH, img_width, img_height))
             #  calculating gradients
             loss.backward()
