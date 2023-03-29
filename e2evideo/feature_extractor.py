@@ -90,4 +90,10 @@ if __name__ == '__main__':
     parser.add_argument('--data_folder', type=str, default='../data/images_ucf10/')
     parser.add_argument('--no_classes', type=int, default=10)
     args_input = parser.parse_args()
-    main(args_input)
+    try:
+        device = our_utils.get_device()
+        main(args_input)
+    except RuntimeError:
+        print('Switching to GPU 1')
+        device = our_utils.get_device(1)
+        main(args_input)

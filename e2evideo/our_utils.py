@@ -15,7 +15,7 @@ def print_NN_layers(net, input):
         input = layer(input)
         print(input.size())
 
-def get_device():
+def get_device(dev_id=0):
     """
     This function check if the machine has GPU, then it returns a cuda device object.
     Either CPU or GPU.
@@ -23,7 +23,8 @@ def get_device():
     #  configuring device
     if is_available():
         # pylint: disable=E1101
-        which_device = device('cuda:0')
+        dev_name = 'cuda:' + str(dev_id)
+        which_device = device(dev_name)
         print('Running on the GPU')
     else:
         which_device = device('cpu') # pylint:disable=E1101
