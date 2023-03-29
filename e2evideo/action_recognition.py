@@ -9,7 +9,7 @@ import numpy as np
 from sklearn.metrics import accuracy_score
 import tensorflow as tf
 from keras import utils
-from e2evideo import plot_results, load_ucf101, our_utils
+import plot_results, load_ucf101, our_utils
 
 def object_detection_model(train_dataset, test_dataset, no_classes = 101):
     """

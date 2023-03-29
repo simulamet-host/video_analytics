@@ -4,7 +4,7 @@ import argparse
 import numpy as np
 import pytest
 import cv2
-import e2evideo.image_preprocessing as e2e_img_pre
+import image_preprocessing as e2e_img_pre
 
 @pytest.fixture
 def image_folder(tmpdir):

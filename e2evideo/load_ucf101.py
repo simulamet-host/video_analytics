@@ -4,7 +4,7 @@ import numpy as np
 from tqdm import tqdm
 from sklearn.model_selection import train_test_split
 from keras import utils
-from e2evideo import our_utils, plot_results
+import our_utils, plot_results
 
 def load_label(datasets):
     """
