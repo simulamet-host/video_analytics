@@ -8,6 +8,13 @@ from torch.cuda import is_available
 from torch import device # pylint: disable= E0611
 import tensorflow as tf
 
+def print_NN_layers(net, input):
+    for layer in net:
+        print('\n\n')
+        print('Layer: ', layer)
+        input = layer(input)
+        print(input.size())
+
 def get_device():
     """
     This function check if the machine has GPU, then it returns a cuda device object.
@@ -35,3 +42,4 @@ class DataGenerator(tf.keras.utils.Sequence):
         batch_x = self.x[idx * self.batch_size:(idx + 1) * self.batch_size]
         batch_y = self.y[idx * self.batch_size:(idx + 1) * self.batch_size]
         return np.array(batch_x), np.array(batch_y)
+

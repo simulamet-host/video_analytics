@@ -12,7 +12,8 @@ from torch.utils.data import Dataset
 import torchvision.datasets as Datasets
 import torchvision.transforms as Transforms
 from sklearn.model_selection import train_test_split
-from e2evideo import image_preprocessing, conv_autoencoder, load_ucf101, our_utils
+import image_preprocessing, conv_autoencoder, load_ucf101, our_utils
+
 
 device = our_utils.get_device()
 

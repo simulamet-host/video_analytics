@@ -6,15 +6,15 @@ import torch
 from torch import nn
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-from e2evideo import plot_results
-from e2evideo import our_utils
+import plot_results
+import our_utils
 
 device = our_utils.get_device()
 CCH = 3
 img_width = 60
 img_height = 60
-test_keyword = 'Hi there!'
 
+print('Are we running this?')
 # The parameter 'latent dim' refers to the size of the bottleneck = 1000
 #  defining encoder
 class Encoder(nn.Module):
@@ -83,16 +83,10 @@ class Decoder(nn.Module):
             nn.ConvTranspose2d(4*out_channels, 2*out_channels, 3, padding=1,
                             stride=2, output_padding=1), # (28, 28, 128)
             act_fn,
-            nn.ConvTranspose2d(2*out_channels, out_channels, 3, padding=1, stride=2,
-                output_padding=1), # (56, 56, 64)
+            nn.ConvTranspose2d(2*out_channels, out_channels, kernel_size = 7, padding=1, stride=2,
+                output_padding=1), # (60, 60, 64)
             act_fn,
-            nn.ConvTranspose2d(out_channels, out_channels, 3, padding=1,
-            stride=2, output_padding=1), # (112, 112, 64)
-            act_fn,
-            nn.ConvTranspose2d(out_channels, out_channels, 3, padding=1,
-                            stride=2, output_padding=1), # (224, 224, 64)
-            act_fn,
-            nn.ConvTranspose2d(out_channels, in_channels, 3, padding=1), # (224, 224, 3)
+            nn.ConvTranspose2d(out_channels, in_channels, 3, padding=1), # (60, 60, 3)
             nn.Sigmoid()
             )
     def forward(self, bottleneck):
@@ -101,6 +95,7 @@ class Decoder(nn.Module):
         """
         output = self.linear(bottleneck)
         output = output.view(-1, 8*self.out_channels, 7, 7)
+        #our_utils.print_NN_layers(self.conv, output)
         output = self.conv(output)
         return output
 
@@ -127,7 +122,6 @@ class ConvolutionalAutoencoder():
     """
     Convolutional Autoencoder class.
     """
-    print('\n', test_keyword, '\n')
     def __init__(self, autoencoder):
         autoencoder = autoencoder.double()
         self.network = autoencoder
@@ -175,6 +169,9 @@ class ConvolutionalAutoencoder():
             #  reconstructing images
             output = self.network(images)
             #  computing loss
+            print('/n/n')
+            print(output.shape)
+            print(images.shape)
             loss = training_args['loss_function'](output, images.view(-1, CCH, img_width, img_height))
             #  calculating gradients
             loss.backward()
