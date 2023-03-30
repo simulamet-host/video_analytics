@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name="feature_extractor"
-#SBATCH --partition=hgx2q
+#SBATCH --partition=a100q
 #SBATCH --time=0-04:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1

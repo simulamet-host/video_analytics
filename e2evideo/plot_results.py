@@ -16,33 +16,41 @@ import our_utils
 
 device = our_utils.get_device()
 
-def plot_cae_training(data, network, color_channels):
+def plot_cae_training(data, network, color_channels=3):
     """
     Plot the CAE training results, it results in plotting the original Vs. reconstruced image.
     """
-    counter = 0
-    for visual_images in tqdm(data):
+    video_number = 0
+    for visual_images in tqdm(data[:1]):
+        frame_number = 0
         #  sending test images to device
         visual_images = visual_images.to(device)
+        visual_images = visual_images.squeeze(axis = 0)
+        print(visual_images.shape)
         with torch.no_grad():
             #  reconstructing test images
             reconstructed_imgs = network(visual_images)
+            print(reconstructed_imgs.shape)
             #  sending reconstructed and images to cpu to allow for visualization
             reconstructed_imgs = reconstructed_imgs.cpu()
             visual_images = visual_images.cpu()
-        fig, (ax1, ax2) = plt.subplots(1, 2)
-        fig.suptitle('Original/Reconstructed')
-        if color_channels == 1:
-            ax2.imshow(reconstructed_imgs.reshape(60, 60, color_channels), cmap='gray')
-        else:
-            ax2.imshow(reconstructed_imgs.reshape(60, 60, color_channels))
-        ax1.imshow(visual_images.squeeze())
-        for ax_ in [ax1, ax2]:
-            ax_.axis('off')
-        file_name = './results/cae_' + str(counter) + '.jpg'
-        counter += 1
-        plt.show()
-        plt.savefig(file_name)
+        #  plotting original and reconstructed images
+        for image_o, image_r  in zip(visual_images , reconstructed_imgs):
+            fig, (ax1, ax2) = plt.subplots(1, 2)
+            fig.suptitle('Original/Reconstructed')
+            if color_channels == 1:
+                ax2.imshow(image_r.reshape(60, 60, color_channels), cmap='gray')
+            else:
+                ax2.imshow(image_r.reshape(60, 60, color_channels))
+            ax1.imshow(image_o.squeeze())
+            for ax_ in [ax1, ax2]:
+                ax_.axis('off')
+            file_name = './results/feature_extractor/cae_' + str(video_number) + '-' + str(frame_number) +'.jpg'
+            frame_number += 1
+            plt.show()
+            plt.savefig(file_name)
+        video_number += 1
+
 
 def plot_ucf101(label_data):
     """
