@@ -21,7 +21,7 @@ def plot_cae_training(data, network, color_channels=3):
     Plot the CAE training results, it results in plotting the original Vs. reconstruced image.
     """
     video_number = 0
-    for visual_images in tqdm(data[:1]):
+    for visual_images in tqdm(data):
         frame_number = 0
         #  sending test images to device
         visual_images = visual_images.to(device)
@@ -49,7 +49,9 @@ def plot_cae_training(data, network, color_channels=3):
             frame_number += 1
             plt.show()
             plt.savefig(file_name)
+            plt.close()
         video_number += 1
+        break
 
 
 def plot_ucf101(label_data):
