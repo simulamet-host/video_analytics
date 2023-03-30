@@ -14,7 +14,6 @@ import torchvision.transforms as Transforms
 from sklearn.model_selection import train_test_split
 import image_preprocessing, conv_autoencoder, load_ucf101, our_utils
 
-
 device = our_utils.get_device()
 
 #  defining dataset class
@@ -74,12 +73,12 @@ def main(args_):
     #  training model
     model = conv_autoencoder.ConvolutionalAutoencoder(conv_autoencoder.Autoencoder(
             conv_autoencoder.Encoder(), conv_autoencoder.Decoder()))
-    training_args = {'loss_function': nn.BCELoss(), 'epochs': 10 , 'batch_size': 2,
+    training_args = {'loss_function': nn.BCELoss(), 'epochs': 10 , 'batch_size': 5,
                 'training_set': x_train, 'test_set': x_test, 'visual_set': x_test}
     log_dict = model.train(training_args)
     #print(log_dict)
     # save the model
-    torch.save(model, '../results/encoder_model.pkl')
+    
 
 if __name__ == '__main__':
     # print the date and time of now 

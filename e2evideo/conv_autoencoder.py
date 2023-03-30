@@ -190,6 +190,7 @@ class ConvolutionalAutoencoder():
             # LOGGING
             log_dict['test_loss_per_batch'].append(test_loss.item())
         print(f'training_loss: {round(loss.item(), 4)} test_loss: {round(test_loss.item(), 4)}')
+        torch.save(self.network, './results/encoder_model.pkl')
         plot_results.plot_cae_training(loaders['visual_loader'], self.network, CCH)
         return log_dict
 

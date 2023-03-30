@@ -33,9 +33,9 @@ def plot_cae_training(data, network, color_channels):
         fig, (ax1, ax2) = plt.subplots(1, 2)
         fig.suptitle('Original/Reconstructed')
         if color_channels == 1:
-            ax2.imshow(reconstructed_imgs.reshape(224, 224, color_channels), cmap='gray')
+            ax2.imshow(reconstructed_imgs.reshape(60, 60, color_channels), cmap='gray')
         else:
-            ax2.imshow(reconstructed_imgs.reshape(224, 224, color_channels))
+            ax2.imshow(reconstructed_imgs.reshape(60, 60, color_channels))
         ax1.imshow(visual_images.squeeze())
         for ax_ in [ax1, ax2]:
             ax_.axis('off')
@@ -145,7 +145,7 @@ def plot_predictions(test_images, predicted_classes, actual_classes):
     for index, video in enumerate(test_images):
         frame = video[0,0,:,:,:]
         plt.subplot(1, 3, counter)
-        frame_resize = cv2.resize(frame, (224, 224)) #pylint: disable=no-member
+        frame_resize = cv2.resize(frame, (60, 60)) #pylint: disable=no-member
         plt.imshow(frame_resize)
         plt.text(10, 30, label_data.labels.values[lables[index][0]], style='italic',
         bbox={'facecolor': 'purple', 'alpha': 0.7, 'pad': 10})
