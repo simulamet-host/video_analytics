@@ -150,3 +150,6 @@ e2evideo/jobs/logs/
 e2evideo/results/models/convlstm_model.h5
 e2evideo/results/ucf10.npz
 e2evideo/results/test_gen.npy
+e2evideo/results/feature_extractor/
+e2evideo/results/encoder_model.pkl
+e2evideo/checkpoints/

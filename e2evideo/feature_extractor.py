@@ -6,7 +6,7 @@ import argparse
 import time
 import torch
 from torch import nn
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, DataLoader
 import torchvision.datasets as Datasets
 import torchvision.transforms as Transforms
 from sklearn.model_selection import train_test_split
@@ -14,6 +14,10 @@ import image_preprocessing
 import conv_autoencoder
 import load_ucf101
 import our_utils
+<<<<<<< HEAD
+=======
+import plot_results
+>>>>>>> 0ce730d880392357e9dabee72474ad6d6c9a3b43
 
 device = our_utils.get_device()
 
@@ -62,6 +66,10 @@ def main(args_):
         print('images size: ' , _images.size)
         training_data, test_data = train_test_split( _images, test_size=0.2, random_state=42)
         visual_data, test_data = train_test_split(test_data, test_size=0.98, random_state=42)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0ce730d880392357e9dabee72474ad6d6c9a3b43
     elif args_.dataset_name == "action_recognition":
         x_train, x_test, _, _, _ = load_ucf101.load_ucf101(args_.data_folder, args_.images_array,
                                                            args_.no_classes)
@@ -72,6 +80,7 @@ def main(args_):
         #test_data = np.concatenate(test_gen[:, 0])
         #visual_data = test_data
 
+<<<<<<< HEAD
     #  training model
     model = conv_autoencoder.ConvolutionalAutoencoder(conv_autoencoder.Autoencoder(
             conv_autoencoder.Encoder(), conv_autoencoder.Decoder()))
@@ -81,6 +90,20 @@ def main(args_):
     print(log_dict)
     # save the model
     torch.save(model, '../results/encoder_model.pkl')
+=======
+    if args_.mode == 'train':
+        #  training model
+        model = conv_autoencoder.ConvolutionalAutoencoder(conv_autoencoder.Autoencoder(
+                conv_autoencoder.Encoder(), conv_autoencoder.Decoder()))
+        training_args = {'loss_function': nn.BCELoss(), 'epochs': 50 , 'batch_size': 5,
+                    'training_set': x_train, 'test_set': x_test, 'visual_set': x_test}
+        log_dict = model.train(training_args)
+    else:
+        visual_data = DataLoader(x_test)
+        #  loading model
+        saved_model = torch.load('./checkpoints/model-11.pt')
+        plot_results.plot_cae_training(visual_data, saved_model)
+>>>>>>> 0ce730d880392357e9dabee72474ad6d6c9a3b43
 
 if __name__ == '__main__':
     # print the date and time of now
@@ -90,11 +113,9 @@ if __name__ == '__main__':
     parser.add_argument('--images_array', type=str, default='./results/ucf10.npz')
     parser.add_argument('--data_folder', type=str, default='../data/images_ucf10/')
     parser.add_argument('--no_classes', type=int, default=10)
+    parser.add_argument('--mode', type=str, default='train')
     args_input = parser.parse_args()
-    try:
-        device = our_utils.get_device()
-        main(args_input)
-    except RuntimeError:
-        print('Switching to GPU 1')
-        device = our_utils.get_device(1)
-        main(args_input)
+
+    device = our_utils.get_device()
+    main(args_input)
+    
