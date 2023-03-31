@@ -4,16 +4,16 @@ Some code blocks are adapted from https://blog.paperspace.com/convolutional-auto
 """
 import argparse
 import time
-import numpy as np
-import pandas as pd
 import torch
 from torch import nn
 from torch.utils.data import Dataset
 import torchvision.datasets as Datasets
 import torchvision.transforms as Transforms
 from sklearn.model_selection import train_test_split
-import image_preprocessing, conv_autoencoder, load_ucf101, our_utils
-
+import image_preprocessing
+import conv_autoencoder
+import load_ucf101
+import our_utils
 
 device = our_utils.get_device()
 
@@ -62,9 +62,10 @@ def main(args_):
         print('images size: ' , _images.size)
         training_data, test_data = train_test_split( _images, test_size=0.2, random_state=42)
         visual_data, test_data = train_test_split(test_data, test_size=0.98, random_state=42)
-    
     elif args_.dataset_name == "action_recognition":
-        x_train, x_test, y_train, y_test, label_data = load_ucf101.load_ucf101(args_.data_folder, args_.images_array, args_.no_classes)
+        x_train, x_test, _, _, _ = load_ucf101.load_ucf101(args_.data_folder, args_.images_array,
+                                                           args_.no_classes)
+        # pylint: disable=E1101
         x_train, x_test = torch.tensor(x_train).to(device), torch.tensor(x_test).to(device)
 
         #training_data = np.concatenate(train_gen[:, 0])
@@ -77,12 +78,12 @@ def main(args_):
     training_args = {'loss_function': nn.BCELoss(), 'epochs': 10 , 'batch_size': 2,
                 'training_set': x_train, 'test_set': x_test, 'visual_set': x_test}
     log_dict = model.train(training_args)
-    #print(log_dict)
+    print(log_dict)
     # save the model
     torch.save(model, '../results/encoder_model.pkl')
 
 if __name__ == '__main__':
-    # print the date and time of now 
+    # print the date and time of now
     print('Date and time: ', time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset_name', default='action_recognition')
