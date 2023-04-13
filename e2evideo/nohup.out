@@ -1,0 +1,333 @@
+e2evideo pipeline
+Video preprocessing
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_GolfSwing_g17
+
+Done! 65 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Running_g13
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g7
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_GolfSwing_g2
+
+Done! 70 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SkateBoarding_g2
+
+Done! 70 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SkateBoarding_g3
+
+Done! 109 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g1
+
+Done! 17 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_GolfSwing_g3
+
+Done! 22 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g6
+
+Done! 65 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Running_g12
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_GolfSwing_g16
+
+Done! 65 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Running_g10
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_GolfSwing_g14
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_GolfSwing_g1
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g19
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g4
+
+Done! 70 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SkateBoarding_g1
+
+Done! 101 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g3
+
+Done! 101 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g2
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g5
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g18
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_GolfSwing_g15
+
+Done! 65 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Running_g11
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_GolfSwing_g11
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_GolfSwing_g4
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g1
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g20
+
+Done! 70 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SkateBoarding_g4
+
+Done! 103 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g6
+
+Done! 101 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g7
+
+Done! 70 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SkateBoarding_g5
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_GolfSwing_g5
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_GolfSwing_g10
+
+Done! 4 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_GolfSwing_g12
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g2
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_GolfSwing_g7
+
+Done! 101 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g5
+
+Done! 70 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SkateBoarding_g7
+
+Done! 70 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SkateBoarding_g6
+
+Done! 100 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g4
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_GolfSwing_g6
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g3
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_GolfSwing_g13
+
+Done! 102 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g10
+
+Done! 75 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingSide_g1
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g20
+
+Done! 127 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Lifting_g6
+
+Done! 101 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g11
+
+Done! 65 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Running_g9
+
+Done! 101 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g13
+
+Done! 75 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingSide_g2
+
+Done! 123 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Lifting_g4
+
+Done! 122 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Lifting_g5
+
+Done! 75 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingSide_g3
+
+Done! 101 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g12
+
+Done! 65 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Running_g8
+
+Done! 101 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g16
+
+Done! 75 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingSide_g7
+
+Done! 55 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Diving_g8
+
+Done! 70 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SkateBoarding_g12
+
+Done! 111 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Lifting_g1
+
+Done! 55 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Diving_g9
+
+Done! 75 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingSide_g6
+
+Done! 68 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g17
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_RidingHorse_g9
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g8
+
+Done! 101 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g15
+
+Done! 75 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingSide_g4
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g19
+
+Done! 70 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SkateBoarding_g11
+
+Done! 108 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Lifting_g2
+
+Done! 113 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Lifting_g3
+
+Done! 70 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SkateBoarding_g10
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g18
+
+Done! 75 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingSide_g5
+
+Done! 144 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g14
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g9
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_RidingHorse_g8
+
+Done! 55 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Diving_g10
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_RidingHorse_g5
+
+Done! 65 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Running_g3
+
+Done! 101 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g19
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g4
+
+Done! 75 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingSide_g8
+
+Done! 55 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Diving_g7
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g15
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g14
+
+Done! 55 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Diving_g6
+
+Done! 75 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingSide_g9
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g5
+
+Done! 71 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g18
+
+Done! 65 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Running_g2
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_RidingHorse_g4
+
+Done! 55 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Diving_g11
+
+Done! 55 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Diving_g13
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_RidingHorse_g6
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g7
+
+Done! 55 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Diving_g4
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g16
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g17
+
+Done! 55 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Diving_g5
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g6
+
+Done! 65 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Running_g1
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_RidingHorse_g7
+
+Done! 55 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Diving_g12
+
+Done! 65 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Running_g5
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_RidingHorse_g3
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g2
+
+Done! 75 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingSide_g10
+
+Done! 55 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Diving_g1
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g13
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g12
+
+Done! 75 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingSide_g11
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g3
+
+Done! 101 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g22
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_RidingHorse_g2
+
+Done! 65 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Running_g4
+
+Done! 65 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Running_g6
+
+Done! 101 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g20
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g1
+
+Done! 75 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingSide_g13
+
+Done! 55 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Diving_g2
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g10
+
+Done! 50 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingBench_g11
+
+Done! 55 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Diving_g3
+
+Done! 75 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SwingSide_g12
+
+Done! 101 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g21
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_RidingHorse_g1
+
+Done! 55 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Diving_g14
+
+Done! 65 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Running_g7
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_RidingHorse_g12
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g13
+
+Done! 95 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g9
+
+Done! 82 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Walking_g8
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g12
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_RidingHorse_g11
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g10
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_GolfSwing_g8
+
+Done! 70 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SkateBoarding_g8
+
+Done! 70 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_SkateBoarding_g9
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_GolfSwing_g9
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g11
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_RidingHorse_g10
+
+Done! 60 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_GolfSwing_g18
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g8
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g15
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g14
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g9
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g16
+
+Done! 23 images of format JPG is saved in ../data/ucf_sports_actions/frames/v_Kicking_g17
+Done
+Image preprocessing
+Images saved in array of array of size (150, 15, 60, 60, 3)
+Done
+Feature Extractor
+2023-04-13 21:11:12.066267: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.1 SSE4.2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Running on the CPU
+Running on the CPU
+Are we running this?
+Running on the CPU
+Date and time:  2023-04-13 21:11:14
+Running on the CPU
+Extracting features from  action_recognition
+
+ Loading images...
+
+
+ Loading labels...
+
+../data/ucf_sports_actions/framesApplyEyeMakeup/
+Traceback (most recent call last):
+  File "/Users/faigaalawad/Repos/Repos2023/video_analytics/e2evideo/feature_extractor.py", line 101, in <module>
+    main(args_input)
+  File "/Users/faigaalawad/Repos/Repos2023/video_analytics/e2evideo/feature_extractor.py", line 67, in main
+    x_train, x_test, _, _, _ = load_ucf101.load_ucf101(args_.data_folder, args_.images_array,
+  File "/Users/faigaalawad/Repos/Repos2023/video_analytics/e2evideo/load_ucf101.py", line 50, in load_ucf101
+    labels_list = load_label(path)
+  File "/Users/faigaalawad/Repos/Repos2023/video_analytics/e2evideo/load_ucf101.py", line 18, in load_label
+    for video in tqdm(os.listdir(folder)):
+FileNotFoundError: [Errno 2] No such file or directory: '../data/ucf_sports_actions/framesApplyEyeMakeup/'

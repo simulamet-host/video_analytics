@@ -32,15 +32,17 @@ def main(options):
     """
     assert os.path.isdir(options.videos_folder), 'The given videos_folder does not exist'
     create_folder(options.output_folder)
-    video_files = glob.glob(options.videos_folder + "/**/*." + options.video_format,
-                            recursive=True)
+    search_path = os.path.join(options.videos_folder, '**', '*' + options.video_format)
+    video_files = glob.glob(search_path, recursive=True)
+    #video_files = glob.glob(options.videos_folder + "/**/*." + options.video_format,
+            #                recursive=True)
     assert len(video_files) != 0 , 'The given videos folder does not contain any vidoes'
     for video_file in video_files:
         count = 0
-        folder_name_len = len(options.videos_folder)
         video_format_len = len(options.video_format) + 1
-        images_folder =  options.output_folder + video_file[folder_name_len:-video_format_len ]
-        create_folder(images_folder)
+        images_sub_folder = video_file.split('/')[-1][:-video_format_len]
+        frames_folder = os.path.join(options.output_folder, images_sub_folder)
+        create_folder(frames_folder)
         # capture the video from the video file
         cap = cv2.VideoCapture(video_file) # pylint: disable=E1101
         frame_rate = cap.get(cv2.CAP_PROP_FPS) # pylint: disable=E1101
@@ -49,19 +51,20 @@ def main(options):
             ret, frame = cap.read()
             if not ret:
                 break
-            file_name = f"frame{count}."+ options.image_format
+            file_name = f"frame{count}." + options.image_format
             count += 1
             if options.how_often == 'all_frames':
-                cv2.imwrite(images_folder + '/' + file_name, frame) # pylint: disable=E1101
+                cv2.imwrite(frames_folder + '/' + file_name, frame) # pylint: disable=E1101
             elif options.how_often == 'per_second':
                 if frame_id % math.floor(frame_rate) == 0:
-                    cv2.imwrite(images_folder + '/'  + file_name, frame) # pylint: disable=E1101
+                    cv2.imwrite(frames_folder + '/'  + file_name, frame) # pylint: disable=E1101
         cap.release()
-        print(f"\nDone! {count} images of format JPG is saved in {images_folder}" )
+        print(f"\nDone! {count} images of format JPG is saved in {frames_folder}" )
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--videos_folder', required=True, help ='Path to the videos folder.')
+    parser.add_argument('--images_folder', required = True, help ='Path to save the resulted frames.')
     parser.add_argument('--video_format', default='mp4', help='choose the video format to read.')
     parser.add_argument('--image_format', default='jpg',
                         help='choose the format for the output images.')

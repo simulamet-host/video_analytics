@@ -14,10 +14,7 @@ import image_preprocessing
 import conv_autoencoder
 import load_ucf101
 import our_utils
-<<<<<<< HEAD
-=======
 import plot_results
->>>>>>> 0ce730d880392357e9dabee72474ad6d6c9a3b43
 
 device = our_utils.get_device()
 
@@ -66,10 +63,6 @@ def main(args_):
         print('images size: ' , _images.size)
         training_data, test_data = train_test_split( _images, test_size=0.2, random_state=42)
         visual_data, test_data = train_test_split(test_data, test_size=0.98, random_state=42)
-<<<<<<< HEAD
-=======
-
->>>>>>> 0ce730d880392357e9dabee72474ad6d6c9a3b43
     elif args_.dataset_name == "action_recognition":
         x_train, x_test, _, _, _ = load_ucf101.load_ucf101(args_.data_folder, args_.images_array,
                                                            args_.no_classes)
@@ -80,17 +73,6 @@ def main(args_):
         #test_data = np.concatenate(test_gen[:, 0])
         #visual_data = test_data
 
-<<<<<<< HEAD
-    #  training model
-    model = conv_autoencoder.ConvolutionalAutoencoder(conv_autoencoder.Autoencoder(
-            conv_autoencoder.Encoder(), conv_autoencoder.Decoder()))
-    training_args = {'loss_function': nn.BCELoss(), 'epochs': 10 , 'batch_size': 2,
-                'training_set': x_train, 'test_set': x_test, 'visual_set': x_test}
-    log_dict = model.train(training_args)
-    print(log_dict)
-    # save the model
-    torch.save(model, '../results/encoder_model.pkl')
-=======
     if args_.mode == 'train':
         #  training model
         model = conv_autoencoder.ConvolutionalAutoencoder(conv_autoencoder.Autoencoder(
@@ -103,7 +85,6 @@ def main(args_):
         #  loading model
         saved_model = torch.load('./checkpoints/model-11.pt')
         plot_results.plot_cae_training(visual_data, saved_model)
->>>>>>> 0ce730d880392357e9dabee72474ad6d6c9a3b43
 
 if __name__ == '__main__':
     # print the date and time of now
