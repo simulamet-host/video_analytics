@@ -27,9 +27,11 @@ def get_images(args_opt):
     """
     img_folders = [x[0] for x in os.walk(args_opt.dir)]
     all_videos = []
+    labels = []
     for folder_name in img_folders:
         video_file = []
-        images_ = glob.glob(folder_name + "/"+ args_opt.img_format )
+        images_ = glob.glob(folder_name + "/"+ args_opt.img_format)
+        
         for img_ in images_:
             img = cv2.imread(img_) # pylint: disable=E1101
             if args_opt.gray_scale:
@@ -42,6 +44,7 @@ def get_images(args_opt):
             # convert video_file to numpy array
             video_file = np.array(video_file)
             all_videos.append(video_file)
+            labels.append(folder_name.split('/')[-1])
 
     assert len(all_videos) != 0 , 'The given images folder does not contain any frames'
     # find the maximum length of the videos (number of frames) in a video
@@ -52,7 +55,7 @@ def get_images(args_opt):
     # specify the desired shape of the padded arrays
     frame_dim = all_videos[0][0].shape
     frames_in_videos_dim = (len(all_videos), max_frames) + frame_dim
-    frames_in_videos = np.zeros(frames_in_videos_dim)
+    frames_in_videos = np.zeros(frames_in_videos_dim, dtype=np.float32)
 
     # pad the shorter videos with zeros at the end to make them all the same length
     for index_, video_ in enumerate(all_videos):
@@ -60,7 +63,7 @@ def get_images(args_opt):
     # save frames_in_videos to a file
     np.savez_compressed(args_opt.output, frames_in_videos)
     
-    return frames_in_videos
+    return frames_in_videos, labels
 
 if __name__ == '__main__':
     parser_ = argparse.ArgumentParser()
@@ -73,6 +76,6 @@ if __name__ == '__main__':
     parser_.add_argument('--output', default='./results/all_images.npz')
     args_ = parser_.parse_args()
 
-    _images = get_images(args_)
+    _images, file_names = get_images(args_)
 
     print('Images saved in array of array of size', str(_images.shape))
