@@ -14,7 +14,7 @@ video_preprocessing() {
     echo 'Video preprocessing'
     python video_preprocessing.py --videos_folder '../data/ucf_sports_actions/videos/' \
     --images_folder '../data/ucf_sports_actions/frames/' \
-    --video_format 'avi'  --how_often 'per_second'  --output_folder '../data/ucf_sports_actions/frames'
+    --video_format 'avi'  --sampling_mode 'fixed_frames' --num_frames 10 --output_folder '../data/ucf_sports_actions/frames'
     echo 'Done'
 }
 
