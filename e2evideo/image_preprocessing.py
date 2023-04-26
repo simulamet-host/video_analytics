@@ -56,14 +56,17 @@ def get_images(args_opt):
     # specify the desired shape of the padded arrays
     frame_dim = all_videos[0][0].shape
     frames_in_videos_dim = (len(all_videos), max_frames) + frame_dim
-    frames_in_videos = np.zeros(frames_in_videos_dim, dtype=np.float32)
+    frames_in_videos = np.zeros(frames_in_videos_dim, dtype=np.float64)
 
     # pad the shorter videos with zeros at the end to make them all the same length
     for index_, video_ in enumerate(all_videos):
         frames_in_videos[index_][0:len(video_)] = video_
     # save frames_in_videos to a file
     np.savez_compressed(args_opt.output, frames_in_videos)
-    
+    # save labels to frames_labels.txt file
+    with open('frames_labels.txt', 'w') as f:
+        for label in labels:
+            f.write(label + '\n')
     return frames_in_videos, labels
 
 if __name__ == '__main__':

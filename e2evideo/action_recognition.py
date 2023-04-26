@@ -10,6 +10,7 @@ from sklearn.metrics import accuracy_score
 import tensorflow as tf
 from keras import utils
 import plot_results, load_ucf101, our_utils
+from load_ucf11 import get_data
 
 def object_detection_model(train_dataset, test_dataset, no_classes = 101):
     """
@@ -72,24 +73,22 @@ if __name__ == '__main__':
                         help='train or test')
     parser.add_argument('--images_array', type=str, default='./results/ucf10.npz')
     parser.add_argument('--data_folder', type=str, default='../data/images_ucf10/')
+    parser.add_argument('--labels_file', type=str, default=None)
     parser.add_argument('--no_classes', type=int, default=10)
     parser.add_argument('--training_epochs', type=int, default=50)
     args = parser.parse_args()
     #Train the model
     if args.mode == 'train':
         print('\n Loading data...\n')
-        x_train, x_test, y_train, y_test, label_data = load_ucf101.load_ucf101(image_folder=args.data_folder,
-                                                                  image_array=args.images_array,
-                                                                  no_classes= args.no_classes)
-        
-        train_gen = our_utils.DataGenerator(x_train, utils.to_categorical(y_train), batch_size=32)
-        test_gen = our_utils.DataGenerator(x_test, utils.to_categorical(y_test), batch_size=32)
+        train_dataset, test_dataset = get_data(args.labels_file, args.images_array)
+        #train_gen = our_utils.DataGenerator(x_train, utils.to_categorical(y_train), batch_size=32)
+        #test_gen = our_utils.DataGenerator(x_test, utils.to_categorical(y_test), batch_size=32)
 
         # save test_gen to a file
         print('\n Saving test_gen to a file...\n')
-        np.save('./results/test_gen.npy', test_gen)
+        #np.save('./results/test_gen.npy', test_gen)
         print('\n Training the model...\n')
-        HISTORY = object_detection_model(train_gen, test_gen, args.no_classes)
+        HISTORY = object_detection_model(train_dataset, test_dataset, args.no_classes)
         print('\n Plotting the accuracy and loss...\n')
         plot_results.plot_accuracy(HISTORY)
 
@@ -97,24 +96,25 @@ if __name__ == '__main__':
     else:
         # load the test generator from the npy file
         print('\n Loading test_gen from a file...\n')
-        test_gen = np.load('./results/test_gen.npy', allow_pickle=True)
-        x_test_ , y_test_ = test_gen[:, 0], test_gen[:, 1]
-        x_test, y_test = np.concatenate(x_test_) , np.concatenate(y_test_)
+        #test_gen = np.load('./results/test_gen.npy', allow_pickle=True)
+        
+        #x_test_ , y_test_ = test_gen[:, 0], test_gen[:, 1]
+        #x_test, y_test = np.concatenate(x_test_) , np.concatenate(y_test_)
 
-        rounded_labels=np.argmax(y_test, axis=1)
+        #rounded_labels=np.argmax(y_test, axis=1)
         # load model from file
         print('\n Loading the model...\n')
         model = tf.keras.models.load_model('./results/models/convlstm_model.h5')
         # evaluate the model
         print('\n Evaluating the model...\n')
         # convert x_test to a tensor
-        y_pred = model.predict(x_test)
-        predicted_classes=[]
-        for i in range(len(y_test)):
-            predicted_classes.append(np.argmax(y_pred[i]))
-        print(accuracy_score( rounded_labels, predicted_classes))
-        plot_results.plot_confusion_matrix(rounded_labels, predicted_classes)
-        plot_results.plot_predictions(x_test_, np.asarray(predicted_classes), rounded_labels)
+        #y_pred = model.predict(x_test)
+        #predicted_classes=[]
+        #for i in range(len(y_test)):
+        #    predicted_classes.append(np.argmax(y_pred[i]))
+        #print(accuracy_score( rounded_labels, predicted_classes))
+        #plot_results.plot_confusion_matrix(rounded_labels, predicted_classes)
+        #plot_results.plot_predictions(x_test_, np.asarray(predicted_classes), rounded_labels)
 
     end_time = time.time()
     print("Time taken to run the code: ", end_time - start_time)

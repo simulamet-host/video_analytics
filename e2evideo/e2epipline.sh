@@ -14,7 +14,7 @@ video_preprocessing() {
     echo 'Video preprocessing'
     python video_preprocessing.py --videos_folder '../data/ucf_sports_actions/videos/' \
     --images_folder '../data/ucf_sports_actions/frames/' \
-    --video_format 'avi'  --sampling_mode 'fixed_frames' --num_frames 10 --output_folder '../data/ucf_sports_actions/frames'
+    --video_format 'avi'  --sampling_mode 'fixed_frames' --num_frames 5 --output_folder '../data/ucf_sports_actions/frames'
     echo 'Done'
 }
 
@@ -27,15 +27,17 @@ image_preprocessing(){
 
 feature_extractor(){
     echo 'Feature Extractor'
-    python feature_extractor.py --images_array './results/ucf_sports_actions_images.npz' \
-    --data_folder '../data/ucf_sports_actions/frames' --no_classes '11' --mode 'train'
+    python cae_feature_extractor.py --images_array './results/ucf_sports_actions_images.npz' \
+    --data_folder '../data/ucf_sports_actions/frames/' --no_classes '11' --mode 'train' \
+    --labels_file 'frames_labels.txt' --epochs 1 --batch_size 50
     echo 'Done'
 }
 
-action_recogniton(){
+action_recognition(){
     echo 'Downstreaming task :: action recognition'
-    python action_recogniton.py --images_array './results/ucf_sports_actions_images.npz' \
-    --data_folder '../data/ucf_sports_actions/frames' --no_classes '11'  --mode 'train'
+    python action_recognition.py --images_array './results/ucf_sports_actions_images.npz' \
+    --data_folder '../data/ucf_sports_actions/frames/' --no_classes '11'  --mode 'train' \
+    --labels_file 'frames_labels.txt'
     echo 'Done'
 }
 
@@ -49,8 +51,8 @@ case $input_variable in
     "feature_extractor")
         feature_extractor
         ;;
-    "action_recogniton")
-        action_recogniton
+    "action_recognition")
+        action_recognition
         ;;
     "complete_pipeline")
         video_preprocessing

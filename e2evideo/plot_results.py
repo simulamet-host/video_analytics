@@ -47,8 +47,8 @@ def plot_cae_training(data, network, color_channels=3):
                 ax_.axis('off')
             file_name = './results/feature_extractor/cae_' + str(video_number) + '-' + str(frame_number) +'.jpg'
             frame_number += 1
-            plt.show()
             plt.savefig(file_name)
+            plt.show()
             plt.close()
         video_number += 1
         break

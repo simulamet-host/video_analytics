@@ -160,16 +160,17 @@ class ConvolutionalAutoencoder():
             print(f'Epoch {epoch+1}/{training_args["epochs"]}')
             #  TRAINING
             print('training...')
-            for images in tqdm(loaders['train_loader']):
+            for images, next_images, _ in tqdm(loaders['train_loader']):
                 #print(images)
                 #  zeroing gradients
                 self.optimizer.zero_grad()
                 #  sending images to device
                 images = images.to(device)
+                next_images = next_images.to(device)
                 #  reconstructing images
                 output = self.network(images)
                 #  computing loss
-                loss = training_args['loss_function'](output, images.view(-1, CCH, img_width, img_height))
+                loss = training_args['loss_function'](output, next_images.view(-1, CCH, img_width, img_height))
                 #  calculating gradients
                 loss.backward()
                 #  optimizing weights
@@ -179,21 +180,21 @@ class ConvolutionalAutoencoder():
                 torch.save(self.network.state_dict(), f'./checkpoints/model-{epoch}.pt')
         # Testing
         print('testing...')
-        for test_images in tqdm(loaders['test_loader']):
+        for test_images, next_test_images, _ in tqdm(loaders['test_loader']):
             with torch.no_grad():
                 #  sending test images to device
                 test_images = test_images.to(device)
                 #  reconstructing images
                 output = self.network(test_images)
                 #  computing test loss
-                test_loss = training_args['loss_function'](output, test_images.view(-1,
+                test_loss = training_args['loss_function'](output, next_test_images.view(-1,
                                             CCH, img_width, img_height))
             # LOGGING
             log_dict['test_loss_per_batch'].append(test_loss.item())
         print(f'training_loss: {round(loss.item(), 4)} test_loss: {round(test_loss.item(), 4)}')
 
         torch.save(self.network, './results/encoder_model.pkl')
-        plot_results.plot_cae_training(loaders['visual_loader'], self.network, CCH)
+        plot_results.plot_cae_training(test_images, self.network, CCH)
         return log_dict
 
     def autoencode(self, in_):
