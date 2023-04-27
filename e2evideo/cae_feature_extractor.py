@@ -17,7 +17,7 @@ import our_utils
 import plot_results
 import numpy as np
 from load_ucf11 import get_data
-device = our_utils.get_device()
+device = our_utils.get_device(dev_id=1)
 
 
 def main(args_):
