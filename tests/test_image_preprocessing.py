@@ -33,20 +33,20 @@ def test_get_images_call(image_folder):
     
     opt_dict = {'dir': str(image_folder), 'img_format': '*.jpg', 'resize': False, 'img_width': 224, 'img_height': 224, 'gray_scale': False, 'output': 'all_images.npy'}
     opt_ = argparse.Namespace(**opt_dict)
-    images = e2e_img_pre.get_images(opt_)
+    images, _ = e2e_img_pre.get_images(opt_)
     # check that the correct number of images were read
     assert images.shape[1] == 3
     
     opt_.resize = True
     opt_.img_width = 32
     opt_.img_height = 32
-    images_resized = e2e_img_pre.get_images(opt_)
+    images_resized, _ = e2e_img_pre.get_images(opt_)
     # check that the size of the resized images is correct
     assert images_resized.shape[2:] == (32, 32, 3)
     
     # First dim is the number of images, second and third are the image dimensions, last is the number of channels.
     opt_.gray_scale = True
-    images_gray = e2e_img_pre.get_images(opt_)
+    images_gray, _ = e2e_img_pre.get_images(opt_)
     # check that the imgages are converted to grayscale (that means the last dimension is dropped, i.e. 5 -> 4)
     assert len(images_gray.shape) == 4
 
