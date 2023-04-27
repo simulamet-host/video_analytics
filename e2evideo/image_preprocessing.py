@@ -49,7 +49,6 @@ def get_images(args_opt):
     assert len(all_videos) != 0 , 'The given images folder does not contain any frames'
     # find the maximum length of the videos (number of frames) in a video
     max_frames = max([len(x) for x in all_videos])
-    print(max_frames)
     # find the maximum shape of the arrays
     #max_shape = max([arr.shape for arr in all_images])
     # create a new array with the maximum shape

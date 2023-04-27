@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name="e2evideo"
 #SBATCH --partition=dgx2q
-#SBATCH --time=0-00:04:00
+#SBATCH --time=0-04:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --gpus-per-task=1

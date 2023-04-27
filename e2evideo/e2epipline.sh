@@ -29,7 +29,7 @@ feature_extractor(){
     echo 'Feature Extractor'
     python cae_feature_extractor.py --images_array './results/ucf_sports_actions_images.npz' \
     --data_folder '../data/ucf_sports_actions/frames/' --no_classes '11' --mode 'train' \
-    --labels_file 'frames_labels.txt' --epochs 1 --batch_size 50
+    --labels_file 'frames_labels.txt' --epochs 100 --batch_size 50
     echo 'Done'
 }
 
@@ -58,7 +58,7 @@ case $input_variable in
         video_preprocessing
         image_preprocessing
         feature_extractor
-        action_recogniton
+        action_recognition
         ;;
     *)
         echo "Please provide a valid input variable."
