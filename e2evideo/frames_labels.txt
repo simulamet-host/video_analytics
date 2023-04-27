@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-v_Diving_g11
-v_Diving_g10
-v_Diving_g1
-=======
 v_Diving_g1
 v_Diving_g10
 v_Diving_g11
->>>>>>> update the feature extractor module
 v_Diving_g12
 v_Diving_g13
 v_Diving_g14
@@ -22,21 +16,12 @@ v_GolfSwing_g1
 v_GolfSwing_g10
 v_GolfSwing_g11
 v_GolfSwing_g12
-<<<<<<< HEAD
-v_GolfSwing_g14
-v_GolfSwing_g15
-v_GolfSwing_g13
-v_GolfSwing_g17
-v_GolfSwing_g18
-v_GolfSwing_g16
-=======
 v_GolfSwing_g13
 v_GolfSwing_g14
 v_GolfSwing_g15
 v_GolfSwing_g16
 v_GolfSwing_g17
 v_GolfSwing_g18
->>>>>>> update the feature extractor module
 v_GolfSwing_g2
 v_GolfSwing_g3
 v_GolfSwing_g4
@@ -66,28 +51,17 @@ v_Kicking_g7
 v_Kicking_g8
 v_Kicking_g9
 v_Lifting_g1
-<<<<<<< HEAD
-v_Lifting_g4
-v_Lifting_g3
-v_Lifting_g2
-=======
 v_Lifting_g2
 v_Lifting_g3
 v_Lifting_g4
->>>>>>> update the feature extractor module
 v_Lifting_g5
 v_Lifting_g6
 v_RidingHorse_g1
 v_RidingHorse_g10
 v_RidingHorse_g11
 v_RidingHorse_g12
-<<<<<<< HEAD
-v_RidingHorse_g3
-v_RidingHorse_g2
-=======
 v_RidingHorse_g2
 v_RidingHorse_g3
->>>>>>> update the feature extractor module
 v_RidingHorse_g4
 v_RidingHorse_g5
 v_RidingHorse_g6
@@ -127,35 +101,17 @@ v_SwingBench_g13
 v_SwingBench_g14
 v_SwingBench_g15
 v_SwingBench_g16
-<<<<<<< HEAD
-v_SwingBench_g18
-v_SwingBench_g17
-v_SwingBench_g19
-v_SwingBench_g2
-v_SwingBench_g3
-v_SwingBench_g20
-=======
 v_SwingBench_g17
 v_SwingBench_g18
 v_SwingBench_g19
 v_SwingBench_g2
 v_SwingBench_g20
 v_SwingBench_g3
->>>>>>> update the feature extractor module
 v_SwingBench_g4
 v_SwingBench_g5
 v_SwingBench_g6
 v_SwingBench_g7
 v_SwingBench_g8
-<<<<<<< HEAD
-v_SwingBench_g9
-v_SwingSide_g1
-v_SwingSide_g10
-v_SwingSide_g12
-v_SwingSide_g13
-v_SwingSide_g2
-v_SwingSide_g11
-=======
 v_SwingSide_g1
 v_SwingBench_g9
 v_SwingSide_g10
@@ -163,7 +119,6 @@ v_SwingSide_g11
 v_SwingSide_g12
 v_SwingSide_g13
 v_SwingSide_g2
->>>>>>> update the feature extractor module
 v_SwingSide_g3
 v_SwingSide_g4
 v_SwingSide_g5
@@ -173,27 +128,16 @@ v_SwingSide_g8
 v_SwingSide_g9
 v_Walking_g1
 v_Walking_g10
-<<<<<<< HEAD
-v_Walking_g12
-v_Walking_g11
-v_Walking_g13
-v_Walking_g14
-v_Walking_g2
-=======
 v_Walking_g11
 v_Walking_g12
 v_Walking_g13
 v_Walking_g14
->>>>>>> update the feature extractor module
 v_Walking_g15
 v_Walking_g16
 v_Walking_g17
 v_Walking_g18
 v_Walking_g19
-<<<<<<< HEAD
-=======
 v_Walking_g2
->>>>>>> update the feature extractor module
 v_Walking_g20
 v_Walking_g21
 v_Walking_g22
