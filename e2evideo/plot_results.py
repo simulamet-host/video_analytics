@@ -87,6 +87,7 @@ def plot_ucf101(label_data):
         _, bgr_frame = video_reader.read()
 
         # Closing the VideoCapture object and releasing all resources.
+        
         video_reader.release()
 
         # Converting the BGR Frame to RGB Frame
