@@ -14,7 +14,7 @@ video_preprocessing() {
     echo 'Video preprocessing'
     python video_preprocessing.py --videos_folder '../data/ucf_sports_actions/videos/' \
     --images_folder '../data/ucf_sports_actions/frames/' \
-    --video_format 'avi'  --sampling_mode 'fixed_frames' --num_frames 5 --output_folder '../data/ucf_sports_actions/frames'
+    --video_format 'avi'  --sampling_mode 'fixed_frames' --num_frames 6 --output_folder '../data/ucf_sports_actions/frames'
     echo 'Done'
 }
 
@@ -29,7 +29,7 @@ feature_extractor(){
     echo 'Feature Extractor'
     python cae_feature_extractor.py --images_array './results/ucf_sports_actions_images.npz' \
     --data_folder '../data/ucf_sports_actions/frames/' --no_classes '11' --mode 'train' \
-    --labels_file 'frames_labels.txt' --epochs 100 --batch_size 50
+    --labels_file 'frames_labels.txt' --epochs 1000 --batch_size 5
     echo 'Done'
 }
 
