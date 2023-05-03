@@ -153,3 +153,4 @@ e2evideo/results/test_gen.npy
 e2evideo/results/feature_extractor/
 e2evideo/results/encoder_model.pkl
 e2evideo/checkpoints/
+e2evideo/simple_example.py

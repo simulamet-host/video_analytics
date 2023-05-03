@@ -38,6 +38,7 @@ def main(options):
     #video_files = glob.glob(options.videos_folder + "/**/*." + options.video_format,
             #                recursive=True)
     assert len(video_files) != 0 , 'The given videos folder does not contain any vidoes'
+
     for video_file in video_files:
         print('\n\n')
         video_format_len = len(options.video_format) + 1
@@ -94,12 +95,11 @@ def main(options):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--videos_folder', required=True, help ='Path to the videos folder.')
-    parser.add_argument('--images_folder', required = True, help ='Path to save the resulted frames.')
     parser.add_argument('--video_format', default='mp4', help='choose the video format to read.')
     parser.add_argument('--image_format', default='jpg',
                         help='choose the format for the output images.')
     parser.add_argument('--sampling_mode', default='every_frame', choices= ['fixed_frames', 'every_frame', 'per_second'])
     parser.add_argument('--num_frames', default=10, type=int)
-    parser.add_argument('--output_folder', default='./images')
+    parser.add_argument('--output_folder', default='../data/ucf_sports_actions/frames')
     opts = parser.parse_args()
     main(opts)
