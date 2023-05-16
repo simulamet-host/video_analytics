@@ -1,3 +1,6 @@
+"""
+This module contains utility functions for the streamlit app.
+"""
 import os
 import streamlit as st
 
