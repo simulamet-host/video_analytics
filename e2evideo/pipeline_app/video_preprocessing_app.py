@@ -26,7 +26,7 @@ class VideoPreprocessing:
         }
         self.cmd_list = None
 
-    def folder_selector_ui(self, input_path):
+    def folder_selector_ui(self, input_path, button_id=0):
         """
         This function displays a folder selector user interface.
         Parameters
@@ -45,10 +45,10 @@ class VideoPreprocessing:
         st.write('Data directory: ', input_path)
 
         selected_dir = st.selectbox('Select video folder', st.session_state.subdirs,
-                                    key="video_folder_selectbox")
+                                    key=f"video_folder_selector_{button_id}")
         column =  st.columns(3)
 
-        if column[0].button('Select folder', key="select_folder_button"):
+        if column[0].button('Select folder', key=f"select_folder_button_{button_id}"):
             new_path = os.path.join(st.session_state.selected_path, selected_dir)
             # if it is a correct folder, update the selected path
             if os.path.isdir(new_path):
@@ -58,7 +58,7 @@ class VideoPreprocessing:
             if get_subdirectories(new_path):
                 st.session_state.subdirs = get_subdirectories(new_path)
                 # show button to show subdirectories
-                if column[1].button('Open Folder', key="show_subdirs_button"):
+                if column[1].button('Open Folder', key=f"show_subdirs_button_{button_id}"):
                     st.session_state.selected_path = new_path
                     st.session_state.subdirs = get_subdirectories(new_path)
                 st.write('Selected folder:', st.session_state.selected_path)
@@ -66,7 +66,7 @@ class VideoPreprocessing:
                 colored_text("There are no subdirectories in this folder.", "gray")
                 st.write('Selected folder:', st.session_state.selected_path)
 
-        if column[2].button('Go up', key = "go_up_button"):
+        if column[2].button('Go up', key = f"go_up_button_{button_id}"):
             parent_dir = get_parent_directory(st.session_state.selected_path)
             st.session_state.selected_path = parent_dir[0]
             st.session_state.subdirs = get_subdirectories(parent_dir[0])
@@ -90,10 +90,10 @@ class VideoPreprocessing:
 
         self.options['video_format'] = st.selectbox('Select video format', ('mp4', 'avi', 'mov',
                                                     'wmv', 'flv','mkv', 'webm', 'm4v', '3gp'),
-                                    key='video_format_selectbox')
+                                    key=f'video_format_selectbox')
         self.options['image_format'] = st.selectbox('Select image format', ('jpg', 'png',
                     'bmp','tiff', 'gif', 'webp', 'ico', 'raw', 'eps', 'psd', 'svg'),
-                                    key='image_format_selectbox')
+                                    key=f'image_format_selectbox')
         self.options['sampling_mode'] = st.selectbox('Select sampling mode', ('every_frame',
                                         'per_second', 'fixed_frames'),
                                              key='sampling_mode_selectbox')

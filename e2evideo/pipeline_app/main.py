@@ -6,6 +6,7 @@ import streamlit as st
 from PIL import Image
 from utils import colored_text
 from video_preprocessing_app import VideoPreprocessing
+from image_preprocessing_app import ImagePreprocessing
 
 class StreamlitApp:
     """
@@ -53,8 +54,9 @@ class StreamlitApp:
             video_preprocessing.get_frames()
 
         with st.expander("Image Preprocessing"):
-            st.write('Select a folder containing images inside the data directory.')
-
+            image_preprocessing = ImagePreprocessing(self.output_folder)
+            image_preprocessing.run()
+    
         with st.expander("Feature Extraction"):
             st.write('Select a folder containing images inside the data directory.')
 
