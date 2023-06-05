@@ -31,7 +31,6 @@ def get_images(args_opt):
     for folder_name in img_folders:
         video_file = []
         images_ = glob.glob(folder_name + "/"+ args_opt.img_format)
-        
         for img_ in images_:
             img = cv2.imread(img_) # pylint: disable=E1101
             if args_opt.gray_scale:
@@ -63,9 +62,9 @@ def get_images(args_opt):
     # save frames_in_videos to a file
     np.savez_compressed(args_opt.output, frames_in_videos)
     # save labels to frames_labels.txt file
-    with open('frames_labels.txt', 'w') as f:
+    with open('frames_labels.txt', 'w') as my_file:
         for label in labels:
-            f.write(label + '\n')
+            my_file.write(label + '\n')
     return frames_in_videos, labels
 
 if __name__ == '__main__':

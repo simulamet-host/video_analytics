@@ -5,11 +5,7 @@ This initial version is tailored specifically for the object detection dataset.
 """
 import argparse
 import time
-import numpy as np
-from sklearn.metrics import accuracy_score
 import tensorflow as tf
-from keras import utils
-import plot_results, load_ucf101, our_utils
 from load_ucf11 import get_data
 
 def object_detection_model(train_dataset, test_dataset, no_classes = 101):
@@ -22,27 +18,31 @@ def object_detection_model(train_dataset, test_dataset, no_classes = 101):
     x_train, _ = train_dataset[0]
 
     convlstm_model = tf.keras.models.Sequential()
-    convlstm_model.add(tf.keras.layers.BatchNormalization(momentum=0.8, input_shape=(x_train.shape[1],
-                x_train.shape[2], x_train.shape[3], 3)))
-    convlstm_model.add(tf.keras.layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
-                         data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
+    convlstm_model.add(tf.keras.layers.BatchNormalization(momentum=0.8,
+                    input_shape=(x_train.shape[1], x_train.shape[2], x_train.shape[3], 3)))
+    convlstm_model.add(tf.keras.layers.ConvLSTM2D(filters = 16, kernel_size=(3,3),
+                        activation='LeakyReLU', data_format='channels_last',
+                        return_sequences=True, recurrent_dropout=0.2))
     convlstm_model.add(tf.keras.layers.MaxPooling3D(pool_size=(1,2,2), padding='same',
                                            data_format='channels_last'))
     convlstm_model.add(tf.keras.layers.TimeDistributed(tf.keras.layers.Dropout(0.2)))
-    convlstm_model.add(tf.keras.layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
-                         data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
+    convlstm_model.add(tf.keras.layers.ConvLSTM2D(filters = 16, kernel_size=(3,3),
+                        activation='LeakyReLU', data_format='channels_last', return_sequences=True,
+                        recurrent_dropout=0.2))
     convlstm_model.add(tf.keras.layers.BatchNormalization(momentum=0.8))
     convlstm_model.add(tf.keras.layers.MaxPooling3D(pool_size=(1,2,2), padding='same',
                                            data_format='channels_last'))
     convlstm_model.add(tf.keras.layers.TimeDistributed(tf.keras.layers.Dropout(0.2)))
-    convlstm_model.add(tf.keras.layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
-                        data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
+    convlstm_model.add(tf.keras.layers.ConvLSTM2D(filters = 16, kernel_size=(3,3),
+                        activation='LeakyReLU', data_format='channels_last', return_sequences=True,
+                        recurrent_dropout=0.2))
     convlstm_model.add(tf.keras.layers.BatchNormalization(momentum=0.8))
     convlstm_model.add(tf.keras.layers.MaxPooling3D(pool_size=(1,2,2), padding='same',
                                            data_format='channels_last'))
     convlstm_model.add(tf.keras.layers.TimeDistributed(tf.keras.layers.Dropout(0.3)))
-    convlstm_model.add(tf.keras.layers.ConvLSTM2D(filters = 16, kernel_size=(3,3), activation='LeakyReLU',
-                        data_format='channels_last', return_sequences=True, recurrent_dropout=0.2))
+    convlstm_model.add(tf.keras.layers.ConvLSTM2D(filters = 16, kernel_size=(3,3),
+                    activation='LeakyReLU', data_format='channels_last', return_sequences=True,
+                    recurrent_dropout=0.2))
     convlstm_model.add(tf.keras.layers.BatchNormalization(momentum=0.8))
     convlstm_model.add(tf.keras.layers.MaxPooling3D(pool_size=(1,2,2), padding='same',
                                            data_format='channels_last'))
@@ -97,7 +97,6 @@ if __name__ == '__main__':
         # load the test generator from the npy file
         print('\n Loading test_gen from a file...\n')
         #test_gen = np.load('./results/test_gen.npy', allow_pickle=True)
-        
         #x_test_ , y_test_ = test_gen[:, 0], test_gen[:, 1]
         #x_test, y_test = np.concatenate(x_test_) , np.concatenate(y_test_)
 

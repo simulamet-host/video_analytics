@@ -1,10 +1,12 @@
+"""
+This module is used to load the UCF101 dataset.
+"""
 import os
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
 from sklearn.model_selection import train_test_split
-from keras import utils
-import our_utils, plot_results
+import plot_results
 
 def load_label(datasets):
     """
@@ -24,8 +26,10 @@ def load_label(datasets):
     return np.array(labels, dtype='int8')
 
 def load_ucf101(image_folder, image_array, no_classes = 101, is_load_label = True, is_plot = False):
+    """function to load the UCF101"""
     if is_load_label:
-        label_data = pd.read_csv("../data/UCF-101/ucfTrainTestlist/classInd.txt", sep=' ', header=None, engine="pyarrow")
+        label_data = pd.read_csv("../data/UCF-101/ucfTrainTestlist/classInd.txt", sep=' ',
+                                 header=None, engine="pyarrow")
         label_data.columns=['index', 'labels']
         label_data = label_data.drop(['index'], axis=1)
         label_data = label_data[:no_classes]
@@ -56,6 +60,4 @@ def load_ucf101(image_folder, image_array, no_classes = 101, is_load_label = Tru
     print('\n Splitting the data into training and test...\n')
     x_train, x_test, y_train, y_test=train_test_split(images, labels_list, test_size=0.06,
                                                     random_state=10, shuffle=False)
-
-    
     return x_train, x_test, y_train, y_test, label_data

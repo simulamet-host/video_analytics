@@ -150,7 +150,7 @@ with st.expander("Video Preprocessing"):
                                 'gif', 'webp', 'ico', 'raw', 'eps', 'psd', 'svg'),
                                 key='image_format_selectbox')
     sampling_mode = st.selectbox('Select sampling mode', ('every_frame', 'per_second',
-                                                          'fixed_frames'), 
+                                                          'fixed_frames'),
                                                           key='sampling_mode_selectbox')
     cmd_list.extend(['--video_format', video_format, '--image_format', image_format,
                      '--sampling_mode', sampling_mode])

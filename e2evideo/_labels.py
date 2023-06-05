@@ -1,22 +1,23 @@
 #%%
+"""
+This file create the labels for the action_recognition task from UCF10.
+"""
 import os
 import argparse
-from image_preprocessing import get_images
-
-import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle
-import pandas as pd
-
-import seaborn as sns
-import cv2
 import random
+import matplotlib.pyplot as plt
+import pandas as pd
+import cv2
+from image_preprocessing import get_images
 # %%
-opt_dict = {'dir':  '../data/ucf_sports_actions/frames/', 'img_format': '*.jpg', 'resize': True, 'img_width': 60, 'img_height': 60, 'gray_scale': False, 'output': 'all_images.npy', 
+opt_dict = {'dir':  '../data/ucf_sports_actions/frames/', 'img_format': '*.jpg',
+            'resize': True, 'img_width': 60,
+            'img_height': 60, 'gray_scale': False,
             'output': './results/ucf_sports_actions_images.npz'}
 opt_ = argparse.Namespace(**opt_dict)
 video_array, file_list = get_images(opt_)
 # %%
-file_list
+print(file_list)
 # %%
 labels_dict = {
     'Diving': 0,
@@ -32,12 +33,13 @@ labels_dict = {
 }
 #%%
 def get_key_by_value(dictionary, target_value):
+    """ This function get keys from a dict based on target_values"""
     for key, value in dictionary.items():
         if value == target_value:
             return key
-
 # %%
 def get_activity_name(file_name):
+    """ This function format the file name to get the activity"""
     name_parts = file_name.split('_')
     return ' '.join(name_parts[1:-1])
 
@@ -56,7 +58,7 @@ axes = axes.ravel()
 for i, (video_index, frame_index) in enumerate(zip(random_video_index, random_frame_index)):
     ax = axes[i]
     random_frame = video_array[video_index, frame_index]
-    resized_frame = cv2.resize(random_frame , (224, 224)) 
+    resized_frame = cv2.resize(random_frame , (224, 224))
     random_frame_label = labels[video_index]
     # get the corresponding label from the label dictionary
     frame_key = get_key_by_value(labels_dict, random_frame_label)
@@ -81,7 +83,8 @@ for folder in os.listdir(parent_folder):
         # Get the number of subfolders in the current folder
         subfolder_count = len(os.listdir(os.path.join(parent_folder, folder)))
         # Add the results to the DataFrame
-        results_df = results_df.append({"folder": folder, "subfolder_count": subfolder_count}, ignore_index=True)
+        results_df = results_df.append({"folder": folder, "subfolder_count": subfolder_count},
+                                       ignore_index=True)
 
 # %%
 # Convert the "subfolder_count" column to integer

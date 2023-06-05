@@ -1,3 +1,6 @@
+"""
+This module is used to load the UCF11 dataset.
+"""
 import numpy as np
 import torch
 from torch.utils.data import Dataset
@@ -7,6 +10,7 @@ import our_utils
 device = our_utils.get_device()
 
 class VideoDataset(Dataset):
+    """ VideoDataset class for the UCF11 dataset."""
     def __init__(self, frames, labels):
         self.frames = frames
         self.labels = labels
@@ -21,9 +25,10 @@ class VideoDataset(Dataset):
         return len(self.frames)
 
 def get_data(labels_file, images_array):
+    """Function to read the data from numpy array"""
     labels_list = []
-    with open(labels_file, 'r') as f:
-        for line in f:
+    with open(labels_file, 'r') as my_file:
+        for line in my_file:
             labels_list.append(line.strip())
 
     with np.load(images_array) as videos_frames:

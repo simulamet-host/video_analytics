@@ -11,8 +11,8 @@ import our_utils
 
 device = our_utils.get_device()
 CCH = 3
-img_width = 60
-img_height = 60
+IMG_WIDTH = 60
+IMG_HEIGHT = 60
 
 print('Are we running this?')
 # The parameter 'latent dim' refers to the size of the bottleneck = 1000
@@ -51,7 +51,7 @@ class Encoder(nn.Module):
             act_fn,
             nn.MaxPool2d(kernel_size = 2, stride = 2), # (7, 7, 512)
             nn.Conv2d(8 * out_channels, 8*out_channels, 3, padding=1),
-            nn.BatchNorm2d(8*out_channels),            
+            nn.BatchNorm2d(8*out_channels),
             nn.Flatten(),
             nn.Linear(8*out_channels*7*7, latent_dim), #(1000)
             act_fn)
@@ -59,7 +59,7 @@ class Encoder(nn.Module):
         """
         Forward function in the encoder.
         """
-        in_ = in_.view(-1, CCH, img_width, img_height)
+        in_ = in_.view(-1, CCH, IMG_WIDTH, IMG_HEIGHT)
         output = self.net(in_)
         return output
 
@@ -170,7 +170,8 @@ class ConvolutionalAutoencoder():
                 #  reconstructing images
                 output = self.network(images)
                 #  computing loss
-                loss = training_args['loss_function'](output, next_images.view(-1, CCH, img_width, img_height))
+                loss = training_args['loss_function'](output, next_images.view(-1, CCH,
+                                                            IMG_WIDTH, IMG_HEIGHT))
                 #  calculating gradients
                 loss.backward()
                 #  optimizing weights
@@ -188,7 +189,7 @@ class ConvolutionalAutoencoder():
                 output = self.network(test_images)
                 #  computing test loss
                 test_loss = training_args['loss_function'](output, next_test_images.view(-1,
-                                            CCH, img_width, img_height))
+                                            CCH, IMG_WIDTH, IMG_HEIGHT))
             # LOGGING
             log_dict['test_loss_per_batch'].append(test_loss.item())
         print(f'training_loss: {round(loss.item(), 4)} test_loss: {round(test_loss.item(), 4)}')

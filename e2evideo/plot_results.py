@@ -45,7 +45,8 @@ def plot_cae_training(data, network, color_channels=3):
             ax1.imshow(image_o.squeeze())
             for ax_ in [ax1, ax2]:
                 ax_.axis('off')
-            file_name = './results/feature_extractor/cae_' + str(video_number) + '-' + str(frame_number) +'.jpg'
+            PATH_CONST = './results/feature_extractor/cae_'
+            file_name = PATH_CONST + str(video_number) + '-' + str(frame_number) +'.jpg'
             frame_number += 1
             plt.savefig(file_name)
             plt.show()
@@ -87,7 +88,6 @@ def plot_ucf101(label_data):
         _, bgr_frame = video_reader.read()
 
         # Closing the VideoCapture object and releasing all resources.
-        
         video_reader.release()
 
         # Converting the BGR Frame to RGB Frame

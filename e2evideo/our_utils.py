@@ -8,12 +8,15 @@ from torch.cuda import is_available
 from torch import device # pylint: disable= E0611
 import tensorflow as tf
 
-def print_NN_layers(net, input):
+def print_nn_layers(net, input__):
+    """
+    This function print the nn layers.
+    """
     for layer in net:
         print('\n\n')
         print('Layer: ', layer)
-        input = layer(input)
-        print(input.size())
+        input_ = layer(input__)
+        print(input_clea.size())
 
 def get_device(dev_id=0):
     """
@@ -32,15 +35,15 @@ def get_device(dev_id=0):
     return which_device
 
 class DataGenerator(tf.keras.utils.Sequence):
+    """DataGenerator class"""
     def __init__(self, x_set, y_set, batch_size):
-        self.x, self.y = x_set, y_set
+        self.x_, self.y_ = x_set, y_set
         self.batch_size = batch_size
 
     def __len__(self):
-        return int(np.ceil(len(self.x) / float(self.batch_size)))
+        return int(np.ceil(len(self.x_) / float(self.batch_size)))
 
     def __getitem__(self, idx):
-        batch_x = self.x[idx * self.batch_size:(idx + 1) * self.batch_size]
-        batch_y = self.y[idx * self.batch_size:(idx + 1) * self.batch_size]
+        batch_x = self.x_[idx * self.batch_size:(idx + 1) * self.batch_size]
+        batch_y = self.y_[idx * self.batch_size:(idx + 1) * self.batch_size]
         return np.array(batch_x), np.array(batch_y)
-

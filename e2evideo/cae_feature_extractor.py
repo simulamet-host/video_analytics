@@ -6,34 +6,29 @@ import argparse
 import time
 import torch
 from torch import nn
-from torch.utils.data import Dataset, DataLoader
-import torchvision.datasets as Datasets
-import torchvision.transforms as Transforms
-from sklearn.model_selection import train_test_split
-import image_preprocessing
+from torch.utils.data import DataLoader
 import conv_autoencoder
-import load_ucf101
 import our_utils
 import plot_results
-import numpy as np
 from load_ucf11 import get_data
 device = our_utils.get_device(dev_id=0)
-
 
 def main(args_):
     """
     Main function. It is used to extract features from images.
     """
     # Read labels from file frames_labels.txt
-    
     train_dataset, test_dataset = get_data(args_.labels_file, args_.images_array)
     if args_.mode == 'train':
         #  training model
         model = conv_autoencoder.ConvolutionalAutoencoder(conv_autoencoder.Autoencoder(
                 conv_autoencoder.Encoder(), conv_autoencoder.Decoder()))
-        training_args = {'loss_function': nn.BCELoss(), 'epochs': args_.epochs , 'batch_size': args_.batch_size,
-                    'training_set': train_dataset, 'test_set': test_dataset, 'visual_set': test_dataset}
+        training_args = {'loss_function': nn.BCELoss(), 'epochs': args_.epochs ,
+                    'batch_size': args_.batch_size,
+                    'training_set': train_dataset, 'test_set': test_dataset,
+                    'visual_set': test_dataset}
         log_dict = model.train(training_args)
+        print(log_dict)
     else:
         visual_data = DataLoader(test_dataset)
         #  loading model
@@ -56,4 +51,3 @@ if __name__ == '__main__':
 
     device = our_utils.get_device()
     main(args_input)
-    

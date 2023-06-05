@@ -80,6 +80,7 @@ def main(args_):
         training_args = {'loss_function': nn.BCELoss(), 'epochs': 50 , 'batch_size': 5,
                     'training_set': x_train, 'test_set': x_test, 'visual_set': x_test}
         log_dict = model.train(training_args)
+        print(log_dict)
     else:
         visual_data = DataLoader(x_test)
         #  loading model
@@ -99,4 +100,3 @@ if __name__ == '__main__':
 
     device = our_utils.get_device()
     main(args_input)
-    

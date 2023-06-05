@@ -52,7 +52,8 @@ def main(options):
         video_length = total_num_frames / frame_rate
         n_duration = video_length / options.num_frames
         if options.num_frames > total_num_frames:
-            #print(f"Warning: the number of frames is larger than the total number of frames in the video {video_file}")
+            print(f"Warning: the number of frames is larger than the total number of frames \
+                  in the video {video_file}")
             frame_indices = [i for i in range(int(total_num_frames))]
         else:
             frame_indices = [round(frame_rate * i) for i in range(options.num_frames)]
@@ -63,8 +64,7 @@ def main(options):
             ret, frame = cap.read()
             if not ret:
                 break
-            file_name = f"frame{count}." + options.image_format
-            
+            file_name = f"frame{count}." + options.image_format            
             if options.sampling_mode == 'every_frame':
                 cv2.imwrite(frames_folder + '/' + file_name, frame) # pylint: disable=E1101
                 count += 1
@@ -77,7 +77,6 @@ def main(options):
                     cv2.imwrite(frames_folder + '/' + file_name, frame)
                     count += 1
                     frames.append(frame)
-        
             # interpolate missing frames if count is less than the number of frames
             if frame_id == total_num_frames - 1 and options.sampling_mode == 'fixed_frames' and len(frames) < options.num_frames:
                 print(f"Warning: the number of frames extracted from {video_file} is less than the number of frames specified")
