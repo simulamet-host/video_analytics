@@ -34,34 +34,42 @@ class CustomDataset(Dataset):
             image = self.transforms(image)
         return image
 
+def cifar10_helper():
+    """Helper function for CIFAR10 dataset."""
+    training_set = Datasets.CIFAR10(root='../data/', download=True,
+                                transform=Transforms.ToTensor())
+    test_set = Datasets.CIFAR10(root='../data/', download=True, train=False,
+                            transform=Transforms.ToTensor())
+    #  extracting training images
+    training_images = list(training_set.data)
+    #  extracting test images
+    test_images = list(test_set.data)
+    #  creating pytorch datasets
+    training_data = CustomDataset(training_images,
+                    transforms=Transforms.Compose([Transforms.ToTensor(),
+                                Transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
+    test_data = CustomDataset(test_images, transforms=Transforms.Compose([Transforms.ToTensor(),
+                                    Transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
+    test_data = CustomDataset(test_images, transforms=Transforms.Compose([Transforms.ToTensor(),
+                                    Transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
+    visual_data = test_data
+    return training_data, test_data, visual_data
+
 def main(args_):
     """
     Main function. It is used to extract features from images.
     """
     print('Extracting features from ',  args_.dataset_name)
     if args_.dataset_name == "CIFAR10":
-        training_set = Datasets.CIFAR10(root='../data/', download=True,
-                                transform=Transforms.ToTensor())
-        test_set = Datasets.CIFAR10(root='../data/', download=True, train=False,
-                                transform=Transforms.ToTensor())
-        #  extracting training images
-        training_images = list(training_set.data)
-        #  extracting test images
-        test_images = list(test_set.data)
-        #  creating pytorch datasets
-        training_data = CustomDataset(training_images,
-                        transforms=Transforms.Compose([Transforms.ToTensor(),
-                                    Transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
-        test_data = CustomDataset(test_images, transforms=Transforms.Compose([Transforms.ToTensor(),
-                                        Transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
-        test_data = CustomDataset(test_images, transforms=Transforms.Compose([Transforms.ToTensor(),
-                                        Transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
-        visual_data = test_data
+        _, test_data, visual_data = cifar10_helper()
     elif args_.dataset_name == "handwashing":
         _dir = "./images/"
-        _images = image_preprocessing.get_images(_dir, '*.jpg', True, (224, 224), True)
+        opt_dict = {'dir': _dir, 'img_format': '*.jpg', 'resize': True, 'img_width': 224,
+                    'img_height': 224, 'gray_scale': True}
+        opt_ = argparse.Namespace(**opt_dict)
+        _images, _ = image_preprocessing.get_images(opt_)
         print('images size: ' , _images.size)
-        training_data, test_data = train_test_split( _images, test_size=0.2, random_state=42)
+        _, test_data = train_test_split( _images, test_size=0.2, random_state=42)
         visual_data, test_data = train_test_split(test_data, test_size=0.98, random_state=42)
     elif args_.dataset_name == "action_recognition":
         x_train, x_test, _, _, _ = load_ucf101.load_ucf101(args_.data_folder, args_.images_array,
