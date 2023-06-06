@@ -37,6 +37,7 @@ def get_key_by_value(dictionary, target_value):
     for key, value in dictionary.items():
         if value == target_value:
             return key
+    return None
 # %%
 def get_activity_name(file_name):
     """ This function format the file name to get the activity"""
@@ -58,12 +59,13 @@ axes = axes.ravel()
 for i, (video_index, frame_index) in enumerate(zip(random_video_index, random_frame_index)):
     ax = axes[i]
     random_frame = video_array[video_index, frame_index]
+    # pylint: disable=E1101
     resized_frame = cv2.resize(random_frame , (224, 224))
     random_frame_label = labels[video_index]
     # get the corresponding label from the label dictionary
-    frame_key = get_key_by_value(labels_dict, random_frame_label)
+    FRAME_KEY = get_key_by_value(labels_dict, random_frame_label)
     ax.imshow(resized_frame)
-    ax.set_title(frame_key, fontsize = 20, color= 'purple')
+    ax.set_title(FRAME_KEY, fontsize = 20, color= 'purple')
     ax.axis('off')
 
 plt.tight_layout()
@@ -71,17 +73,17 @@ plt.show()
 
 # %%
 # Set the path to the parent folder
-parent_folder = '../data/ucf_sports_actions/frames/'
+PARENT_FOLDER = '../data/ucf_sports_actions/frames/'
 
 # Create an empty DataFrame to store the results
 results_df = pd.DataFrame(columns=["folder", "subfolder_count"])
 
 # Iterate over all subfolders in the parent folder
-for folder in os.listdir(parent_folder):
+for folder in os.listdir(PARENT_FOLDER):
     # Check if the current item is a folder
-    if os.path.isdir(os.path.join(parent_folder, folder)):
+    if os.path.isdir(os.path.join(PARENT_FOLDER, folder)):
         # Get the number of subfolders in the current folder
-        subfolder_count = len(os.listdir(os.path.join(parent_folder, folder)))
+        subfolder_count = len(os.listdir(os.path.join(PARENT_FOLDER, folder)))
         # Add the results to the DataFrame
         results_df = results_df.append({"folder": folder, "subfolder_count": subfolder_count},
                                        ignore_index=True)
