@@ -16,7 +16,7 @@ def print_nn_layers(net, input__):
         print('\n\n')
         print('Layer: ', layer)
         input_ = layer(input__)
-        print(input_clea.size())
+        print(input_.size())
 
 def get_device(dev_id=0):
     """
@@ -37,13 +37,13 @@ def get_device(dev_id=0):
 class DataGenerator(tf.keras.utils.Sequence):
     """DataGenerator class"""
     def __init__(self, x_set, y_set, batch_size):
-        self.x_, self.y_ = x_set, y_set
+        self.x_set, self.y_set = x_set, y_set
         self.batch_size = batch_size
 
     def __len__(self):
-        return int(np.ceil(len(self.x_) / float(self.batch_size)))
+        return int(np.ceil(len(self.x_set) / float(self.batch_size)))
 
     def __getitem__(self, idx):
-        batch_x = self.x_[idx * self.batch_size:(idx + 1) * self.batch_size]
-        batch_y = self.y_[idx * self.batch_size:(idx + 1) * self.batch_size]
+        batch_x = self.x_set[idx * self.batch_size:(idx + 1) * self.batch_size]
+        batch_y = self.y_set[idx * self.batch_size:(idx + 1) * self.batch_size]
         return np.array(batch_x), np.array(batch_y)
