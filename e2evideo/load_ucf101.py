@@ -8,6 +8,8 @@ from tqdm import tqdm
 from sklearn.model_selection import train_test_split
 import plot_results
 
+NO_CLASSES = 101
+
 def load_label(datasets):
     """
     This function is used to load the labels of the dataset.
@@ -25,14 +27,14 @@ def load_label(datasets):
         label_index+=1
     return np.array(labels, dtype='int8')
 
-def load_ucf101(image_folder, image_array, no_classes = 101, is_load_label = True, is_plot = False):
+def load_ucf101(image_folder, image_array, is_load_label = True, is_plot = False):
     """function to load the UCF101"""
     if is_load_label:
         label_data = pd.read_csv("../data/UCF-101/ucfTrainTestlist/classInd.txt", sep=' ',
                                  header=None, engine="pyarrow")
         label_data.columns=['index', 'labels']
         label_data = label_data.drop(['index'], axis=1)
-        label_data = label_data[:no_classes]
+        label_data = label_data[:NO_CLASSES]
         path=[]
         for label in label_data.labels.values:
             # check if the folder in path is not empty
