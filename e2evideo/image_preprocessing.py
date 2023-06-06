@@ -11,6 +11,19 @@ import numpy as np
 import cv2
 from skimage import img_as_float32
 
+def get_images_helper(args_opt, folder_name):
+    """Helper function for get_images."""
+    video_file = []
+    images_ = glob.glob(folder_name + "/"+ args_opt.img_format)
+    for img_ in images_:
+        img = cv2.imread(img_) # pylint: disable=E1101
+        if args_opt.gray_scale:
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # pylint: disable=E1101
+        if args_opt.resize:
+            img = cv2.resize(img, (args_opt.img_width, args_opt.img_height)) # pylint: disable=E1101
+        video_file.append(img_as_float32(img))
+        return video_file
+
 def get_images(args_opt):
     """
     Read images from a given dir, using specified image format.
@@ -29,16 +42,7 @@ def get_images(args_opt):
     all_videos = []
     labels = []
     for folder_name in img_folders:
-        video_file = []
-        images_ = glob.glob(folder_name + "/"+ args_opt.img_format)
-        for img_ in images_:
-            img = cv2.imread(img_) # pylint: disable=E1101
-            if args_opt.gray_scale:
-                img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # pylint: disable=E1101
-            if args_opt.resize:
-                img = cv2.resize(img, (args_opt.img_width, args_opt.img_height)) # pylint: disable=E1101
-            video_file.append(img_as_float32(img))
-
+        video_file = get_images_helper(args_opt, folder_name)
         if len(video_file) !=0:
             # convert video_file to numpy array
             video_file = np.array(video_file)
@@ -47,7 +51,7 @@ def get_images(args_opt):
 
     assert len(all_videos) != 0 , 'The given images folder does not contain any frames'
     # find the maximum length of the videos (number of frames) in a video
-    max_frames = max([len(x) for x in all_videos])
+    max_frames = max(len(x) for x in all_videos)
     # find the maximum shape of the arrays
     #max_shape = max([arr.shape for arr in all_images])
     # create a new array with the maximum shape
@@ -62,7 +66,7 @@ def get_images(args_opt):
     # save frames_in_videos to a file
     np.savez_compressed(args_opt.output, frames_in_videos)
     # save labels to frames_labels.txt file
-    with open('frames_labels.txt', 'w') as my_file:
+    with open('frames_labels.txt', 'w', encoding='utf-8') as my_file:
         for label in labels:
             my_file.write(label + '\n')
     return frames_in_videos, labels
