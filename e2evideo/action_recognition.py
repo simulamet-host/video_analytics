@@ -7,6 +7,7 @@ import argparse
 import time
 import tensorflow as tf
 from load_ucf11 import get_data
+import plot_results
 
 def object_detection_model(train_dataset, test_dataset, no_classes = 101):
     """
@@ -80,7 +81,7 @@ if __name__ == '__main__':
     #Train the model
     if args.mode == 'train':
         print('\n Loading data...\n')
-        train_dataset, test_dataset = get_data(args.labels_file, args.images_array)
+        train_, test_ = get_data(args.labels_file, args.images_array)
         #train_gen = our_utils.DataGenerator(x_train, utils.to_categorical(y_train), batch_size=32)
         #test_gen = our_utils.DataGenerator(x_test, utils.to_categorical(y_test), batch_size=32)
 
@@ -88,7 +89,7 @@ if __name__ == '__main__':
         print('\n Saving test_gen to a file...\n')
         #np.save('./results/test_gen.npy', test_gen)
         print('\n Training the model...\n')
-        HISTORY = object_detection_model(train_dataset, test_dataset, args.no_classes)
+        HISTORY = object_detection_model(train_, test_, args.no_classes)
         print('\n Plotting the accuracy and loss...\n')
         plot_results.plot_accuracy(HISTORY)
 
