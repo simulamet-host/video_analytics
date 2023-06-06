@@ -27,7 +27,7 @@ class VideoDataset(Dataset):
 def get_data(labels_file, images_array):
     """Function to read the data from numpy array"""
     labels_list = []
-    with open(labels_file, 'r') as my_file:
+    with open(labels_file, 'r', encoding='utf-8') as my_file:
         for line in my_file:
             labels_list.append(line.strip())
 
