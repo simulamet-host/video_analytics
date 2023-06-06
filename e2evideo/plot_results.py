@@ -45,8 +45,8 @@ def plot_cae_training(data, network, color_channels=3):
             ax1.imshow(image_o.squeeze())
             for ax_ in [ax1, ax2]:
                 ax_.axis('off')
-            PATH_CONST = './results/feature_extractor/cae_'
-            file_name = PATH_CONST + str(video_number) + '-' + str(frame_number) +'.jpg'
+            path_ = './results/feature_extractor/cae_'
+            file_name = path_ + str(video_number) + '-' + str(frame_number) +'.jpg'
             frame_number += 1
             plt.savefig(file_name)
             plt.show()
