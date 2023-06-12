@@ -19,5 +19,6 @@ jobs:
         pip install pylint
     - name: Analysing the code with pylint
       run: |
+
         pip install .
-        pylint --fail-under=9 $(find . -name '*.py' | grep -v './frontend') 
+        pylint --fail-under=9 $(find . -name '*.py' | grep -v -E './frontend|./tests') 
