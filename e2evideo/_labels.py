@@ -8,14 +8,14 @@ import random
 import matplotlib.pyplot as plt
 import pandas as pd
 import cv2
-from image_preprocessing import get_images
+from e2evideo import image_preprocessing
 # %%
 opt_dict = {'dir':  '../data/ucf_sports_actions/frames/', 'img_format': '*.jpg',
             'resize': True, 'img_width': 60,
             'img_height': 60, 'gray_scale': False,
             'output': './results/ucf_sports_actions_images.npz'}
 opt_ = argparse.Namespace(**opt_dict)
-video_array, file_list = get_images(opt_)
+video_array, file_list = image_preprocessing.get_images(opt_)
 # %%
 print(file_list)
 # %%

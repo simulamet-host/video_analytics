@@ -22,7 +22,8 @@ def get_images_helper(args_opt, folder_name):
         if args_opt.resize:
             img = cv2.resize(img, (args_opt.img_width, args_opt.img_height)) # pylint: disable=E1101
         video_file.append(img_as_float32(img))
-        return video_file
+        continue
+    return video_file
 
 def get_images(args_opt):
     """
