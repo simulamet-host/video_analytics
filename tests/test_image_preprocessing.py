@@ -17,7 +17,7 @@ def image_folder(tmpdir):
         img = np.zeros((200, 200, 3), dtype=np.uint8)
         img[:, :, :] = color
         cv2.imwrite(str(tmpdir.join(f'images/image_{i}.jpg')), img)
-    # add clearnup function 
+    # add clearnup function
     def cleanup():
         # remove the temporary folder
         tmpdir.remove()
@@ -29,8 +29,7 @@ def image_folder(tmpdir):
 # Test calling the function from another module
 def test_get_images_call(image_folder):
     # call the function to read images from the folder
-    assert os.path.isdir(str(image_folder))
-    
+    assert os.path.isdir(str(image_folder))    
     opt_dict = {'dir': str(image_folder), 'img_format': '*.jpg', 'resize': False, 'img_width': 224, 'img_height': 224, 'gray_scale': False, 'output': 'all_images.npy'}
     opt_ = argparse.Namespace(**opt_dict)
     images, _ = e2e_img_pre.get_images(opt_)
