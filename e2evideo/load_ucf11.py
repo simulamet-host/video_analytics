@@ -6,7 +6,7 @@ import torch
 from torch.utils.data import Dataset
 from sklearn.model_selection import train_test_split
 
-import our_utils
+from e2evideo import our_utils
 device = our_utils.get_device()
 
 class VideoDataset(Dataset):

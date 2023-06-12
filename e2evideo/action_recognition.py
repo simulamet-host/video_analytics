@@ -6,8 +6,8 @@ This initial version is tailored specifically for the object detection dataset.
 import argparse
 import time
 import tensorflow as tf
-from load_ucf11 import get_data
-import plot_results
+from e2evideo import load_ucf11
+from e2evideo import plot_results
 
 def object_detection_model(train_dataset, test_dataset, no_classes = 101):
     """
@@ -81,7 +81,7 @@ if __name__ == '__main__':
     #Train the model
     if args.mode == 'train':
         print('\n Loading data...\n')
-        train_, test_ = get_data(args.labels_file, args.images_array)
+        train_, test_ = load_ucf11.get_data(args.labels_file, args.images_array)
         #train_gen = our_utils.DataGenerator(x_train, utils.to_categorical(y_train), batch_size=32)
         #test_gen = our_utils.DataGenerator(x_test, utils.to_categorical(y_test), batch_size=32)
 

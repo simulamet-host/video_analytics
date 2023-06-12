@@ -10,12 +10,12 @@ from torch.utils.data import Dataset, DataLoader
 import torchvision.datasets as Datasets
 import torchvision.transforms as Transforms
 from sklearn.model_selection import train_test_split
-import image_preprocessing
-import conv_autoencoder
-import load_ucf101
-import our_utils
-import plot_results
-from load_ucf11 import get_data
+from e2evideo import image_preprocessing
+from e2evideo import conv_autoencoder
+from e2evideo import load_ucf101
+from e2evideo import our_utils
+from e2evideo import plot_results
+from e2evideo import load_ucf11
 
 device = our_utils.get_device()
 
@@ -82,7 +82,7 @@ def main(args_):
         #test_data = np.concatenate(test_gen[:, 0])
         #visual_data = test_data
     else:
-        train_dataset, test_dataset = get_data(args_.labels_file, args_.images_array)
+        train_dataset, test_dataset = load_ucf11.get_data(args_.labels_file, args_.images_array)
     if args_.mode == 'train':
         #  training model
         model = conv_autoencoder.ConvolutionalAutoencoder(conv_autoencoder.Autoencoder(

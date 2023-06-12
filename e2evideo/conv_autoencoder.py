@@ -6,8 +6,8 @@ import torch
 from torch import nn
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-import plot_results
-import our_utils
+from e2evideo import plot_results
+from e2evideo import our_utils
 
 device = our_utils.get_device()
 CCH = 3

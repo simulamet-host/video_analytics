@@ -11,7 +11,7 @@ from sklearn.metrics import confusion_matrix
 from tqdm import tqdm
 import cv2
 import pandas as pd
-import our_utils
+from e2evideo import our_utils
 
 
 device = our_utils.get_device()
