@@ -72,6 +72,23 @@ def get_images(args_opt):
             my_file.write(label + '\n')
     return frames_in_videos, labels
 
+def create_videos(folder_path, output_path, image_format):
+    """Create videos from the extracted frames."""
+    img_array = []
+    # check if output path has .avi extension
+    if output_path[-4:] != '.avi':
+        output_path = output_path + 'new_video.avi'
+    for filename in sorted(glob.glob(folder_path + '/*.' + image_format)):
+        img = cv2.imread(filename) # pylint: disable=E1101
+        height, width, _ = img.shape
+        size = (width,height)
+        img_array.append(img)
+    # pylint: disable=E1101
+    out = cv2.VideoWriter(output_path, cv2.VideoWriter_fourcc(*'DIVX'), 10, size)
+    for _, img in enumerate(img_array):
+        out.write(img)
+    out.release()
+
 if __name__ == '__main__':
     parser_ = argparse.ArgumentParser()
     parser_.add_argument('--dir', default='./images/')
