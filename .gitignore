@@ -154,3 +154,5 @@ e2evideo/results/feature_extractor/
 e2evideo/results/encoder_model.pkl
 e2evideo/checkpoints/
 e2evideo/simple_example.py
+UCF101_plots.ipynb
+UCF101_walkthrough.ipynb
