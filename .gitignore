@@ -156,3 +156,4 @@ e2evideo/checkpoints/
 e2evideo/simple_example.py
 UCF101_plots.ipynb
 UCF101_walkthrough.ipynb
+datasets/ucf101/frames/test/
