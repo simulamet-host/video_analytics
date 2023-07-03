@@ -116,7 +116,7 @@ class VideoPreprocessor:
             if self.config.back_sub in back_sub_algo_mapping:
                 back_sub_algo = back_sub_algo_mapping[self.config.back_sub]
             else:
-                print(f"Error: Invalid background subtraction algorithm: {self.config.back_sub}")
+                print(f"No background subtraction algorithm provided : {self.config.back_sub}")
             while cap.isOpened():
                 frame_id = cap.get(cv2.CAP_PROP_POS_FRAMES) # pylint: disable=E1101
                 ret, frame_data.frame = cap.read()
