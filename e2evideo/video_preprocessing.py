@@ -154,6 +154,7 @@ class VideoPreprocessor:
             cap.release()
             print(f"Done! {frame_data.count} images of format JPG is"
                   f"saved in {frame_data.frames_folder}" )
+            return frame_data.frames
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
