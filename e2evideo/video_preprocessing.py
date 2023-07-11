@@ -27,6 +27,7 @@ class VideoConfig:
     num_frames: int = 10
     output_folder: str = OUTPUT_PATH
     back_sub: str = None
+    save_frames: bool = False
 
 @dataclass
 class FrameData:
@@ -115,7 +116,7 @@ class VideoPreprocessor:
             if self.config.back_sub in back_sub_algo_mapping:
                 back_sub_algo = back_sub_algo_mapping[self.config.back_sub]
             else:
-                print(f"Error: Invalid background subtraction algorithm: {self.config.back_sub}")
+                print(f"No background subtraction algorithm provided : {self.config.back_sub}")
             while cap.isOpened():
                 frame_id = cap.get(cv2.CAP_PROP_POS_FRAMES) # pylint: disable=E1101
                 ret, frame_data.frame = cap.read()
@@ -152,8 +153,11 @@ class VideoPreprocessor:
                     #frame_data = FrameData(frame, frames, frame_indices, count, frames_folder)
                     frame_data.count = self.interpolate_missing_frames(frame_data)
             cap.release()
-            print(f"Done! {frame_data.count} images of format JPG is"
-                  f"saved in {frame_data.frames_folder}" )
+            if self.config.save_frames == 'True':
+                print(f"Done! {frame_data.count} images of format JPG is"
+                    f"saved in {frame_data.frames_folder}" )
+            else:
+                print('Done!')
             return frame_data.frames
 
 if __name__ == '__main__':
@@ -167,8 +171,11 @@ if __name__ == '__main__':
     parser.add_argument('--num_frames', default=10, type=int)
     parser.add_argument('--output_folder', default=OUTPUT_PATH)
     parser.add_argument('--backsub', default=None, choices=['MOG2', 'KNN'])
+    parser.add_argument('--save_frames', default='False', type= bool,
+                        help='Save the frames locally.')
     opts = parser.parse_args()
     videos_config = VideoConfig(opts.videos_folder, opts.video_format, opts.image_format,
-                            opts.sampling_mode, opts.num_frames, opts.output_folder, opts.backsub)
+                            opts.sampling_mode, opts.num_frames, opts.output_folder, opts.backsub,
+                            opts.save_frames)
     processor = VideoPreprocessor(videos_config)
     processor.process_video()
