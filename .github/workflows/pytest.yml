@@ -23,7 +23,7 @@ jobs:
         pip install .
         cd tests/
         pytest .
-        pytest --cov=e2evideo  --cov-report html > coverage.html
+        pytest --cov=e2evideo  --cov-report=json
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
       env:
