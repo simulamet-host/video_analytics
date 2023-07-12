@@ -157,3 +157,5 @@ e2evideo/simple_example.py
 UCF101_plots.ipynb
 UCF101_walkthrough.ipynb
 datasets/ucf101/frames/test/
+tests/all_images.npy.npz
+tests/frames_labels.txt
