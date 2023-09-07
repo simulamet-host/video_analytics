@@ -14,47 +14,58 @@ CCH = 3
 IMG_WIDTH = 60
 IMG_HEIGHT = 60
 
-print('Are we running this?')
+print("Are we running this?")
+
+
 # The parameter 'latent dim' refers to the size of the bottleneck = 1000
 #  defining encoder
 class Encoder(nn.Module):
     """
     Encoder class.
     """
-    def __init__(self, in_channels=CCH, out_channels=64, latent_dim=1000, act_fn=nn.ReLU()):
+
+    def __init__(
+        self, in_channels=CCH, out_channels=64, latent_dim=1000, act_fn=nn.ReLU()
+    ):
         super().__init__()
         self.net = nn.Sequential(
             # Conv-1
-            nn.Conv2d(in_channels, out_channels, 3, padding=1), # (60, 60, 64)
+            nn.Conv2d(in_channels, out_channels, 3, padding=1),  # (60, 60, 64)
             nn.BatchNorm2d(out_channels),
             act_fn,
             nn.Conv2d(out_channels, out_channels, 3, padding=1),
             nn.BatchNorm2d(out_channels),
             act_fn,
-            nn.MaxPool2d(kernel_size = 5, stride = 1), # (56, 56, 64)
+            nn.MaxPool2d(kernel_size=5, stride=1),  # (56, 56, 64)
             # Conv-2
-            nn.Conv2d(out_channels, 2 * out_channels, 3, padding=1), # (56, 56, 128)
+            nn.Conv2d(out_channels, 2 * out_channels, 3, padding=1),  # (56, 56, 128)
             nn.BatchNorm2d(2 * out_channels),
             act_fn,
-            nn.Conv2d(2* out_channels, 2 * out_channels, 3, padding=1),
+            nn.Conv2d(2 * out_channels, 2 * out_channels, 3, padding=1),
             nn.BatchNorm2d(2 * out_channels),
             act_fn,
-            nn.MaxPool2d(kernel_size = 2, stride = 2), # (28, 28, 128)
-            #Conv-3
-            nn.Conv2d(2 * out_channels, 4*out_channels, 3, padding=1), # (28, 28, 256)
-            nn.BatchNorm2d(4*out_channels),
+            nn.MaxPool2d(kernel_size=2, stride=2),  # (28, 28, 128)
+            # Conv-3
+            nn.Conv2d(
+                2 * out_channels, 4 * out_channels, 3, padding=1
+            ),  # (28, 28, 256)
+            nn.BatchNorm2d(4 * out_channels),
             act_fn,
-            nn.MaxPool2d(kernel_size = 2, stride = 2), # (14, 14, 256)
-            #Conv-4
-            nn.Conv2d(4 * out_channels, 8*out_channels, 3, padding=1), # (14, 14, 512)
-            nn.BatchNorm2d(8*out_channels),
+            nn.MaxPool2d(kernel_size=2, stride=2),  # (14, 14, 256)
+            # Conv-4
+            nn.Conv2d(
+                4 * out_channels, 8 * out_channels, 3, padding=1
+            ),  # (14, 14, 512)
+            nn.BatchNorm2d(8 * out_channels),
             act_fn,
-            nn.MaxPool2d(kernel_size = 2, stride = 2), # (7, 7, 512)
-            nn.Conv2d(8 * out_channels, 8*out_channels, 3, padding=1),
-            nn.BatchNorm2d(8*out_channels),
+            nn.MaxPool2d(kernel_size=2, stride=2),  # (7, 7, 512)
+            nn.Conv2d(8 * out_channels, 8 * out_channels, 3, padding=1),
+            nn.BatchNorm2d(8 * out_channels),
             nn.Flatten(),
-            nn.Linear(8*out_channels*7*7, latent_dim), #(1000)
-            act_fn)
+            nn.Linear(8 * out_channels * 7 * 7, latent_dim),  # (1000)
+            act_fn,
+        )
+
     def forward(self, in_):
         """
         Forward function in the encoder.
@@ -63,53 +74,81 @@ class Encoder(nn.Module):
         output = self.net(in_)
         return output
 
+
 #  defining decoder
 class Decoder(nn.Module):
     """
     Decoder class.
     """
-    def __init__(self, in_channels=CCH, out_channels=64, latent_dim=1000, act_fn=nn.ReLU()):
+
+    def __init__(
+        self, in_channels=CCH, out_channels=64, latent_dim=1000, act_fn=nn.ReLU()
+    ):
         super().__init__()
         self.out_channels = out_channels
         self.linear = nn.Sequential(
-            nn.Linear(latent_dim, 8*out_channels*7*7),
-            act_fn)
+            nn.Linear(latent_dim, 8 * out_channels * 7 * 7), act_fn
+        )
         self.conv = nn.Sequential(
-            nn.ConvTranspose2d(8*out_channels, 8*out_channels, 3, padding=1), # (7, 7, 512)
+            nn.ConvTranspose2d(
+                8 * out_channels, 8 * out_channels, 3, padding=1
+            ),  # (7, 7, 512)
             act_fn,
-            nn.ConvTranspose2d(8*out_channels, 4*out_channels, 3, padding=1,
-                            stride=2, output_padding=1), # (14, 14, 256)
+            nn.ConvTranspose2d(
+                8 * out_channels,
+                4 * out_channels,
+                3,
+                padding=1,
+                stride=2,
+                output_padding=1,
+            ),  # (14, 14, 256)
             act_fn,
-            nn.ConvTranspose2d(4*out_channels, 2*out_channels, 3, padding=1,
-                            stride=2, output_padding=1), # (28, 28, 128)
+            nn.ConvTranspose2d(
+                4 * out_channels,
+                2 * out_channels,
+                3,
+                padding=1,
+                stride=2,
+                output_padding=1,
+            ),  # (28, 28, 128)
             act_fn,
-            nn.ConvTranspose2d(2*out_channels, out_channels, kernel_size = 7, padding=1, stride=2,
-                output_padding=1), # (60, 60, 64)
+            nn.ConvTranspose2d(
+                2 * out_channels,
+                out_channels,
+                kernel_size=7,
+                padding=1,
+                stride=2,
+                output_padding=1,
+            ),  # (60, 60, 64)
             act_fn,
-            nn.ConvTranspose2d(out_channels, in_channels, 3, padding=1), # (60, 60, 3)
-            nn.Sigmoid()
-            )
+            nn.ConvTranspose2d(out_channels, in_channels, 3, padding=1),  # (60, 60, 3)
+            nn.Sigmoid(),
+        )
+
     def forward(self, bottleneck):
         """
         Forward function in the decoder.
         """
         output = self.linear(bottleneck)
-        output = output.view(-1, 8*self.out_channels, 7, 7)
-        #our_utils.print_NN_layers(self.conv, output)
+        output = output.view(-1, 8 * self.out_channels, 7, 7)
+        # our_utils.print_NN_layers(self.conv, output)
         output = self.conv(output)
         return output
+
 
 #  defining autoencoder
 class Autoencoder(nn.Module):
     """
     Autoencoder class.
     """
+
     def __init__(self, encoder, decoder):
         super().__init__()
         self.encoder = encoder
         self.encoder.to(device)
         self.decoder = decoder
         self.decoder.to(device)
+
     def forward(self, in_):
         """
         Forward function for the autoencoder class.
@@ -118,24 +157,28 @@ class Autoencoder(nn.Module):
         decoded = self.decoder(encoded)
         return decoded
 
-class ConvolutionalAutoencoder():
+
+class ConvolutionalAutoencoder:
     """
     Convolutional Autoencoder class.
     """
+
     def __init__(self, autoencoder):
         autoencoder = autoencoder.double()
         self.network = autoencoder
         self.optimizer = torch.optim.Adam(self.network.parameters(), lr=1e-3)
+
     def train(self, training_args):
         """
         Train method used to train the model.
         """
         #  creating log
         log_dict = {
-            'training_loss_per_batch': [],
-            'test_loss_per_batch': [],
-            'visualizations': []
+            "training_loss_per_batch": [],
+            "test_loss_per_batch": [],
+            "visualizations": [],
         }
+
         #  defining weight initialization function
         def init_weights(module):
             if isinstance(module, nn.Conv2d):
@@ -144,24 +187,27 @@ class ConvolutionalAutoencoder():
             elif isinstance(module, nn.Linear):
                 torch.nn.init.xavier_uniform_(module.weight)
                 module.bias.data.fill_(0.01)
+
         #  initializing network weights
         self.network.apply(init_weights)
         #  creating dataloaders
-        loaders = dict.fromkeys(['train_loader', 'test_loader'], None)
-        loaders['train_loader'] = DataLoader(training_args['training_set'],
-                                            training_args['batch_size'])
-        loaders['test_loader'] = DataLoader(training_args['test_set'],
-                                            training_args['batch_size'])
-        loaders['visual_loader'] = DataLoader(training_args['visual_set'])
+        loaders = dict.fromkeys(["train_loader", "test_loader"], None)
+        loaders["train_loader"] = DataLoader(
+            training_args["training_set"], training_args["batch_size"]
+        )
+        loaders["test_loader"] = DataLoader(
+            training_args["test_set"], training_args["batch_size"]
+        )
+        loaders["visual_loader"] = DataLoader(training_args["visual_set"])
         #  setting convnet to training mode
         self.network.train()
         self.network.to(device)
-        for epoch in range(training_args['epochs']):
+        for epoch in range(training_args["epochs"]):
             print(f'Epoch {epoch+1}/{training_args["epochs"]}')
             #  TRAINING
-            print('training...')
-            for images, next_images, _ in tqdm(loaders['train_loader']):
-                #print(images)
+            print("training...")
+            for images, next_images, _ in tqdm(loaders["train_loader"]):
+                # print(images)
                 #  zeroing gradients
                 self.optimizer.zero_grad()
                 #  sending images to device
@@ -170,32 +216,37 @@ class ConvolutionalAutoencoder():
                 #  reconstructing images
                 output = self.network(images)
                 #  computing loss
-                loss = training_args['loss_function'](output, next_images.view(-1, CCH,
-                                                            IMG_WIDTH, IMG_HEIGHT))
+                loss = training_args["loss_function"](
+                    output, next_images.view(-1, CCH, IMG_WIDTH, IMG_HEIGHT)
+                )
                 #  calculating gradients
                 loss.backward()
                 #  optimizing weights
                 self.optimizer.step()
                 # LOGGING
-                log_dict['training_loss_per_batch'].append(loss.item())
-                torch.save(self.network.state_dict(), f'./checkpoints/model-{epoch}.pt')
+                log_dict["training_loss_per_batch"].append(loss.item())
+                torch.save(self.network.state_dict(), f"./checkpoints/model-{epoch}.pt")
         # Testing
-        print('testing...')
-        for test_images, next_test_images, _ in tqdm(loaders['test_loader']):
+        print("testing...")
+        for test_images, next_test_images, _ in tqdm(loaders["test_loader"]):
             with torch.no_grad():
                 #  sending test images to device
                 test_images = test_images.to(device)
                 #  reconstructing images
                 output = self.network(test_images)
                 #  computing test loss
-                test_loss = training_args['loss_function'](output, next_test_images.view(-1,
-                                            CCH, IMG_WIDTH, IMG_HEIGHT))
+                test_loss = training_args["loss_function"](
+                    output, next_test_images.view(-1, CCH, IMG_WIDTH, IMG_HEIGHT)
+                )
             # LOGGING
-            log_dict['test_loss_per_batch'].append(test_loss.item())
-            print(f'training_loss: {round(loss.item(), 4)} test_loss: {round(test_loss.item(), 4)}')
+            log_dict["test_loss_per_batch"].append(test_loss.item())
+            print(
+                f"training_loss: {round(loss.item(), 4)} \
+                test_loss: {round(test_loss.item(), 4)}"
+            )
             plot_results.plot_cae_training(test_images, self.network, CCH)
 
-        torch.save(self.network, './results/encoder_model.pkl')
+        torch.save(self.network, "./results/encoder_model.pkl")
         return log_dict
 
     def autoencode(self, in_):
@@ -203,12 +254,14 @@ class ConvolutionalAutoencoder():
         Autoencoder.
         """
         return self.network(in_)
+
     def encode(self, in_):
         """
         Encoder method, take input image and output the bottleneck.
         """
         encoder = self.network.encoder
         return encoder(in_)
+
     def decode(self, bottleneck):
         """
         Decoder method, input bottleneck and output the reconstructed image.

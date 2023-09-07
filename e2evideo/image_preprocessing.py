@@ -11,19 +11,23 @@ import numpy as np
 import cv2
 from skimage import img_as_float32
 
+
 def get_images_helper(args_opt, folder_name):
     """Helper function for get_images."""
     video_file = []
-    images_ = glob.glob(folder_name + "/"+ args_opt.img_format)
+    images_ = glob.glob(folder_name + "/" + args_opt.img_format)
     for img_ in images_:
-        img = cv2.imread(img_) # pylint: disable=E1101
+        img = cv2.imread(img_)  # pylint: disable=E1101
         if args_opt.gray_scale:
-            img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # pylint: disable=E1101
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # pylint: disable=E1101
         if args_opt.resize:
-            img = cv2.resize(img, (args_opt.img_width, args_opt.img_height)) # pylint: disable=E1101
+            img = cv2.resize(
+                img, (args_opt.img_width, args_opt.img_height)
+            )  # pylint: disable=E1101
         video_file.append(img_as_float32(img))
         continue
     return video_file
+
 
 def get_images(args_opt):
     """
@@ -36,7 +40,8 @@ def get_images(args_opt):
         - resize_dim: set to the required image dimensions.
                     It takes input in the format (height, width).
     Returns:
-        -- all_images: an array of array, it contains all values from the images in the dir.
+        -- all_images: an array of array, it contains all values from the images in the
+        dir.
                         This array is of size = (num_images, height, width, no_channels)
     """
     img_folders = [x[0] for x in os.walk(args_opt.dir)]
@@ -44,17 +49,17 @@ def get_images(args_opt):
     labels = []
     for folder_name in img_folders:
         video_file = get_images_helper(args_opt, folder_name)
-        if len(video_file) !=0:
+        if len(video_file) != 0:
             # convert video_file to numpy array
             video_file = np.array(video_file)
             all_videos.append(video_file)
-            labels.append(folder_name.split('/')[-1])
+            labels.append(folder_name.split("/")[-1])
 
-    assert len(all_videos) != 0 , 'The given images folder does not contain any frames'
+    assert len(all_videos) != 0, "The given images folder does not contain any frames"
     # find the maximum length of the videos (number of frames) in a video
     max_frames = max(len(x) for x in all_videos)
     # find the maximum shape of the arrays
-    #max_shape = max([arr.shape for arr in all_images])
+    # max_shape = max([arr.shape for arr in all_images])
     # create a new array with the maximum shape
     # specify the desired shape of the padded arrays
     frame_dim = all_videos[0][0].shape
@@ -63,43 +68,45 @@ def get_images(args_opt):
 
     # pad the shorter videos with zeros at the end to make them all the same length
     for index_, video_ in enumerate(all_videos):
-        frames_in_videos[index_][0:len(video_)] = video_
+        frames_in_videos[index_][0 : len(video_)] = video_
     # save frames_in_videos to a file
     np.savez_compressed(args_opt.output, frames_in_videos)
     # save labels to frames_labels.txt file
-    with open('frames_labels.txt', 'w', encoding='utf-8') as my_file:
+    with open("frames_labels.txt", "w", encoding="utf-8") as my_file:
         for label in labels:
-            my_file.write(label + '\n')
+            my_file.write(label + "\n")
     return frames_in_videos, labels
+
 
 def create_videos(folder_path, output_path, image_format):
     """Create videos from the extracted frames."""
     img_array = []
     # check if output path has .avi extension
-    if output_path[-4:] != '.avi':
-        output_path = output_path + 'new_video.avi'
-    for filename in sorted(glob.glob(folder_path + '/*.' + image_format)):
-        img = cv2.imread(filename) # pylint: disable=E1101
+    if output_path[-4:] != ".avi":
+        output_path = output_path + "new_video.avi"
+    for filename in sorted(glob.glob(folder_path + "/*." + image_format)):
+        img = cv2.imread(filename)  # pylint: disable=E1101
         height, width, _ = img.shape
-        size = (width,height)
+        size = (width, height)
         img_array.append(img)
     # pylint: disable=E1101
-    out = cv2.VideoWriter(output_path, cv2.VideoWriter_fourcc(*'DIVX'), 10, size)
+    out = cv2.VideoWriter(output_path, cv2.VideoWriter_fourcc(*"DIVX"), 10, size)
     for _, img in enumerate(img_array):
         out.write(img)
     out.release()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     parser_ = argparse.ArgumentParser()
-    parser_.add_argument('--dir', default='./images/')
-    parser_.add_argument('--img_format', default='*.jpg')
-    parser_.add_argument('--resize', default=False)
-    parser_.add_argument('--img_width', default=224, type=int)
-    parser_.add_argument('--img_height', default=224, type=int)
-    parser_.add_argument('--gray_scale', default=False)
-    parser_.add_argument('--output', default='./results/all_images.npz')
+    parser_.add_argument("--dir", default="./images/")
+    parser_.add_argument("--img_format", default="*.jpg")
+    parser_.add_argument("--resize", default=False)
+    parser_.add_argument("--img_width", default=224, type=int)
+    parser_.add_argument("--img_height", default=224, type=int)
+    parser_.add_argument("--gray_scale", default=False)
+    parser_.add_argument("--output", default="./results/all_images.npz")
     args_ = parser_.parse_args()
 
     _images, file_names = get_images(args_)
 
-    print('Images saved in array of array of size', str(_images.shape))
+    print("Images saved in array of array of size", str(_images.shape))

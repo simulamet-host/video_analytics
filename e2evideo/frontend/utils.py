@@ -28,6 +28,7 @@ def colored_text(text, color):
         unsafe_allow_html=True,
     )
 
+
 def get_subdirectories(path):
     """
     This function returns a list of subdirectories in a given path.
@@ -40,9 +41,13 @@ def get_subdirectories(path):
     subdirs : list
         A list of subdirectories in the given path.
     """
-    subdirs = [dir_name for dir_name in os.listdir(path)
-               if os.path.isdir(os.path.join(path, dir_name))]
+    subdirs = [
+        dir_name
+        for dir_name in os.listdir(path)
+        if os.path.isdir(os.path.join(path, dir_name))
+    ]
     return subdirs
+
 
 def get_parent_directory(path):
     """
