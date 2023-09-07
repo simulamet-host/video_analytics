@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 fd = fastdup.create(input_dir="../Oxford Pets Dataset/")
 fd.run(model_path="dinov2s", cc_threshold=0.8)
-#fd.vis.component_gallery(save_path="dinov2s")
+# fd.vis.component_gallery(save_path="dinov2s")
 
 filenames, feature_vec = fastdup.load_binary_feature(
     "work_dir/atrain_features.dat", d=384
@@ -57,5 +57,5 @@ fig = px.scatter_3d(
     hover_data=["component", "filename"],
 )
 
-#fig.write_image("work_dir/embeddings_tsne.png")
+# fig.write_image("work_dir/embeddings_tsne.png")
 fig.write_html("work_dir/embeddings_tsne.html")
