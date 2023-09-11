@@ -16,14 +16,13 @@ fd.run(model_path="dinov2s", cc_threshold=0.8)
 filenames, feature_vec = fastdup.load_binary_feature(
     "work_dir/atrain_features.dat", d=384
 )
-logger.info("Embedding dimensions", feature_vec.shape)
+logger.info("Embedding dimensions %s", feature_vec.shape)
 
 
 connected_components_df = pd.read_csv(
     os.path.join("work_dir", "connected_components.csv")
 )
-component_id = connected_components_df["component_id"].to_numpy()
 
 embedding_vis.plot_tsne_3d(
-    feature_vec, component_id, filenames, "work_dir/embeddings_dinvo2.html"
+    feature_vec, connected_components_df, filenames, "work_dir/embeddings_dinvo2.html"
 )
