@@ -62,11 +62,11 @@ class FeatureExtractor:
         return vec_df
 
     def extract_dinov2_features(self):
-        fd = fastdup.create(self.input_path)
+        fd = fastdup.create(input_dir=self.input_path)
         fd.run(model_path="dinov2s", cc_threshold=0.8)
 
         filenames, feature_vec = fastdup.load_binary_feature(
-            "{self.output_path}/atrain_features.dat", d=384
+            f"{self.output_path}/atrain_features.dat", d=384
         )
         logger.info("Embedding dimensions %s", feature_vec.shape)
 
@@ -102,6 +102,7 @@ def plot_tsne_3d(feature_vec, connected_components_df, filenames, output_path):
 
 
 if __name__ == "__main__":
-    input_path = "../Oxford Pets Dataset/"
-    output_path = "work_dir"
+    input_path = "../data/Oxford Pets Dataset/"
+    output_path = "./work_dir"
     fe = FeatureExtractor(input_path, output_path)
+    fe.extract_dinov2_features()
