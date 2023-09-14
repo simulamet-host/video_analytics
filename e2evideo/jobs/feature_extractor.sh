@@ -13,5 +13,5 @@ eval "$(conda shell.bash hook)"
 conda activate e2evideo
 source /home/faiga/.cache/pypoetry/virtualenvs/e2evideo-GfxAQqu6-py3.10/bin/activate
 cd ..
-srun python feature_extractor_new.py
+srun python feature_extractor_new.py --feature_extractor "img2vec"
 echo 'Done!'

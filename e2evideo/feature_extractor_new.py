@@ -1,4 +1,5 @@
 import os
+import argparse
 import pandas as pd
 import torch
 import torchvision.models as models
@@ -44,21 +45,26 @@ class FeatureExtractor:
         model = models.resnet18(pretrained=True)
         layer = model._modules.get("avgpool")
         model.eval()
-        logger.debug("{model} loaded successful!")
+        logger.debug(f"{model} loaded successful!")
 
         vec_list = []
 
-        for img_name in tqdm(os.listdir(self.input_path)[:130]):
-            img_path = os.path.join(self.input_path, img_name, layer, model)
-            vec = self.get_vector(img_path)
-            vec = vec.numpy().tolist()
-            vec_dict = {"Image_Name": img_name}
-            for i, v in enumerate(vec):
-                vec_dict[f"Vector_{i}"] = v
-            vec_list.append(vec_dict)
+        for img_name in tqdm(os.listdir(self.input_path)):
+            img_path = os.path.join(self.input_path, img_name)
+            # check if the image has 3 channels
+            img = Image.open(img_path)
+            if len(img.split()) != 3:
+                continue
+            else:
+                vec = self.get_vector(img_path, layer, model)
+                vec = vec.numpy().tolist()
+                vec_dict = {"Image_Name": img_name}
+                for i, v in enumerate(vec):
+                    vec_dict[f"Vector_{i}"] = v
+                vec_list.append(vec_dict)
 
         vec_df = pd.DataFrame(vec_list)
-        vec_df.to_csv("{self.output_path}/vec_df.csv", index=False)
+        vec_df.to_csv(f"{self.output_path}/vec_df.csv", index=False)
         return vec_df
 
     def extract_dinov2_features(self):
@@ -103,17 +109,27 @@ def plot_tsne_3d(feature_vec, connected_components_df, filenames, output_path):
 
 
 if __name__ == "__main__":
-    input_path = "../data/Oxford Pets Dataset/"
-    output_path = "./work_dir"
-    fe = FeatureExtractor(input_path, output_path)
-    filenames, feature_vec = fe.extract_dinov2_features()
+    parser_ = argparse.ArgumentParser()
+    parser_.add_argument(
+        "--input_path", type=str, default="../data/Oxford Pets Dataset/"
+    )
+    parser_.add_argument("--output_path", type=str, default="./work_dir")
+    parser_.add_argument("--feature_extractor", type=str, default="dinov2")
+    args = parser_.parse_args()
 
-    connected_components_df = pd.read_csv(
-        os.path.join("work_dir", "connected_components.csv")
-    )
-    plot_tsne_3d(
-        feature_vec,
-        connected_components_df,
-        filenames,
-        "./work_dir/embeddings_dinvo2.html",
-    )
+    fe = FeatureExtractor(args.input_path, args.output_path)
+
+    if args.feature_extractor == "dinov2":
+        filenames, feature_vec = fe.extract_dinov2_features()
+
+        connected_components_df = pd.read_csv(
+            os.path.join("work_dir", "connected_components.csv")
+        )
+        plot_tsne_3d(
+            feature_vec,
+            connected_components_df,
+            filenames,
+            "./work_dir/embeddings_dinvo2.html",
+        )
+    elif args.feature_extractor == "img2vec":
+        fe.extract_img_vector()
