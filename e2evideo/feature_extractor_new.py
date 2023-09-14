@@ -69,6 +69,7 @@ class FeatureExtractor:
             f"{self.output_path}/atrain_features.dat", d=384
         )
         logger.info("Embedding dimensions %s", feature_vec.shape)
+        return filenames, feature_vec
 
 
 def plot_tsne_3d(feature_vec, connected_components_df, filenames, output_path):
@@ -105,4 +106,14 @@ if __name__ == "__main__":
     input_path = "../data/Oxford Pets Dataset/"
     output_path = "./work_dir"
     fe = FeatureExtractor(input_path, output_path)
-    fe.extract_dinov2_features()
+    filenames, feature_vec = fe.extract_dinov2_features()
+
+    connected_components_df = pd.read_csv(
+        os.path.join("work_dir", "connected_components.csv")
+    )
+    plot_tsne_3d(
+        feature_vec,
+        connected_components_df,
+        filenames,
+        "./work_dir/embeddings_dinvo2.html",
+    )
