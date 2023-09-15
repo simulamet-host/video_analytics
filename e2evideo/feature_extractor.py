@@ -79,7 +79,7 @@ class FeatureExtractor:
 
     def extract_dinov2_features(self):
         """extract features using DINOv2"""
-        fd_model = fastdup.create(input_dir=self.input_path)
+        fd_model = fastdup.create(input_dir=self.input_path, work_dir=self.output_path)
         fd_model.run(model_path="dinov2s", cc_threshold=0.8)
 
         filenames, feature_vec = fastdup.load_binary_feature(
