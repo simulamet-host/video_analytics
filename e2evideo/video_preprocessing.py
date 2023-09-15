@@ -7,6 +7,7 @@ Main functionality:
     * Choose between either Saving all frames or one frame per second,
         in a video in corresponding images folder with the same video file name.
 """
+# pylint: disable=no-member
 # import packages needed
 import argparse
 from dataclasses import dataclass

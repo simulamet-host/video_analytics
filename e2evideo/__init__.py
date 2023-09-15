@@ -8,7 +8,7 @@ extraction.
 Those are domain independent, but can be tailored towards specific problems by passing
 optional attributes to the different modules.
 
-Author Faiga Alawad 2023, Last updated Feb 2023.
+Author Faiga Alawad 2023, Last updated Sep 2023.
 """
 __version__ = "0.0.0"
 __author__ = "Faiga Alawad"

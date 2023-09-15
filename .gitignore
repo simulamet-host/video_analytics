@@ -159,3 +159,6 @@ UCF101_walkthrough.ipynb
 datasets/ucf101/frames/test/
 tests/all_images.npy.npz
 tests/frames_labels.txt
+Oxford Pets Dataset/
+e2evideo/work_dir/
+work_dir/embeddings_tsne2.html

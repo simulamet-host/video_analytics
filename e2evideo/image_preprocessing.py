@@ -4,6 +4,7 @@ Main functionality:
     * Resize images according to a given input dimensions.
     * Convert images to grayscale.
 """
+# pylint: disable=no-member
 import os
 import argparse
 import glob
