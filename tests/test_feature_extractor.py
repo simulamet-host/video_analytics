@@ -1,5 +1,7 @@
 """Unit tests for FeatureExtractor class"""
 import os
+import shutil
+import numpy as np
 from PIL import Image
 from e2evideo.feature_extractor import FeatureExtractor
 
@@ -22,23 +24,19 @@ def test_feature_extractor():
     img3.save(os.path.join(input_path, "img3.png"))
 
     # create FeatureExtractor object
-    fe_extractor = FeatureExtractor(input_path, output_path)
-    filenames, feature_vec = fe_extractor.extract_dinov2_features()
+    try:
+        fe_extractor = FeatureExtractor(input_path, output_path)
+        filenames, feature_vec = fe_extractor.extract_dinov2_features()
 
-    # check if the number of images is correct
-    print(len(filenames))
-    # assert len(filenames) == 3
-    # assert len(feature_vec) == 3
-    # assert isinstance(feature_vec, np.ndarray)
+        # check if the number of images is correct
+        print(len(filenames))
+        assert len(filenames) == 3
+        assert len(feature_vec) == 3
+        assert isinstance(feature_vec, np.ndarray)
+    except Exception as e:
+        assert False
+        print(e)
 
     # clean up
-    # TODo: delete input and output directories
-    os.remove(os.path.join(input_path, "img1.png"))
-    os.remove(os.path.join(input_path, "img2.png"))
-    os.remove(os.path.join(input_path, "img3.png"))
-    os.rmdir(input_path)
-    os.rmdir(output_path)
-
-
-if __name__ == "__main__":
-    test_feature_extractor()
+    shutil.rmtree(input_path)
+    shutil.rmtree(output_path)
