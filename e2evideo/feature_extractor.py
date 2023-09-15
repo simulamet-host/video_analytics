@@ -43,7 +43,7 @@ class FeatureExtractor:
         t_img = self.normalize(self.to_tensor(self.scaler(img))).unsqueeze(0)
         my_embedding = torch.zeros(512)
 
-        def copy_data(output):
+        def copy_data(m__, i__, output):
             my_embedding.copy_(output.data.squeeze())
 
         temp_out = layer.register_forward_hook(copy_data)
