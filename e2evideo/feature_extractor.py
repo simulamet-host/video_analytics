@@ -43,7 +43,7 @@ class FeatureExtractor:
         t_img = self.normalize(self.to_tensor(self.scaler(img))).unsqueeze(0)
         my_embedding = torch.zeros(512)
 
-        def copy_data(output):
+        def copy_data(m__, i__, output):
             my_embedding.copy_(output.data.squeeze())
 
         temp_out = layer.register_forward_hook(copy_data)
@@ -79,7 +79,7 @@ class FeatureExtractor:
 
     def extract_dinov2_features(self):
         """extract features using DINOv2"""
-        fd_model = fastdup.create(input_dir=self.input_path)
+        fd_model = fastdup.create(input_dir=self.input_path, work_dir=self.output_path)
         fd_model.run(model_path="dinov2s", cc_threshold=0.8)
 
         filenames, feature_vec = fastdup.load_binary_feature(
