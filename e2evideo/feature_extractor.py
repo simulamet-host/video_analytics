@@ -134,13 +134,13 @@ if __name__ == "__main__":
         filenames_, feature_vec_ = fe.extract_dinov2_features()
 
         connected_components_df_ = pd.read_csv(
-            os.path.join("work_dir", "connected_components.csv")
+            os.path.join(args.output_path, "connected_components.csv")
         )
         plot_tsne_3d(
             feature_vec_,
             connected_components_df_,
             filenames_,
-            "./work_dir/embeddings_dinvo2.html",
+            f"{args.output_path}/embeddings_dinvo2.html",
         )
     elif args.feature_extractor == "img2vec":
         fe.extract_img_vector()
