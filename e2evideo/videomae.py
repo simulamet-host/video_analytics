@@ -1,9 +1,36 @@
 import os
-from transformers import VideoMAEImageProcessor, VideoMAEForVideoClassification
+import numpy as np
+import torch
+
+from transformers import (
+    VideoMAEImageProcessor,
+    VideoMAEForVideoClassification,
+    TrainingArguments,
+    Trainer,
+)
+
 from huggingface_hub import hf_hub_download
 import subprocess
 import pathlib
 import logging
+
+import pytorchvideo.data
+import evaluate
+
+from pytorchvideo.transforms import (
+    ApplyTransformToKey,
+    Normalize,
+    RandomShortSideScale,
+    UniformTemporalSubsample,
+)
+
+from torchvision.transforms import (
+    Compose,
+    Lambda,
+    RandomCrop,
+    RandomHorizontalFlip,
+    Resize,
+)
 
 
 logging.basicConfig(
@@ -22,7 +49,10 @@ def downloadUCF101():
     hf_dataset_identifier = "sayakpaul/ucf101-subset"
     filename = "UCF101_subset.tar.gz"
     file_path = hf_hub_download(
-        repo_id=hf_dataset_identifier, filename=filename, repo_type="dataset"
+        repo_id=hf_dataset_identifier,
+        filename=filename,
+        repo_type="dataset",
+        use_auth_token=False,
     )
 
     if not os.path.exists(data_root):
@@ -64,3 +94,211 @@ model = VideoMAEForVideoClassification.from_pretrained(
     id2label=id2label,
     ignore_mismatched_sizes=True,
 )
+
+mean = image_processor.image_mean
+std = image_processor.image_std
+if "shortest_edge" in image_processor.size:
+    height = width = image_processor.size["shortest_edge"]
+else:
+    height = image_processor.size["height"]
+    width = image_processor.size["width"]
+resize_to = (height, width)
+
+num_frames_to_sample = model.config.num_frames
+sample_rate = 4
+fps = 30
+clip_duration = num_frames_to_sample * sample_rate / fps
+logger.info(f"Each video is sampled at {fps} fps.")
+
+# Training dataset transformations.
+train_transform = Compose(
+    [
+        ApplyTransformToKey(
+            key="video",
+            transform=Compose(
+                [
+                    UniformTemporalSubsample(num_frames_to_sample),
+                    Lambda(lambda x: x / 255.0),
+                    Normalize(mean, std),
+                    RandomShortSideScale(min_size=256, max_size=320),
+                    RandomCrop(resize_to),
+                    RandomHorizontalFlip(p=0.5),
+                ]
+            ),
+        ),
+    ]
+)
+
+# Training dataset.
+train_dataset = pytorchvideo.data.Ucf101(
+    data_path=os.path.join(dataset_root_path, "train"),
+    clip_sampler=pytorchvideo.data.make_clip_sampler("random", clip_duration),
+    decode_audio=False,
+    transform=train_transform,
+)
+
+# Validation and evaluation datasets' transformations.
+val_transform = Compose(
+    [
+        ApplyTransformToKey(
+            key="video",
+            transform=Compose(
+                [
+                    UniformTemporalSubsample(num_frames_to_sample),
+                    Lambda(lambda x: x / 255.0),
+                    Normalize(mean, std),
+                    Resize(resize_to),
+                ]
+            ),
+        ),
+    ]
+)
+
+# Validation and evaluation datasets.
+val_dataset = pytorchvideo.data.Ucf101(
+    data_path=os.path.join(dataset_root_path, "val"),
+    clip_sampler=pytorchvideo.data.make_clip_sampler("uniform", clip_duration),
+    decode_audio=False,
+    transform=val_transform,
+)
+
+test_dataset = pytorchvideo.data.Ucf101(
+    data_path=os.path.join(dataset_root_path, "test"),
+    clip_sampler=pytorchvideo.data.make_clip_sampler("uniform", clip_duration),
+    decode_audio=False,
+    transform=val_transform,
+)
+
+logger.info("Built datasets and transformations.")
+print(train_dataset.num_videos, val_dataset.num_videos, test_dataset.num_videos)
+
+sample_video = next(iter(train_dataset))
+print(sample_video.keys())
+
+
+def investigate_video(sample_video):
+    """Utility to investigate the keys present in a single video sample."""
+    print("\n Keys in the video sample:")
+    for k in sample_video:
+        if k == "video":
+            print(k, sample_video["video"].shape)
+        else:
+            print(k, sample_video[k])
+
+    print(f"Video label: {id2label[sample_video[k]]} \n")
+
+
+investigate_video(sample_video)
+
+
+model_name = model_ckpt.split("/")[-1]
+new_model_name = f"{model_name}-finetuned-ucf101-subset"
+num_epochs = 4
+
+output_dir = f"../models/{new_model_name}"
+
+args = TrainingArguments(
+    output_dir=output_dir,
+    remove_unused_columns=False,
+    evaluation_strategy="epoch",
+    save_strategy="epoch",
+    learning_rate=5e-5,
+    per_device_train_batch_size=batch_size,
+    per_device_eval_batch_size=batch_size,
+    warmup_ratio=0.1,
+    logging_steps=10,
+    load_best_model_at_end=False,
+    metric_for_best_model="accuracy",
+    push_to_hub=False,
+    max_steps=(train_dataset.num_videos // batch_size) * num_epochs,
+)
+
+logger.info("Initialized training arguments.")
+
+metric = evaluate.load("accuracy")
+
+
+def compute_metrics(eval_pred):
+    """Computes accuracy on a batch of predictions."""
+    predictions = np.argmax(eval_pred.predictions, axis=1)
+    return metric.compute(predictions=predictions, references=eval_pred.label_ids)
+
+
+logger.info("Initialized compute metrics.")
+
+
+def collate_fn(examples):
+    """The collation function to be used by `Trainer` to prepare data batches."""
+    # permute to (num_frames, num_channels, height, width)
+    pixel_values = torch.stack(
+        [example["video"].permute(1, 0, 2, 3) for example in examples]
+    )
+    labels = torch.tensor([example["label"] for example in examples])
+    return {"pixel_values": pixel_values, "labels": labels}
+
+
+trainer = Trainer(
+    model,
+    args,
+    train_dataset=train_dataset,
+    eval_dataset=val_dataset,
+    tokenizer=image_processor,
+    compute_metrics=compute_metrics,
+    data_collator=collate_fn,
+)
+
+logger.info("Initialized trainer.")
+
+
+def train_the_model():
+    train_results = trainer.train()
+    logger.info("Finished training.")
+    print(train_results)
+    print(trainer.evaluate(test_dataset))
+    logger.info("Finished evaluating.")
+
+    trainer.save_model()
+    test_results = trainer.evaluate(test_dataset)
+    trainer.log_metrics("test", test_results)
+    trainer.save_metrics("test", test_results)
+    trainer.save_state()
+    logger.info("Finished saving model and results.")
+
+
+train_the_model()
+trained_model = VideoMAEForVideoClassification.from_pretrained(output_dir)
+
+sample_test_video = next(iter(test_dataset))
+investigate_video(sample_test_video)
+
+
+def run_inference(model, video):
+    """Utility to run inference given a model and test video.
+
+    The video is assumed to be preprocessed already.
+    """
+    # (num_frames, num_channels, height, width)
+    perumuted_sample_test_video = video.permute(1, 0, 2, 3)
+
+    inputs = {
+        "pixel_values": perumuted_sample_test_video.unsqueeze(0),
+        "labels": torch.tensor(
+            [sample_test_video["label"]]
+        ),  # this can be skipped if you don't have labels available.
+    }
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    inputs = {k: v.to(device) for k, v in inputs.items()}
+    model = model.to(device)
+
+    # forward pass
+    with torch.no_grad():
+        outputs = model(**inputs)
+        logits = outputs.logits
+
+    return logits
+
+
+logits = run_inference(trained_model, sample_test_video["video"])
+predicted_class_idx = logits.argmax(-1).item()
+print("Predicted class:", model.config.id2label[predicted_class_idx])
+print("True class:", model.config.id2label[sample_test_video["label"]])
