@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name="feature_extraction"
 #SBATCH --partition=milanq
-#SBATCH --time=0-00:30:00
+#SBATCH --time=0-04:30:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --gpus-per-task=1
@@ -16,6 +16,6 @@ cd ..
 #srun python feature_extractor.py --feature_extractor "img2vec"
 #cd ../tests
 #srun pytest test_feature_extractor.py
-srun python videomae.py
+srun python videomae.py --train_or_test 'train'
 
 echo 'Done!'
