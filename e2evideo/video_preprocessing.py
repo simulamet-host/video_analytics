@@ -31,7 +31,7 @@ class VideoConfig:
     num_frames: int = 10
     output_folder: str = OUTPUT_PATH
     back_sub: str = None
-    save_frames: bool = False
+    save_frames: bool = True
 
 
 @dataclass
@@ -129,6 +129,18 @@ class VideoPreprocessor:
                 self.config.output_folder, images_sub_folder
             )
             self.create_folder(frame_data.frames_folder)
+
+            # if the frames are already extracted, remove them
+            if len(os.listdir(frame_data.frames_folder)) != 0:
+                print(
+                    f"Warning: the frames folder {frame_data.frames_folder} \
+                    is not empty"
+                )
+                print("Removing existing frames...")
+                for file_name in os.listdir(frame_data.frames_folder):
+                    os.remove(os.path.join(frame_data.frames_folder, file_name))
+
+            print(f"Extracting frames from {video_file}...")
             # capture the video from the video file
             cap = cv2.VideoCapture(video_file)  # pylint: disable=E1101
             frame_data.frame_rate = cap.get(cv2.CAP_PROP_FPS)  # pylint: disable=E1101
@@ -167,6 +179,9 @@ class VideoPreprocessor:
                     should_save_frame = (
                         frame_id % math.floor(frame_data.frame_rate) == 0
                     )
+                elif self.config.sampling_mode == "per_minute":
+                    frames_per_minute = math.floor(frame_data.frame_rate) * 60
+                    should_save_frame = frame_id % frames_per_minute == 0
                 elif cond1:
                     should_save_frame = frame_id in frame_data.frame_indices
                 if should_save_frame:
@@ -200,7 +215,7 @@ class VideoPreprocessor:
             cap.release()
             if self.config.save_frames == "True":
                 print(
-                    f"Done! {frame_data.count} images of format JPG is"
+                    f"Done! {frame_data.count} images of format JPG is "
                     f"saved in {frame_data.frames_folder}"
                 )
             else:
@@ -222,7 +237,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--sampling_mode",
         default="every_frame",
-        choices=["fixed_frames", "every_frame", "per_second"],
+        choices=["fixed_frames", "every_frame", "per_second", "per_minute"],
     )
     parser.add_argument("--num_frames", default=10, type=int)
     parser.add_argument("--output_folder", default=OUTPUT_PATH)
