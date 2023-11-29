@@ -6,6 +6,7 @@ DINOv2 and img2vec.
 # pylint: disable=protected-access
 import os
 import argparse
+from dataclasses import dataclass
 import logging
 import pandas as pd
 import torch
@@ -25,12 +26,19 @@ logger = logging.getLogger(__name__)
 logger.debug("Loaded dependencies successful!")
 
 
+@dataclass
+class FeatureExtractorConfig:
+    """Class to hold the configuration of the feature extractor."""
+
+    input_path: str
+    output_path: str
+
+
 class FeatureExtractor:
     """feature extractor class"""
 
-    def __init__(self, input_path, output_path):
-        self.input_path = input_path
-        self.output_path = output_path
+    def __init__(self, config: FeatureExtractorConfig):
+        self.config = config
         self.scaler = transforms.Resize((224, 224))
         self.normalize = transforms.Normalize(
             mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]
@@ -79,11 +87,13 @@ class FeatureExtractor:
 
     def extract_dinov2_features(self):
         """extract features using DINOv2"""
-        fd_model = fastdup.create(input_dir=self.input_path, work_dir=self.output_path)
+        fd_model = fastdup.create(
+            input_dir=self.config.input_path, work_dir=self.config.output_path
+        )
         fd_model.run(model_path="dinov2s", cc_threshold=0.8)
 
         filenames, feature_vec = fastdup.load_binary_feature(
-            f"{self.output_path}/atrain_features.dat", d=384
+            f"{self.output_path}/atrain_features.dat", d=30
         )
         logger.info("Embedding dimensions %s", feature_vec.shape)
         return filenames, feature_vec
@@ -128,7 +138,8 @@ if __name__ == "__main__":
     parser_.add_argument("--feature_extractor", type=str, default="dinov2")
     args = parser_.parse_args()
 
-    fe = FeatureExtractor(args.input_path, args.output_path)
+    feature_config = FeatureExtractorConfig(args.input_path, args.output_path)
+    fe = FeatureExtractor(feature_config)
 
     if args.feature_extractor == "dinov2":
         filenames_, feature_vec_ = fe.extract_dinov2_features()
