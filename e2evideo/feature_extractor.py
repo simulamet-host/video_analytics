@@ -93,7 +93,7 @@ class FeatureExtractor:
         fd_model.run(model_path="dinov2s", cc_threshold=0.8)
 
         filenames, feature_vec = fastdup.load_binary_feature(
-            f"{self.config.output_path}/atrain_features.dat", d=30
+            f"{self.config.output_path}/atrain_features.dat", d=384
         )
         logger.info("Embedding dimensions %s", feature_vec.shape)
         return filenames, feature_vec
