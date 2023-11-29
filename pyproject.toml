@@ -9,7 +9,7 @@ description = "A package for end-to-end video processing"
 authors = ["Faiga Alawad <faiga@simula.no>"]
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.10"
+python = ">=3.9,<3.12"
 numpy = ">=1.23.0"
 scipy = ">=1.10.0"
 pandas = ">=1.0.0"
