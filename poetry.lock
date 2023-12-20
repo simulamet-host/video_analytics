@@ -161,30 +161,26 @@ tests = ["pytest", "pytest-cov", "pytest-xdist"]
 
 [[package]]
 name = "fastdup"
-version = "1.65"
+version = "1.72"
 description = "Fast tool for gaining insights from large image repositories."
 category = "main"
 optional = false
 python-versions = "*"
 files = [
-    {file = "fastdup-1.65-cp310-cp310-macosx_10_14_x86_64.whl", hash = "sha256:8eb0d200d85c3cd3a31375735eb43319169ce1032d25fef270358c8b6351c9eb"},
-    {file = "fastdup-1.65-cp310-cp310-manylinux_2_27_x86_64.whl", hash = "sha256:5f9efe2f9b0a14306231009666c69ad71a44ce9320c740157a23a8ea36cee99b"},
-    {file = "fastdup-1.65-cp310-cp310-manylinux_2_31_x86_64.whl", hash = "sha256:3919fda0ad2f7329622373d5ca9deef45b89b60a88faea335894186ee12cde04"},
-    {file = "fastdup-1.65-cp311-cp311-macosx_10_14_x86_64.whl", hash = "sha256:5728cedee42509e577efdae3d33551ddb99c684605144ba019a68dcfca7d68a1"},
-    {file = "fastdup-1.65-cp37-cp37m-manylinux_2_27_x86_64.whl", hash = "sha256:31c41fbf26e858bdeeb3677fea5d9028abf14fb4e820b82f435826f6190a4ca4"},
-    {file = "fastdup-1.65-cp37-cp37m-manylinux_2_31_x86_64.whl", hash = "sha256:4e673bbec5053d24c25617d4cc743c0650053f83542cd6922c6fd075b82ed374"},
-    {file = "fastdup-1.65-cp38-cp38-macosx_10_14_x86_64.whl", hash = "sha256:9aeda634953df37a4b483ee7c184f1477c0a5c74f1f781814c86f528ca787ecc"},
-    {file = "fastdup-1.65-cp38-cp38-manylinux_2_27_x86_64.whl", hash = "sha256:880f1b42824c0c053629f993083ef25c83e802fce479e1f175a51b4dacb62808"},
-    {file = "fastdup-1.65-cp38-cp38-manylinux_2_31_x86_64.whl", hash = "sha256:7321ff0bc907f3bd7b23699e84114e102d0e8ed29be2277100a8004867b986ce"},
-    {file = "fastdup-1.65-cp39-cp39-macosx_10_14_x86_64.whl", hash = "sha256:7174a921b3ba4a3664b50867725031228da6945d8193e8f726a2673b746acf0c"},
-    {file = "fastdup-1.65-cp39-cp39-manylinux_2_27_x86_64.whl", hash = "sha256:83c333127d4019bd202398ed86c07c3fff64b631eb512d2428c02a673084fbe7"},
-    {file = "fastdup-1.65-cp39-cp39-manylinux_2_31_x86_64.whl", hash = "sha256:72effaa4c815b91c7f883a540a2f03e21301479735dab0ea52dab93becf1e5eb"},
-    {file = "fastdup-1.65-cp39-cp39-win_amd64.whl", hash = "sha256:2f276d146d0da3396d32d0cf5f7ad60dd0024acaea4719953f7c725deccbb49d"},
+    {file = "fastdup-1.72-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:cbdd6d4dffa2e3e35f0f7be2e34c4ec01840a83d24259e41fd15bb79680819f5"},
+    {file = "fastdup-1.72-cp310-cp310-manylinux_2_31_x86_64.whl", hash = "sha256:1cc8316a85c3b8d6f5eaf7aa09c8f75675c8365962cd023637e25d1c4405d4b6"},
+    {file = "fastdup-1.72-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:0f6b0744398af3378d5590508ddb52e912d185b48c3df1db5b3f50b5409641b4"},
+    {file = "fastdup-1.72-cp37-cp37m-manylinux_2_31_x86_64.whl", hash = "sha256:23d607ba52fa82a18636fa5a2aaf4335a2d67878744cded27a7f2e822b4c9c99"},
+    {file = "fastdup-1.72-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:e078e65a6eda6a170d5d7609ccf46b905d395ede2c8f07beae4b5975747fb96c"},
+    {file = "fastdup-1.72-cp38-cp38-manylinux_2_31_x86_64.whl", hash = "sha256:a18f0dc5b9b8b933d40b34fc1a0f9d262e9fa9468b49044d55bab9f9001944f3"},
+    {file = "fastdup-1.72-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:770fae58ec914dec123b5d675f457b9216722990a7bf03b2faf5716458adf41b"},
+    {file = "fastdup-1.72-cp39-cp39-manylinux_2_31_x86_64.whl", hash = "sha256:c3313a784a2257f69a15b841ff6dd316b55a397cf594bb454b408101f0214979"},
 ]
 
 [package.dependencies]
+certifi = "*"
 numpy = "*"
-opencv-python-headless = "*"
+opencv-python-headless = "<=4.5.5.64"
 packaging = "*"
 pandas = "*"
 pillow = "*"
@@ -1192,28 +1188,26 @@ numpy = [
 
 [[package]]
 name = "opencv-python-headless"
-version = "4.8.1.78"
+version = "4.5.5.64"
 description = "Wrapper package for OpenCV python bindings."
 category = "main"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "opencv-python-headless-4.8.1.78.tar.gz", hash = "sha256:bc7197b42352f6f865c302a49140b889ec7cd957dd697e2d7fc016ad0d3f28f1"},
-    {file = "opencv_python_headless-4.8.1.78-cp37-abi3-macosx_10_16_x86_64.whl", hash = "sha256:f3a33f644249f9ce1c913eac580e4b3ef4ce7cab0a71900274708959c2feb5e3"},
-    {file = "opencv_python_headless-4.8.1.78-cp37-abi3-macosx_11_0_arm64.whl", hash = "sha256:2c7d45721df9801c4dcd34683a15caa0e30f38b185263fec04a6eb274bc720f0"},
-    {file = "opencv_python_headless-4.8.1.78-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3b6bd6e1132b6f5dcb3a5bfe30fc4d341a7bfb26134da349a06c9255288ded94"},
-    {file = "opencv_python_headless-4.8.1.78-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:58e70d2f0915fe23e02c6e405588276c9397844a47d38b9c87fac5f7f9ba2dcc"},
-    {file = "opencv_python_headless-4.8.1.78-cp37-abi3-win32.whl", hash = "sha256:382f8c7a6a14f80091284eecedd52cee4812231ee0eff1118592197b538d9252"},
-    {file = "opencv_python_headless-4.8.1.78-cp37-abi3-win_amd64.whl", hash = "sha256:0a0f1e9f836f7d5bad1dd164694944c8761711cbdf4b36ebbd4815a8ef731079"},
+    {file = "opencv-python-headless-4.5.5.64.tar.gz", hash = "sha256:c3c2dda44d601757a508b07d628537c49f31223ad4edd0f747a70d4c852a7b98"},
+    {file = "opencv_python_headless-4.5.5.64-cp36-abi3-macosx_10_15_x86_64.whl", hash = "sha256:62e31878641a8f96e773118d1eea9f34bdda87c9990a0faab04ebaafb5ae015c"},
+    {file = "opencv_python_headless-4.5.5.64-cp36-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:567a54c1919bcf5b3d20a9830e3c511e57134de8def286ce137c3544a892f98c"},
+    {file = "opencv_python_headless-4.5.5.64-cp36-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3f330468c29882dbbec5af25695c5e575572c6b855cb0f9fe53e14116fd46bfc"},
+    {file = "opencv_python_headless-4.5.5.64-cp36-abi3-win32.whl", hash = "sha256:4bdf982574bf2fefc5f82c86df7cb42e56ad627874c7c0f4d94ecf4ae8885304"},
+    {file = "opencv_python_headless-4.5.5.64-cp36-abi3-win_amd64.whl", hash = "sha256:a60e9ff48854ec37be391e19dd634883cc26c2f0f814e5325b3deca33420912c"},
+    {file = "opencv_python_headless-4.5.5.64-cp37-abi3-macosx_11_0_arm64.whl", hash = "sha256:ca4f013fa958f60fb2327fe87e6127c1ac0ab536890b1d4b00847f417b7af1ba"},
 ]
 
 [package.dependencies]
 numpy = [
-    {version = ">=1.21.2", markers = "python_version >= \"3.10\""},
-    {version = ">=1.21.4", markers = "python_version >= \"3.10\" and platform_system == \"Darwin\""},
-    {version = ">=1.23.5", markers = "python_version >= \"3.11\""},
+    {version = ">=1.21.2", markers = "python_version >= \"3.10\" or python_version >= \"3.6\" and platform_system == \"Darwin\" and platform_machine == \"arm64\""},
     {version = ">=1.19.3", markers = "python_version >= \"3.6\" and platform_system == \"Linux\" and platform_machine == \"aarch64\" or python_version >= \"3.9\""},
-    {version = ">=1.17.0", markers = "python_version >= \"3.7\""},
+    {version = ">=1.14.5", markers = "python_version >= \"3.7\""},
     {version = ">=1.17.3", markers = "python_version >= \"3.8\""},
 ]
 
@@ -2477,4 +2471,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.12"
-content-hash = "1c3cc2aa65a9a21929c81cd09f49e3d3abff29aaa852cc3e3e92def4740432b2"
+content-hash = "31e5e300e608d07deacef804b4e5fd981688d0df0b2cd0c3ecbbc134eb243097"
