@@ -9,17 +9,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Install Poetry
-      run: |
-        curl -sSL https://install.python-poetry.org | python -
     - name: Install dependencies with Poetry
       run: |
-        /root/.local/bin/poetry install
-        /root/.local/bin/poetry add pylint
-        /root/.local/bin/poetry add pytest-cov
+        pip install .
+        pip install pytest
+        pip install pytest-cov
     - name: Run pytest
       run: |
-        pip install .
         cd tests/
         pytest .
         pytest --cov=e2evideo  --cov-report=json
