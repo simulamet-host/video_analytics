@@ -7,12 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Install Poetry
+    - name: Install dependencies with pip
       run: |
-        curl -sSL https://install.python-poetry.org | python -
-    - name: Install dependencies with Poetry
-      run: |
-        poetry install
+        pip install .
         pip install pylint
     - name: Analysing the code with pylint
       run: |
