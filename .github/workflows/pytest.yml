@@ -14,9 +14,9 @@ jobs:
         curl -sSL https://install.python-poetry.org | python -
     - name: Install dependencies with Poetry
       run: |
-        poetry install
-        poetry add pylint
-        poetry add pytest-cov
+        /root/.local/bin/poetry install
+        /root/.local/bin/poetry add pylint
+        /root/.local/bin/poetry add pytest-cov
     - name: Run pytest
       run: |
         pip install .

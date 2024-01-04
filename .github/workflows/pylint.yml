@@ -12,9 +12,8 @@ jobs:
         curl -sSL https://install.python-poetry.org | python -
     - name: Install dependencies with Poetry
       run: |
-        poetry install
-        poetry add pylint
+        /root/.local/bin/poetry install
+        pip install pylint
     - name: Analysing the code with pylint
       run: |
         pylint --fail-under=9 $(find . -name '*.py' | grep -v -E './frontend|./tests') 
-      
