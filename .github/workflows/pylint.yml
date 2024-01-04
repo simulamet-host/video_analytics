@@ -12,7 +12,7 @@ jobs:
         curl -sSL https://install.python-poetry.org | python -
     - name: Install dependencies with Poetry
       run: |
-        /root/.local/bin/poetry install
+        poetry install
         pip install pylint
     - name: Analysing the code with pylint
       run: |
