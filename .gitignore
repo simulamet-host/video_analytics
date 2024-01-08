@@ -232,3 +232,4 @@ tests/input/img1.png
 tests/input/img2.png
 tests/input/img3.png
 tests/.coveragerc
+tests/all_images.npz

@@ -21,9 +21,9 @@ class ImagesConfig:
 
     dir: str
     img_format: str
+    resize: bool
     gray_scale: bool
     output: str
-    resize: bool
     img_width: Optional[int] = None
     img_height: Optional[int] = None
 
@@ -40,12 +40,13 @@ class ImagePreprocessing:
         images_ = glob.glob(folder_name + "/" + self.config.img_format)
         for img_ in images_:
             img = cv2.imread(img_)  # pylint: disable=E1101
-            if self.config.gray_scale:
+            if self.config.gray_scale is True:
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # pylint: disable=E1101
-            if self.config.resize:
+            if self.config.resize is True:
                 img = cv2.resize(
                     img, (self.config.img_width, self.config.img_height)
                 )  # pylint: disable=E1101
+
             video_file.append(img_as_float32(img))
             continue
         return video_file
@@ -118,7 +119,7 @@ class ImagePreprocessing:
         out.release()
 
 
-if __name__ == "__main__":
+def main():
     parser_ = argparse.ArgumentParser()
     parser_.add_argument("--dir", default="./images/")
     parser_.add_argument("--img_format", default="*.jpg")
@@ -127,17 +128,23 @@ if __name__ == "__main__":
     parser_.add_argument("--img_height", default=224, type=int)
     parser_.add_argument("--gray_scale", default=False)
     parser_.add_argument("--output", default="./results/all_images.npz")
+
     args_ = parser_.parse_args()
+
     images_config = ImagesConfig(
         args_.dir,
         args_.img_format,
         args_.resize,
-        args_.img_width,
-        args_.img_height,
         args_.gray_scale,
         args_.output,
+        args_.img_width,
+        args_.img_height,
     )
     image_preprocessing = ImagePreprocessing(images_config)
     _images, _ = image_preprocessing.get_images()
 
     print("Images saved in array of array of size", str(_images.shape))
+
+
+if __name__ == "__main__":
+    main()

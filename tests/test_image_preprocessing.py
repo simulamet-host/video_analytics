@@ -3,6 +3,8 @@ import numpy as np
 import pytest
 import cv2
 from e2evideo import image_preprocessing as e2e_img_pre
+from unittest.mock import patch
+import argparse
 
 
 @pytest.fixture
@@ -26,6 +28,27 @@ def image_folder(tmpdir):
     yield tmpdir.join("images")
     # call the cleanup function
     cleanup()
+
+
+@pytest.fixture
+def mock_args(image_folder):
+    with patch("argparse.ArgumentParser.parse_args") as mock_parse_args:
+        mock_parse_args.return_value = argparse.Namespace(
+            dir=str(image_folder),
+            img_format="*.jpg",
+            resize=False,
+            img_width=224,
+            img_height=224,
+            gray_scale=False,
+            output="test_images.npz",
+        )
+        yield
+
+
+def test_main_function(mock_args):
+    e2e_img_pre.main()
+    assert os.path.isfile("test_images.npz")
+    os.remove("test_images.npz")
 
 
 class TestImagesPreprocessor:
