@@ -231,3 +231,4 @@ Demo/toadstool/participant_5.npz
 tests/input/img1.png
 tests/input/img2.png
 tests/input/img3.png
+tests/.coveragerc
