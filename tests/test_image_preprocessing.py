@@ -1,6 +1,8 @@
+import os
 import numpy as np
 import pytest
 import cv2
+from e2evideo import image_preprocessing as e2e_img_pre
 
 
 @pytest.fixture
@@ -29,4 +31,24 @@ def image_folder(tmpdir):
 class TestImagesPreprocessor:
     """unit tess for image_preprocessing.py"""
 
-    pass
+    def test_get_all_images(self, image_folder):
+        """Test that all images are read from the folder."""
+        # call the function to read images from the folder
+        assert os.path.isdir(image_folder)
+        print(f"Testing image folder: {image_folder}")
+        print("Files in directory:", os.listdir(image_folder))
+        images_config = e2e_img_pre.ImagesConfig(
+            dir=image_folder,
+            img_format="*.jpg",
+            gray_scale=False,
+            output="all_images.npy",
+            resize=False,
+            img_width=224,
+            img_height=224,
+        )
+
+        images_preprocessing = e2e_img_pre.ImagePreprocessing(images_config)
+        images, _ = images_preprocessing.get_images()
+
+        # check that the correct number of images were read
+        assert images.shape[1] == 3, "Wrong number of images read"
