@@ -228,3 +228,6 @@ Demo/toadstool/participant_5_video/frame34.jpg
 Demo/toadstool/participant_5_video/frame35.jpg
 Demo/toadstool/participant_5_video.avi
 Demo/toadstool/participant_5.npz
+tests/input/img1.png
+tests/input/img2.png
+tests/input/img3.png
