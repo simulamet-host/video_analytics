@@ -223,7 +223,7 @@ class VideoPreprocessor:
             return frame_data.frames
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--videos_folder", required=True, help="Path to the videos folder."
@@ -258,3 +258,7 @@ if __name__ == "__main__":
     )
     processor = VideoPreprocessor(videos_config)
     processor.process_video()
+
+
+if __name__ == "__main__":
+    main()
