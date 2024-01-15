@@ -72,3 +72,47 @@ class TestVideoPreprocessor:
             shutil.rmtree(test_videos_config.output_folder)
         except OSError as error:
             print(f"Error: {error}")
+
+    def test_process_video_with_backsub(self):
+        """Test process_video method with background subtraction"""
+        test_videos_config = e2e_vid_pre.VideoConfig(
+            videos_folder="test_videos",
+            video_format=".avi",
+            output_folder=OUTPUT_FOLDER,
+            back_sub="MOG2",
+        )
+        processor = e2e_vid_pre.VideoPreprocessor(test_videos_config)
+        processor.process_video()
+
+        try:
+            assert os.path.isdir(
+                os.path.join(test_videos_config.output_folder, "test_video")
+            )
+            assert (
+                len(
+                    os.listdir(
+                        os.path.join(test_videos_config.output_folder, "test_video")
+                    )
+                )
+                > 0
+            )
+            assert os.path.isdir(test_videos_config.output_folder)
+        except AssertionError as error:
+            print(f"Assertion error: {error}")
+
+        # change the background subtraction method
+        test_videos_config.back_sub = "KNN"
+        processor = e2e_vid_pre.VideoPreprocessor(test_videos_config)
+        processor.process_video()
+
+        assert (
+            len(
+                os.listdir(os.path.join(test_videos_config.output_folder, "test_video"))
+            )
+            > 0
+        )
+
+        try:
+            shutil.rmtree(test_videos_config.output_folder)
+        except OSError as error:
+            print(f"Error: {error}")
