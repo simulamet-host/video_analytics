@@ -123,8 +123,8 @@ class VideoPreprocessor:
         for video_file in video_files:
             print("\n\n")
             frame_data = FrameData()
-            video_format_len = len(self.config.video_format) + 1
-            images_sub_folder = video_file.split("/")[-1][:-video_format_len]
+            # video_format_len = len(self.config.video_format) + 1
+            images_sub_folder = video_file.split("/")[-1].split(".")[0]
             frame_data.frames_folder = os.path.join(
                 self.config.output_folder, images_sub_folder
             )
