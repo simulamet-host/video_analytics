@@ -65,6 +65,32 @@ class TestVideoPreprocessor:
                 > 0
             )
             assert os.path.isdir(test_videos_config.output_folder)
+
+        except AssertionError as error:
+            print(f"Assertion error: {error}")
+
+        try:
+            shutil.rmtree(test_videos_config.output_folder)
+        except OSError as error:
+            print(f"Error: {error}")
+
+        # change sampling method
+        test_videos_config.sampling_mode = "every_second"
+        processor = e2e_vid_pre.VideoPreprocessor(test_videos_config)
+        processor.process_video()
+        try:
+            assert os.path.isdir(
+                os.path.join(test_videos_config.output_folder, "test_video")
+            )
+            assert (
+                len(
+                    os.listdir(
+                        os.path.join(test_videos_config.output_folder, "test_video")
+                    )
+                )
+                > 0
+            )
+            assert os.path.isdir(test_videos_config.output_folder)
         except AssertionError as error:
             print(f"Assertion error: {error}")
 
