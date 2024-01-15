@@ -25,6 +25,23 @@ def mock_args():
         yield
 
 
+def clean_up_folder(folder):
+    try:
+        shutil.rmtree(folder)
+    except OSError as error:
+        print(f"Error: {error}")
+
+
+def assert_output(out_folder):
+    try:
+        assert os.path.isdir(os.path.join(out_folder, "test_video"))
+        assert len(os.listdir(os.path.join(out_folder, "test_video"))) > 0
+        assert os.path.isdir(out_folder)
+
+    except AssertionError as error:
+        print(f"Assertion error: {error}")
+
+
 def test_main_function(mock_args):
     e2e_vid_pre.main()
     try:
@@ -52,52 +69,16 @@ class TestVideoPreprocessor:
         processor = e2e_vid_pre.VideoPreprocessor(test_videos_config)
         processor.process_video()
 
-        try:
-            assert os.path.isdir(
-                os.path.join(test_videos_config.output_folder, "test_video")
-            )
-            assert (
-                len(
-                    os.listdir(
-                        os.path.join(test_videos_config.output_folder, "test_video")
-                    )
-                )
-                > 0
-            )
-            assert os.path.isdir(test_videos_config.output_folder)
-
-        except AssertionError as error:
-            print(f"Assertion error: {error}")
-
-        try:
-            shutil.rmtree(test_videos_config.output_folder)
-        except OSError as error:
-            print(f"Error: {error}")
+        assert_output(test_videos_config.output_folder)
+        clean_up_folder(test_videos_config.output_folder)
 
         # change sampling method
         test_videos_config.sampling_mode = "every_second"
         processor = e2e_vid_pre.VideoPreprocessor(test_videos_config)
         processor.process_video()
-        try:
-            assert os.path.isdir(
-                os.path.join(test_videos_config.output_folder, "test_video")
-            )
-            assert (
-                len(
-                    os.listdir(
-                        os.path.join(test_videos_config.output_folder, "test_video")
-                    )
-                )
-                > 0
-            )
-            assert os.path.isdir(test_videos_config.output_folder)
-        except AssertionError as error:
-            print(f"Assertion error: {error}")
 
-        try:
-            shutil.rmtree(test_videos_config.output_folder)
-        except OSError as error:
-            print(f"Error: {error}")
+        assert_output(test_videos_config.output_folder)
+        clean_up_folder(test_videos_config.output_folder)
 
     def test_process_video_with_backsub(self):
         """Test process_video method with background subtraction"""
@@ -110,35 +91,13 @@ class TestVideoPreprocessor:
         processor = e2e_vid_pre.VideoPreprocessor(test_videos_config)
         processor.process_video()
 
-        try:
-            assert os.path.isdir(
-                os.path.join(test_videos_config.output_folder, "test_video")
-            )
-            assert (
-                len(
-                    os.listdir(
-                        os.path.join(test_videos_config.output_folder, "test_video")
-                    )
-                )
-                > 0
-            )
-            assert os.path.isdir(test_videos_config.output_folder)
-        except AssertionError as error:
-            print(f"Assertion error: {error}")
+        assert_output(test_videos_config.output_folder)
+        clean_up_folder(test_videos_config.output_folder)
 
         # change the background subtraction method
         test_videos_config.back_sub = "KNN"
         processor = e2e_vid_pre.VideoPreprocessor(test_videos_config)
         processor.process_video()
 
-        assert (
-            len(
-                os.listdir(os.path.join(test_videos_config.output_folder, "test_video"))
-            )
-            > 0
-        )
-
-        try:
-            shutil.rmtree(test_videos_config.output_folder)
-        except OSError as error:
-            print(f"Error: {error}")
+        assert_output(test_videos_config.output_folder)
+        clean_up_folder(test_videos_config.output_folder)
