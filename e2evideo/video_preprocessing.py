@@ -86,11 +86,11 @@ class VideoPreprocessor:
         return video_files
 
     def calculate_frame_indices(self, frame_rate, total_num_frames, video_file):
-        """Calculate the frame indices for the fixed number of frames mode."""
+        """Calculate the frame indices for the fixed-frames mode."""
         if self.config.num_frames > total_num_frames:
             print(
-                f"Warning: the number of frames is larger than the total number of \
-                frames"
+                f"Warning: the number of fixed-frames is larger than the total \
+                number of frames"
                 f"in the video {video_file}"
             )
             frame_indices = list(range(int(total_num_frames)))
@@ -213,7 +213,7 @@ class VideoPreprocessor:
                     print("Interpolating missing frames...")
                     frame_data.count = self.interpolate_missing_frames(frame_data)
             cap.release()
-            if self.config.save_frames == "True":
+            if self.config.save_frames:
                 print(
                     f"Done! {frame_data.count} images of format JPG is "
                     f"saved in {frame_data.frames_folder}"

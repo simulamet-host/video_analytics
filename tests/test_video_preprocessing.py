@@ -70,13 +70,32 @@ class TestVideoPreprocessor:
         processor.process_video()
 
         assert_output(test_videos_config.output_folder)
+        # try to extract frames again
+        processor.process_video()
+        assert_output(test_videos_config.output_folder)
         clean_up_folder(test_videos_config.output_folder)
 
         # change sampling method
-        test_videos_config.sampling_mode = "every_second"
+        sampling_mode_list = ["fixed_frames", "every_frame", "per_second", "per_minute"]
+        for sampling_mode in sampling_mode_list:
+            test_videos_config.sampling_mode = sampling_mode
+            processor = e2e_vid_pre.VideoPreprocessor(test_videos_config)
+            processor.process_video()
+            assert_output(test_videos_config.output_folder)
+            clean_up_folder(test_videos_config.output_folder)
+
+        # fixed-frames mode with higher number of frames
+        test_videos_config.sampling_mode = "fixed_frames"
+        test_videos_config.num_frames = 500
         processor = e2e_vid_pre.VideoPreprocessor(test_videos_config)
         processor.process_video()
+        assert_output(test_videos_config.output_folder)
+        clean_up_folder(test_videos_config.output_folder)
 
+        # save frames
+        test_videos_config.save_frames = True
+        processor = e2e_vid_pre.VideoPreprocessor(test_videos_config)
+        processor.process_video()
         assert_output(test_videos_config.output_folder)
         clean_up_folder(test_videos_config.output_folder)
 
