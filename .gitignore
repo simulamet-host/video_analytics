@@ -233,3 +233,5 @@ tests/input/img2.png
 tests/input/img3.png
 tests/.coveragerc
 tests/all_images.npz
+all_images.npy.npz
+frames_labels.txt

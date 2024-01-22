@@ -86,11 +86,11 @@ class VideoPreprocessor:
         return video_files
 
     def calculate_frame_indices(self, frame_rate, total_num_frames, video_file):
-        """Calculate the frame indices for the fixed number of frames mode."""
+        """Calculate the frame indices for the fixed-frames mode."""
         if self.config.num_frames > total_num_frames:
             print(
-                f"Warning: the number of frames is larger than the total number of \
-                frames"
+                f"Warning: the number of fixed-frames is larger than the total \
+                number of frames"
                 f"in the video {video_file}"
             )
             frame_indices = list(range(int(total_num_frames)))
@@ -123,8 +123,8 @@ class VideoPreprocessor:
         for video_file in video_files:
             print("\n\n")
             frame_data = FrameData()
-            video_format_len = len(self.config.video_format) + 1
-            images_sub_folder = video_file.split("/")[-1][:-video_format_len]
+            # video_format_len = len(self.config.video_format) + 1
+            images_sub_folder = video_file.split("/")[-1].split(".")[0]
             frame_data.frames_folder = os.path.join(
                 self.config.output_folder, images_sub_folder
             )
@@ -213,7 +213,7 @@ class VideoPreprocessor:
                     print("Interpolating missing frames...")
                     frame_data.count = self.interpolate_missing_frames(frame_data)
             cap.release()
-            if self.config.save_frames == "True":
+            if self.config.save_frames:
                 print(
                     f"Done! {frame_data.count} images of format JPG is "
                     f"saved in {frame_data.frames_folder}"
@@ -223,7 +223,7 @@ class VideoPreprocessor:
             return frame_data.frames
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--videos_folder", required=True, help="Path to the videos folder."
@@ -258,3 +258,7 @@ if __name__ == "__main__":
     )
     processor = VideoPreprocessor(videos_config)
     processor.process_video()
+
+
+if __name__ == "__main__":
+    main()
