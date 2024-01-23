@@ -129,7 +129,7 @@ def plot_tsne_3d(feature_vec, connected_components_df, filenames, output_path):
     fig.write_html(output_path)
 
 
-if __name__ == "__main__":
+def main():
     parser_ = argparse.ArgumentParser()
     parser_.add_argument("--input_path", type=str)
     parser_.add_argument("--output_path", type=str, default="./work_dir")
@@ -153,3 +153,7 @@ if __name__ == "__main__":
         )
     elif args.feature_extractor == "img2vec":
         fe.extract_img_vector()
+
+
+if __name__ == "__main__":
+    main()
