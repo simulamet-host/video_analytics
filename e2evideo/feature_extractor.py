@@ -68,8 +68,8 @@ class FeatureExtractor:
 
         vec_list = []
 
-        for img_name in tqdm(os.listdir(self.input_path)):
-            img_path = os.path.join(self.input_path, img_name)
+        for img_name in tqdm(os.listdir(self.config.input_path)):
+            img_path = os.path.join(self.config.input_path, img_name)
             # check if the image has 3 channels
             img = Image.open(img_path)
             if len(img.split()) != 3:
@@ -82,7 +82,7 @@ class FeatureExtractor:
             vec_list.append(vec_dict)
 
         vec_df = pd.DataFrame(vec_list)
-        vec_df.to_csv(f"{self.output_path}/vec_df.csv", index=False)
+        vec_df.to_csv(f"{self.config.output_path}/vec_df.csv", index=False)
         return vec_df
 
     def extract_dinov2_features(self):
@@ -131,9 +131,7 @@ def plot_tsne_3d(feature_vec, connected_components_df, filenames, output_path):
 
 if __name__ == "__main__":
     parser_ = argparse.ArgumentParser()
-    parser_.add_argument(
-        "--input_path", type=str, default="../data/Oxford Pets Dataset/"
-    )
+    parser_.add_argument("--input_path", type=str)
     parser_.add_argument("--output_path", type=str, default="./work_dir")
     parser_.add_argument("--feature_extractor", type=str, default="dinov2")
     args = parser_.parse_args()
