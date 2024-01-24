@@ -1,33 +1,8 @@
 import os
-import numpy as np
 import pytest
-import cv2
 from e2evideo import image_preprocessing as e2e_img_pre
 from unittest.mock import patch
 import argparse
-
-
-@pytest.fixture
-def image_folder(tmpdir):
-    # create temporary image folder
-    tmpdir.mkdir("images")
-    # define colors for test images
-    colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]
-    # Loop over the colors and create an image for each color
-    for i, color in enumerate(colors):
-        img = np.zeros((200, 200, 3), dtype=np.uint8)
-        img[:, :, :] = color
-        cv2.imwrite(str(tmpdir.join(f"images/image_{i}.jpg")), img)
-
-    # add clearnup function
-    def cleanup():
-        # remove the temporary folder
-        tmpdir.remove()
-
-    # return the temporary folder
-    yield tmpdir.join("images")
-    # call the cleanup function
-    cleanup()
 
 
 @pytest.fixture
