@@ -11,33 +11,60 @@
  [![Documentation](https://img.shields.io/badge/Documentation-Documentation-green)](https://faiga91.github.io/e2evideo/feature_extractor.html)
 
 
-This project provides general modules for video and images preprocessing and feature extraction.
-Those are domain independent, but can be tailored towards specific problems by passing optional attributes to the different modules. :star2:	
+## 📖 Description
+e2evideo is a versatile Python package designed for video and image pre-processing and analysis 🎥📸. It comprises domain-independent modules that can be customized to suit specific tasks in various fields of computer vision.	
 
-![system design](System%20Pipeline.drawio.svg)
+![package overview](./figures/overview.png)
 
-# Features :rocket:
-E2Evideo provides the following features:
-- :white_check_mark: Video and image loading from disk or from a URL :file_folder:	
-- :white_check_mark: Video and image resizing, cropping, and normalization :camera_flash:	
-- :white_check_mark: Video and image frame extraction :camera:	
-- (In-progress) Object detection and tracking in video and images :film_projector:
-- (TODO) Face detection and recognition in video and images :female_detective:
-- (In-progress) Deep feature extraction using pre-trained models (e.g. VGG16, ResNet50) :robot:	
-- (TODO) Data augmentation techniques for video and image data :framed_picture:	
-
-
-# Installation :computer:	
-To install E2Evideo, you can use the following command after git Clone this Repo, then run the following in the main directory:
-
-``
+## 🛠️ Installation
+To install e2evideo, clone the Git repository, navigate to the directory, and run:
+```bash
 pip install .
-`` 
+```
 
+# 🚀 Features :
+- 🎞️ **Video Pre-processing:** Supports various video formats, frame extraction, and background subtraction.
 
-# Contributing :busts_in_silhouette: 
+![video_preprocessing](figures/video_preprocessor.png)
+
+- 🖼️ **Image Pre-processing:** Converts images to greyscale, resizes images, and structures videos into compressed arrays.
+
+![image_preprocessing](figures/image_preprocessor.png)
+
+- 🧠 **Feature Extraction:** Includes a pre-trained ResNet18 model and DINOv2 for image embedding extraction.
+
+![feature_extractor](figures/feature_extractor.png)
+
+## 💻 Usage
+Import the package and utilize its modules as required:
+```python
+import e2evideo
+# Your code here
+```
+
+## 📚 Documentation
+For more detailed instructions and examples, refer to the [Documentation](https://faiga91.github.io/e2evideo/feature_extractor.html).
+
+## 🤝 Contributing
 Contributions to E2Evideo are welcome! If you would like to contribute, please fork the repository and create a pull request.
 
-# License :page_facing_up:	
-E2Evideo is licensed under the MIT License. See LICENSE for more information.
+![contibute](figures/contribute.png)
+
+## 📜 License
+E2Evideo is available under the MIT License 📄.
+
+## 📃 Citation
+For academic use, please cite the package as follows:
+```bibtex
+@inproceedings{10.1007/978-3-031-53302-0_19,
+	author = {Alawad, Faiga and Halvorsen, P{\aa}l and Riegler, Michael A.},
+	booktitle = {MultiMedia Modeling},
+	editor = {Rudinac, Stevan and Hanjalic, Alan and Liem, Cynthia and Worring, Marcel and J{\'o}nsson, Bj{\"o}rn Þ{\'o}r and Liu, Bei and Yamakata, Yoko},
+	isbn = {978-3-031-53302-0},
+	pages = {258--264},
+	publisher = {Springer Nature Switzerland},
+	title = {E2Evideo: End to End Video and Image Pre-processing and Analysis Tool},
+	year = {2024}}
+```
+
 
