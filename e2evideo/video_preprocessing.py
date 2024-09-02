@@ -10,6 +10,7 @@ Main functionality:
 # pylint: disable=no-member
 # import packages needed
 import argparse
+import logging
 from dataclasses import dataclass
 import os
 import glob
@@ -19,6 +20,12 @@ import cv2
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 OUTPUT_PATH = "../data/ucf_sports_actions/frames"
 
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+)
+
+logger = logging.getLogger(__name__)
 
 @dataclass
 class VideoConfig:
@@ -120,11 +127,15 @@ class VideoPreprocessor:
         Main function will run when the python file is called from terminal.
         """
         video_files = self.get_video_files()
+        logger.debug(f"video_files: {video_files}")
+        all_frames = {}
         for video_file in video_files:
+            logger.debug(f"Processing video file: {video_file}")
             print("\n\n")
             frame_data = FrameData()
             # video_format_len = len(self.config.video_format) + 1
             images_sub_folder = video_file.split("/")[-1].split(".")[0]
+            logger.debug(f"images_sub_folder: {images_sub_folder}")
             frame_data.frames_folder = os.path.join(
                 self.config.output_folder, images_sub_folder
             )
@@ -220,7 +231,8 @@ class VideoPreprocessor:
                 )
             else:
                 print("Done!")
-            return frame_data.frames
+            all_frames[video_file] = frame_data.frames
+        return all_frames
 
 
 def main():
