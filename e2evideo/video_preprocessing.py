@@ -224,6 +224,7 @@ class VideoPreprocessor:
                     print("Interpolating missing frames...")
                     frame_data.count = self.interpolate_missing_frames(frame_data)
             cap.release()
+            cv2.destroyAllWindows()
             if self.config.save_frames:
                 print(
                     f"Done! {frame_data.count} images of format JPG is "
