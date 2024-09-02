@@ -128,7 +128,7 @@ class VideoPreprocessor:
         """
         video_files = self.get_video_files()
         logger.debug(f"video_files: {video_files}")
-        all_frames = {}
+        
         for video_file in video_files:
             logger.debug(f"Processing video file: {video_file}")
             print("\n\n")
@@ -153,7 +153,7 @@ class VideoPreprocessor:
 
             print(f"Extracting frames from {video_file}...")
             # capture the video from the video file
-            cap = cv2.VideoCapture(video_file)  # pylint: disable=E1101
+            cap = cv2.VideoCapture(video_file, cv2.CAP_FFMPEG)  # pylint: disable=E1101
             frame_data.frame_rate = cap.get(cv2.CAP_PROP_FPS)  # pylint: disable=E1101
             total_num_frames = cap.get(
                 cv2.CAP_PROP_FRAME_COUNT
@@ -231,8 +231,7 @@ class VideoPreprocessor:
                 )
             else:
                 print("Done!")
-            all_frames[video_file] = frame_data.frames
-        return all_frames
+            #return frame_data.frames
 
 
 def main():
